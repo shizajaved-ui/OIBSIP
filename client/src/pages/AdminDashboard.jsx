@@ -318,18 +318,18 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
-              <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
-                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-[#DCC9A8] rounded-[48px] border border-char-950/10 shadow-sm scroll-mt-64 overflow-hidden relative group">
+              <div className="relative z-10 flex items-center justify-between mb-8 border-b-4 border-char-950/10 pb-4">
+                <h2 className="font-display text-4xl font-black uppercase tracking-tight text-char-950">{categoryLabels[cat]}</h2>
                 <button
                   onClick={() => { setNewItem({...newItem, category: cat}); setShowModal(true); }}
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
+                  className="h-12 w-12 flex items-center justify-center rounded-full bg-char-950 text-white shadow-xl hover:bg-tomato transition-all"
                 >
-                  <span className="text-2xl font-bold">+</span>
+                  <span className="text-3xl font-bold">+</span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="relative z-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {inventory
                   .filter((i) => i.category === cat)
                   .map((item) => {

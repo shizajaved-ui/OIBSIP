@@ -239,7 +239,7 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="7xl" isFloating>
+    <PageLayout width="6xl" isFloating>
       <div className="flex flex-col items-center text-center">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-4">
@@ -303,7 +303,7 @@ const PizzaBuilder = () => {
           className="mt-16 w-full"
         >
           {step === 0 && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {byCategory('base').map((item) => (
                 <OptionCard
                   key={item._id}
@@ -316,7 +316,7 @@ const PizzaBuilder = () => {
           )}
 
           {(step === 1 || step === 2 || step === 3) && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                 <OptionCard
                   key={item._id}
