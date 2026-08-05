@@ -266,7 +266,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <PageLayout title="Admin panel" width="4xl" isFloating>
+    <PageLayout title="Admin panel" width="5xl" isFloating>
       <AnimatePresence>
           {selectedReceipt && (
               <ReceiptModal order={selectedReceipt} onClose={() => setSelectedReceipt(null)} />
@@ -347,9 +347,9 @@ const AdminDashboard = () => {
                     return (
                       <div
                         key={item._id}
-                        className={`bg-char-800 overflow-hidden flex flex-col border-t-4 border-t-basil shadow-md rounded-[24px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
+                        className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-36 w-full bg-char-950/5 shrink-0">
+                        <div className="relative h-44 w-full bg-char-950/5 shrink-0">
                           {item.image ? (
                             <img
                               src={resolveImageUrl(item.image)}

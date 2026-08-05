@@ -239,24 +239,24 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="4xl" isFloating>
-      <div className="flex flex-col items-center text-center -mt-16 mb-0">
-        <div className="flex flex-col items-center gap-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🧑‍🍳</span>
-            <h1 className="font-display text-2xl font-black tracking-tight text-char-950">
+    <PageLayout width="5xl" isFloating>
+      <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-4">
+            <span className="text-4xl">🧑‍🍳</span>
+            <h1 className="font-display text-5xl font-black tracking-tight text-char-950">
               Build your pizza
             </h1>
           </div>
-          <p className="text-[13px] font-bold text-char-950/40 italic">
+          <p className="mt-2 text-lg font-medium text-char-950/40 italic">
             {CHEF_NOTES[step]}
           </p>
         </div>
       </div>
 
       {/* Stepper — Optimized with Terracotta Red - STICKY */}
-      <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-4 px-6 md:px-12 py-1 bg-char-800/95 backdrop-blur-md border-b border-char-950/10 transition-all duration-300">
-        <div className="relative mx-auto max-w-xl w-full scale-90">
+      <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-8 bg-char-800/95 backdrop-blur-md border-b border-char-950/10 transition-all duration-300">
+        <div className="relative mx-auto max-w-3xl w-full">
           <div className="absolute left-[20px] right-[20px] top-[22px] h-0.5 bg-char-950/10" />
           <div
             className="absolute left-[20px] top-[22px] h-0.5 bg-tomato-dark transition-all duration-500"
