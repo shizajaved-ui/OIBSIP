@@ -32,7 +32,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-56 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-64 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -399,7 +399,7 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="fixed right-6 bottom-24 md:right-10 md:bottom-1/2 md:translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
+            className="fixed right-6 bottom-24 md:right-10 md:bottom-1/2 md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >
             <div className="bg-char-950 text-white h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-4 border-white group-hover:bg-char-950/90 transition-all">
               <svg className="w-8 h-8 md:w-10 md:h-10 fill-current" viewBox="0 0 24 24">
@@ -433,14 +433,14 @@ const PizzaBuilder = () => {
               setStep(s => Math.max(0, s - 1));
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="fixed left-6 bottom-24 md:left-10 md:bottom-1/2 md:translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
+            className="fixed left-6 bottom-24 md:left-10 md:bottom-1/2 md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >
             <div className="bg-white text-char-950 h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/20 border-4 border-char-950 group-hover:bg-char-900 transition-all">
               <svg className="w-8 h-8 md:w-10 md:h-10 fill-current rotate-180" viewBox="0 0 24 24">
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
               </svg>
             </div>
-            <span className="bg-white text-char-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-char-950/10">
+            <span className="bg-white text-char-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-white/10">
               Go Back
             </span>
           </motion.button>

@@ -266,7 +266,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <PageLayout title="Admin panel" width="7xl" isFloating>
+    <PageLayout title="Admin panel" width="6xl" isFloating>
       <AnimatePresence>
           {selectedReceipt && (
               <ReceiptModal order={selectedReceipt} onClose={() => setSelectedReceipt(null)} />
@@ -309,21 +309,7 @@ const AdminDashboard = () => {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => {
-                  const el = document.getElementById(`section-${cat}`);
-                  if (el) {
-                    const offset = 180; // height of sticky header + padding
-                    const bodyRect = document.body.getBoundingClientRect().top;
-                    const elementRect = el.getBoundingClientRect().top;
-                    const elementPosition = elementRect - bodyRect;
-                    const offsetPosition = elementPosition - offset;
-
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: 'smooth'
-                    });
-                  }
-                }}
+                onClick={() => document.getElementById(`section-${cat}`).scrollIntoView({ behavior: 'smooth', block: 'center' })}
                 className="px-8 py-2.5 text-[11px] font-black uppercase tracking-widest bg-char-950 text-white rounded-full shadow-lg transition-all hover:bg-tomato active:scale-95"
               >
                 {categoryLabels[cat]}
@@ -332,18 +318,18 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-[#DCC9A8] rounded-[48px] border border-char-950/10 shadow-sm scroll-mt-64 overflow-hidden relative group">
-              <div className="relative z-10 flex items-center justify-between mb-8 border-b-4 border-char-950/10 pb-4">
-                <h2 className="font-display text-4xl font-black uppercase tracking-tight text-char-950">{categoryLabels[cat]}</h2>
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
+              <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
+                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
                 <button
                   onClick={() => { setNewItem({...newItem, category: cat}); setShowModal(true); }}
-                  className="h-12 w-12 flex items-center justify-center rounded-full bg-char-950 text-white shadow-xl hover:bg-tomato transition-all"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
                 >
-                  <span className="text-3xl font-bold">+</span>
+                  <span className="text-2xl font-bold">+</span>
                 </button>
               </div>
 
-              <div className="relative z-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {inventory
                   .filter((i) => i.category === cat)
                   .map((item) => {
@@ -351,9 +337,9 @@ const AdminDashboard = () => {
                     return (
                       <div
                         key={item._id}
-                        className={`bg-char-800 overflow-hidden flex flex-col border-t-4 border-t-basil shadow-md rounded-[32px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
+                        className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-32 w-full bg-char-950/5 shrink-0">
+                        <div className="relative h-44 w-full bg-char-950/5 shrink-0">
                           {item.image ? (
                             <img
                               src={resolveImageUrl(item.image)}
@@ -386,24 +372,24 @@ const AdminDashboard = () => {
                           </div>
                         </div>
 
-                        <div className="p-6 flex-1 flex flex-col">
+                        <div className="p-8 flex-1 flex flex-col">
                           <div className="flex-1">
-                            <span className="font-display text-xl font-black text-char-950 block mb-1 leading-[1.1]">{item.name}</span>
-                            <span className="text-[11px] font-black uppercase tracking-widest text-char-950/60">Price: ₹{item.price}</span>
+                            <span className="font-display text-2xl font-black text-char-950 block mb-1 leading-tight">{item.name}</span>
+                            <span className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60">Price Tag: ₹{item.price}</span>
 
-                            <div className="mt-6 flex flex-col gap-4">
+                            <div className="mt-8 flex flex-col gap-5">
                               <div>
-                                  <label className="text-[11px] font-black uppercase tracking-widest text-char-950/70 mb-2 block">Stock Level</label>
+                                  <label className="text-[12.5px] font-black uppercase tracking-widest text-char-950/70 mb-2 block">Inventory Level</label>
                                   <input
                                       type="number"
                                       defaultValue={item.stock}
-                                      className="input-field w-full px-4 py-2 font-bold text-base"
+                                      className="input-field w-full px-5 py-3 font-bold text-lg"
                                       onBlur={(e) => updateStock(item._id, e.target.value)}
                                   />
                               </div>
                             </div>
                           </div>
-                          <label className="mt-6 flex items-center justify-center gap-3 rounded-full bg-tomato py-3 text-[10px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-lg transition-all active:scale-95">
+                          <label className="mt-8 flex items-center justify-center gap-3 rounded-full bg-tomato py-4 text-[11px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-xl transition-all active:scale-95">
                             {item.image ? 'Change Photo' : 'Upload Photo'}
                             <input
                               type="file"
