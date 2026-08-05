@@ -306,7 +306,7 @@ const AdminDashboard = () => {
           {/* Quick Jump Station - Professional Charcoal */}
           <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-5 doodle-bg border-y border-char-950/10 relative overflow-hidden flex items-center justify-center">
             {/* Warm Beige Overlay */}
-            <div className="absolute inset-0 bg-[#FDF5E6]/75" />
+            <div className="absolute inset-0 bg-[#FDF5E6]/90" />
 
             <div className="relative z-10 flex items-center justify-center gap-3 w-full">
               <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/60 mr-4">Select Station:</span>

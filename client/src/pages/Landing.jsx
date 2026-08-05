@@ -71,14 +71,14 @@ const Landing = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-20 flex flex-col items-center">
-      <div className="w-full max-w-6xl">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[64px] p-10 md:p-20 shadow-2xl border border-white/20">
+    <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-12 flex flex-col items-center">
+      <div className="w-full max-w-5xl">
+        <div className="grid items-center gap-10 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[48px] p-8 md:p-14 shadow-2xl border border-white/20">
           <div>
             <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-4 py-1 text-xs font-black uppercase tracking-widest text-tomato">
               Stone-fired, built your way
             </span>
-            <h1 className="font-display text-4xl font-black leading-tight tracking-[-0.02em] text-char-950 sm:text-6xl">
+            <h1 className="font-display text-3xl font-black leading-tight tracking-[-0.02em] text-char-950 sm:text-5xl">
               Every pizza starts
               <br />
               <span className="text-tomato italic">as an empty base.</span>
@@ -103,7 +103,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="relative mx-auto h-72 w-72 sm:h-96 sm:w-96">
+          <div className="relative mx-auto h-60 w-60 sm:h-80 sm:w-80">
             {/* ambient color glow behind the pizza for depth */}
             <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-tomato/20 via-crust/15 to-basil/10 blur-3xl" />
 
@@ -122,7 +122,7 @@ const Landing = () => {
           </div>
         </div>
 
-        <div className="mt-24 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {FEATURES.map((s) => (
             <div
               key={s.step}
