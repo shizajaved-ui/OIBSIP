@@ -434,7 +434,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="p-8 flex-1 flex flex-col">
                   <div className="flex-1">
-                    <h3 className="font-display text-2xl font-black text-char-950 leading-tight">{item.name}</h3>
+                    <h3 className="font-display text-xl font-black text-char-950 leading-[1.1]">{item.name}</h3>
                     <p className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60 mt-3">Menu Price</p>
                     <p className="text-3xl font-black text-tomato mt-1">₹{item.price + 199}</p>
                   </div>

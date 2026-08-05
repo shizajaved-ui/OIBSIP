@@ -86,7 +86,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
       </div>
 
       <div className="absolute inset-x-6 bottom-6">
-        <h3 className="font-display text-2xl font-black leading-tight tracking-tight text-white drop-shadow-md">{item.name}</h3>
+        <h3 className="font-display text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
         <p className={`mt-1 text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-800/95 text-char-950 px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
           {item.price > 0 ? 'Add-on' : 'Included'}
         </p>

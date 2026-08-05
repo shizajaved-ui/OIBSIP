@@ -59,7 +59,7 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onQuickAdd, adding }) => 
 
       <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
         <div className="min-w-0">
-          <h3 className="font-display text-2xl font-black leading-tight tracking-tight text-white drop-shadow-md truncate">{item.name}</h3>
+          <h3 className="font-display text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
           <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.1em] text-stone-300/80 truncate">
             {defaultSauce?.name} · {defaultCheese?.name}
           </p>
