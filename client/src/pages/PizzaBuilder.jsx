@@ -413,12 +413,12 @@ const PizzaBuilder = () => {
             }}
             className="fixed right-0 top-1/2 -translate-y-1/2 z-[100] group"
           >
-            <div className="bg-tomato text-white flex items-center gap-5 pl-10 pr-6 py-6 rounded-l-full shadow-[0_20px_50px_rgba(200,78,41,0.4)] border-y-4 border-l-4 border-white transition-all duration-300 group-hover:bg-tomato-dark">
+            <div className="bg-char-950 text-white flex items-center gap-5 pl-10 pr-6 py-6 rounded-l-full shadow-[0_20px_50px_rgba(47,31,23,0.3)] border-y-4 border-l-4 border-white transition-all duration-300 hover:bg-char-950">
               <div className="flex flex-col items-start">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-80 mb-0.5">Ready to</span>
-                <span className="font-display text-base font-black uppercase tracking-widest">Next Step</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60 mb-0.5">Ready to</span>
+                <span className="font-display text-base font-black uppercase tracking-widest text-char-900">Next Step</span>
               </div>
-              <div className="bg-white/20 p-3 rounded-full animate-pulse group-hover:bg-white group-hover:text-tomato transition-colors">
+              <div className="bg-white/10 p-3 rounded-full animate-pulse group-hover:bg-char-900 group-hover:text-char-950 transition-colors">
                  <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
                  </svg>

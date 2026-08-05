@@ -72,7 +72,7 @@ const Navbar = () => {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#FDF5E6]"
+      className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#F5E6D3]"
     >
       <div className="mx-auto flex w-full items-center justify-between px-6 py-4 sm:px-12 relative">
         {/* Left Side: Logo */}
