@@ -319,7 +319,7 @@ const AdminDashboard = () => {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {inventory
                   .filter((i) => i.category === cat)
                   .map((item) => {
@@ -327,9 +327,9 @@ const AdminDashboard = () => {
                     return (
                       <div
                         key={item._id}
-                        className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
+                        className={`bg-char-800 overflow-hidden flex flex-col border-t-4 border-t-basil shadow-md rounded-[32px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-44 w-full bg-char-950/5 shrink-0">
+                        <div className="relative h-32 w-full bg-char-950/5 shrink-0">
                           {item.image ? (
                             <img
                               src={resolveImageUrl(item.image)}
@@ -337,49 +337,49 @@ const AdminDashboard = () => {
                               className="h-full w-full object-cover"
                             />
                           ) : (
-                            <div className="flex h-full w-full items-center justify-center text-[12.5px] font-black uppercase tracking-[0.2em] text-char-950/40">
+                            <div className="flex h-full w-full items-center justify-center text-[11px] font-black uppercase tracking-[0.2em] text-char-950/40">
                               No Visual
                             </div>
                           )}
                           {low && (
-                            <span className="absolute right-4 top-4 rounded-full bg-tomato px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-lg">
-                              Low stock
+                            <span className="absolute right-3 top-3 rounded-full bg-tomato px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-white shadow-lg">
+                              Low
                             </span>
                           )}
-                          <div className="absolute left-4 bottom-4 flex gap-2">
+                          <div className="absolute left-3 bottom-3 flex gap-1.5">
                              <button
                                onClick={() => { setEditingItem(item); setShowModal(true); }}
-                               className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/90 text-white backdrop-blur-md hover:bg-tomato transition-all shadow-lg"
+                               className="h-7 w-7 flex items-center justify-center rounded-full bg-char-950/90 text-white backdrop-blur-md hover:bg-tomato transition-all shadow-md text-[10px]"
                              >
                                ✎
                              </button>
                              <button
                                onClick={() => deleteItem(item._id)}
-                               className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/90 text-white backdrop-blur-md hover:bg-tomato transition-all shadow-lg"
+                               className="h-7 w-7 flex items-center justify-center rounded-full bg-char-950/90 text-white backdrop-blur-md hover:bg-tomato transition-all shadow-md text-[10px]"
                              >
                                ✕
                              </button>
                           </div>
                         </div>
 
-                        <div className="p-8 flex-1 flex flex-col">
+                        <div className="p-6 flex-1 flex flex-col">
                           <div className="flex-1">
-                            <span className="font-display text-2xl font-black text-char-950 block mb-1 leading-tight">{item.name}</span>
-                            <span className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60">Price Tag: ₹{item.price}</span>
+                            <span className="font-display text-xl font-black text-char-950 block mb-1 leading-tight">{item.name}</span>
+                            <span className="text-[11px] font-black uppercase tracking-widest text-char-950/60">Price: ₹{item.price}</span>
 
-                            <div className="mt-8 flex flex-col gap-5">
+                            <div className="mt-6 flex flex-col gap-4">
                               <div>
-                                  <label className="text-[12.5px] font-black uppercase tracking-widest text-char-950/70 mb-2 block">Inventory Level</label>
+                                  <label className="text-[11px] font-black uppercase tracking-widest text-char-950/70 mb-2 block">Stock Level</label>
                                   <input
                                       type="number"
                                       defaultValue={item.stock}
-                                      className="input-field w-full px-5 py-3 font-bold text-lg"
+                                      className="input-field w-full px-4 py-2 font-bold text-base"
                                       onBlur={(e) => updateStock(item._id, e.target.value)}
                                   />
                               </div>
                             </div>
                           </div>
-                          <label className="mt-8 flex items-center justify-center gap-3 rounded-full bg-tomato py-4 text-[11px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-xl transition-all active:scale-95">
+                          <label className="mt-6 flex items-center justify-center gap-3 rounded-full bg-tomato py-3 text-[10px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-lg transition-all active:scale-95">
                             {item.image ? 'Change Photo' : 'Upload Photo'}
                             <input
                               type="file"
@@ -412,21 +412,21 @@ const AdminDashboard = () => {
               <span className="text-2xl font-bold">+</span>
             </button>
           </div>
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {inventory.filter(i => i.category === 'base').map(item => (
-              <div key={item._id} className="bg-char-800 rounded-[40px] overflow-hidden border-t-8 border-t-tomato shadow-md flex flex-col">
-                <div className="relative h-48 w-full shrink-0">
+              <div key={item._id} className="bg-char-800 rounded-[32px] overflow-hidden border-t-4 border-t-tomato shadow-md flex flex-col">
+                <div className="relative h-32 w-full shrink-0">
                   <img src={resolveImageUrl(item.image)} className="h-full w-full object-cover" alt={item.name} />
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    <button onClick={() => { setEditingItem(item); setShowModal(true); }} className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg">✎</button>
-                    <button onClick={() => deleteItem(item._id)} className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg">✕</button>
+                  <div className="absolute top-3 right-3 flex gap-2">
+                    <button onClick={() => { setEditingItem(item); setShowModal(true); }} className="h-8 w-8 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg text-xs">✎</button>
+                    <button onClick={() => deleteItem(item._id)} className="h-8 w-8 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg text-xs">✕</button>
                   </div>
                 </div>
-                <div className="p-8 flex-1 flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
                   <div className="flex-1">
-                    <h3 className="font-display text-2xl font-black text-char-950 leading-tight">{item.name}</h3>
-                    <p className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60 mt-3">Menu Price</p>
-                    <p className="text-3xl font-black text-tomato mt-1">₹{item.price + 199}</p>
+                    <h3 className="font-display text-xl font-black text-char-950 leading-tight">{item.name}</h3>
+                    <p className="text-[11px] font-black uppercase tracking-widest text-char-950/60 mt-3">Menu Price</p>
+                    <p className="text-2xl font-black text-tomato mt-1">₹{item.price + 199}</p>
                   </div>
                 </div>
               </div>
