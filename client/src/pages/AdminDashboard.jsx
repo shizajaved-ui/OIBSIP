@@ -195,13 +195,19 @@ const AdminDashboard = () => {
     const formData = new FormData();
     formData.append('image', file);
     try {
-        await api.post(`/inventory/${id}/image`, formData, {
+        const { data } = await api.post(`/inventory/${id}/image`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
-        showToast('Visual updated');
-        fetchInventory();
+        if (data.image) {
+            showToast('Visual updated successfully!');
+            fetchInventory();
+        } else {
+            showToast('Upload failed: No image URL returned');
+        }
     } catch (err) {
         console.error('Upload failed:', err);
+        const errorMsg = err.response?.data?.message || err.message || 'Check your internet or Cloudinary config';
+        showToast(`Upload failed: ${errorMsg}`);
     }
   };
 
@@ -308,7 +314,7 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm">
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-32">
               <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
                 <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
                 <button

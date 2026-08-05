@@ -401,12 +401,12 @@ const PizzaBuilder = () => {
             initial={{ opacity: 0, scale: 0.8, x: 50 }}
             animate={{
               opacity: 1,
-              scale: [1, 1.1, 1],
+              scale: [1, 1.05, 1],
               x: 0
             }}
             exit={{ opacity: 0, scale: 0.8, x: 50 }}
             transition={{
-              scale: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
+              scale: { repeat: Infinity, duration: 2, ease: "easeInOut" },
               opacity: { duration: 0.3 }
             }}
             onClick={() => {
@@ -414,12 +414,12 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="fixed right-6 bottom-24 md:right-10 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-[60] flex flex-col items-center gap-2 group"
+            className="fixed right-6 bottom-24 md:right-10 md:bottom-12 z-[60] flex flex-col items-center gap-2 group"
           >
-            <div className="bg-tomato text-white h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-tomato/40 border-4 border-white group-hover:bg-tomato-dark transition-all">
-              <span className="text-2xl md:text-3xl font-black">→</span>
+            <div className="bg-char-950 text-white h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-4 border-tomato group-hover:bg-tomato transition-all duration-300">
+              <span className="text-3xl md:text-4xl font-black transform group-hover:translate-x-1 transition-transform">→</span>
             </div>
-            <span className="bg-char-950 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-white/10">
+            <span className="bg-tomato text-white px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.25em] shadow-xl border border-white/10">
               Next Step
             </span>
           </motion.button>
