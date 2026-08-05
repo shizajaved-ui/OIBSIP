@@ -1,6 +1,6 @@
 # The Artisan Crust 🍕 | OIBSIP Level 3 Task 1
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](YOUR_RAILWAY_APP_URL_HERE)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://oibsip-production-d376.up.railway.app)
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/YourUsername/OIBSIP)
 
 The Artisan Crust is a production-grade, full-stack pizza ordering and inventory management platform. Developed as the final capstone project for the **Oasis Infobyte SIP (Level 3 Task 1)**, it demonstrates a complete MERN stack architecture with real-time tracking, automated inventory alerts, and secure role-based access.
