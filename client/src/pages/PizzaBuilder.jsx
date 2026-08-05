@@ -32,7 +32,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-64 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-56 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -301,7 +301,7 @@ const PizzaBuilder = () => {
           className="mt-16 w-full"
         >
           {step === 0 && (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {byCategory('base').map((item) => (
                 <OptionCard
                   key={item._id}
@@ -314,7 +314,7 @@ const PizzaBuilder = () => {
           )}
 
           {(step === 1 || step === 2 || step === 3) && (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                 <OptionCard
                   key={item._id}
@@ -393,6 +393,38 @@ const PizzaBuilder = () => {
           onComplete={() => removeBurst(b.id)}
         />
       ))}
+
+      {/* Floating Blinking Next Step Button */}
+      <AnimatePresence>
+        {step < 4 && canProceed() && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, x: 50 }}
+            animate={{
+              opacity: 1,
+              scale: [1, 1.1, 1],
+              x: 0
+            }}
+            exit={{ opacity: 0, scale: 0.8, x: 50 }}
+            transition={{
+              scale: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
+              opacity: { duration: 0.3 }
+            }}
+            onClick={() => {
+              playClickSound();
+              setStep(s => s + 1);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="fixed right-6 bottom-24 md:right-10 md:bottom-auto md:top-1/2 md:-translate-y-1/2 z-[60] flex flex-col items-center gap-2 group"
+          >
+            <div className="bg-tomato text-white h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-tomato/40 border-4 border-white group-hover:bg-tomato-dark transition-all">
+              <span className="text-2xl md:text-3xl font-black">→</span>
+            </div>
+            <span className="bg-char-950 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-white/10">
+              Next Step
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </PageLayout>
   );
 };
