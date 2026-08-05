@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment Variables
+.env
+client/.env
+server/.env
+
+# Build Outputs
+client/dist/
+server/uploads/*
+!server/uploads/.gitkeep
+
+# IDEs and Editors
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Logs and Misc
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.artifacts/
+*.log
