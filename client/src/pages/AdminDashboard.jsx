@@ -304,27 +304,32 @@ const AdminDashboard = () => {
       {tab === 'inventory' && (
         <div className="space-y-12">
           {/* Quick Jump Station - Professional Charcoal */}
-          <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-5 bg-char-800/95 backdrop-blur-md border-y border-char-950/10 flex items-center justify-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/60 mr-4">Select Station:</span>
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  const el = document.getElementById(`section-${cat}`);
-                  if (el) {
-                    const offset = 210; // offset to show label and + button clearly
-                    const bodyRect = document.body.getBoundingClientRect().top;
-                    const elementRect = el.getBoundingClientRect().top;
-                    const elementPosition = elementRect - bodyRect;
-                    const offsetPosition = elementPosition - offset;
-                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                  }
-                }}
-                className="px-8 py-2.5 text-[11px] font-black uppercase tracking-widest bg-char-950 text-white rounded-full shadow-lg transition-all hover:bg-tomato active:scale-95"
-              >
-                {categoryLabels[cat]}
-              </button>
-            ))}
+          <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-5 doodle-bg border-y border-char-950/10 relative overflow-hidden flex items-center justify-center">
+            {/* Warm Beige Overlay */}
+            <div className="absolute inset-0 bg-[#FDF5E6]/90" />
+
+            <div className="relative z-10 flex items-center justify-center gap-3 w-full">
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/60 mr-4">Select Station:</span>
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    const el = document.getElementById(`section-${cat}`);
+                    if (el) {
+                      const offset = 210; // offset to show label and + button clearly
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = el.getBoundingClientRect().top;
+                      const elementPosition = elementRect - bodyRect;
+                      const offsetPosition = elementPosition - offset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="px-8 py-2.5 text-[11px] font-black uppercase tracking-widest bg-char-950 text-white rounded-full shadow-lg transition-all hover:bg-tomato active:scale-95"
+                >
+                  {categoryLabels[cat]}
+                </button>
+              ))}
+            </div>
           </div>
 
           {CATEGORIES.map((cat) => (
