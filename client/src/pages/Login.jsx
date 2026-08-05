@@ -39,6 +39,7 @@ const Login = () => {
       title="Welcome back"
       subtitle="Sign in to track your order."
       width="md"
+      isFloating
     >
       {error && (
         <div className="mb-6 rounded-2xl border border-tomato/20 bg-tomato/5 p-4 text-center text-sm font-bold text-tomato">

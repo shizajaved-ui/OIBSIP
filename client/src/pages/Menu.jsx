@@ -19,7 +19,7 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onQuickAdd, adding }) => 
       onClick={() => onQuickAdd(item)}
       whileTap={{ scale: 0.97 }}
       disabled={adding === item._id}
-      className="group relative h-56 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 border-char-950/5 hover:border-tomato/30"
+      className="group relative h-64 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left shadow-lg transition-all duration-200 border-char-950/5 hover:border-tomato/30"
     >
       {!showFallback ? (
         <>
@@ -137,7 +137,7 @@ const Menu = () => {
             <p className="font-display text-2xl font-bold text-char-950/20 italic animate-pulse">Loading the menu…</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {bases.map((item) => (
               <MenuCard
                 key={item._id}

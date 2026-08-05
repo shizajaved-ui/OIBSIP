@@ -32,7 +32,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-56 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-64 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -301,7 +301,7 @@ const PizzaBuilder = () => {
           className="mt-16 w-full"
         >
           {step === 0 && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {byCategory('base').map((item) => (
                 <OptionCard
                   key={item._id}
@@ -314,7 +314,7 @@ const PizzaBuilder = () => {
           )}
 
           {(step === 1 || step === 2 || step === 3) && (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                 <OptionCard
                   key={item._id}
