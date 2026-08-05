@@ -239,7 +239,7 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="6xl" isFloating>
+    <PageLayout width="7xl" isFloating>
       <div className="flex flex-col items-center text-center">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-4">
@@ -254,34 +254,36 @@ const PizzaBuilder = () => {
         </div>
       </div>
 
-      {/* Stepper — Optimized with Terracotta Red */}
-      <div className="relative mx-auto mt-16 max-w-3xl w-full">
-        <div className="absolute left-[20px] right-[20px] top-[22px] h-0.5 bg-char-950/10" />
-        <div
-          className="absolute left-[20px] top-[22px] h-0.5 bg-tomato-dark transition-all duration-500"
-          style={{ width: `calc((100% - 40px) * ${step / (STEPS.length - 1)})` }}
-        />
-        <div className="relative flex justify-between">
-          {STEPS.map((s, i) => (
-            <div key={s} className="flex flex-col items-center gap-3">
-              <div
-                className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-black transition-all duration-300 ${
-                  i <= step
-                    ? 'bg-tomato-dark text-white shadow-ember'
-                    : 'border-2 border-char-950/10 bg-white text-char-950/30'
-                } ${i === step ? 'ring-4 ring-tomato/20 scale-110' : ''}`}
-              >
-                {i < step ? '✓' : i + 1}
+      {/* Stepper — Optimized with Terracotta Red - STICKY */}
+      <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-8 bg-char-800/95 backdrop-blur-md border-b border-char-950/10 transition-all duration-300">
+        <div className="relative mx-auto max-w-3xl w-full">
+          <div className="absolute left-[20px] right-[20px] top-[22px] h-0.5 bg-char-950/10" />
+          <div
+            className="absolute left-[20px] top-[22px] h-0.5 bg-tomato-dark transition-all duration-500"
+            style={{ width: `calc((100% - 40px) * ${step / (STEPS.length - 1)})` }}
+          />
+          <div className="relative flex justify-between">
+            {STEPS.map((s, i) => (
+              <div key={s} className="flex flex-col items-center gap-3">
+                <div
+                  className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-black transition-all duration-300 ${
+                    i <= step
+                      ? 'bg-tomato-dark text-white shadow-ember'
+                      : 'border-2 border-char-950/10 bg-white text-char-950/30'
+                  } ${i === step ? 'ring-4 ring-tomato/20 scale-110' : ''}`}
+                >
+                  {i < step ? '✓' : i + 1}
+                </div>
+                <span
+                  className={`font-display text-[10px] font-black uppercase tracking-[0.1em] ${
+                    i <= step ? 'text-tomato-dark' : 'text-char-950/30'
+                  }`}
+                >
+                  {s}
+                </span>
               </div>
-              <span
-                className={`font-display text-[10px] font-black uppercase tracking-[0.1em] ${
-                  i <= step ? 'text-tomato-dark' : 'text-char-950/30'
-                }`}
-              >
-                {s}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -366,24 +368,7 @@ const PizzaBuilder = () => {
         </motion.div>
       </AnimatePresence>
 
-      <div className="mt-16 flex justify-between border-t border-char-950/10 pt-10 w-full">
-        <button
-          onClick={() => setStep((s) => Math.max(0, s - 1))}
-          disabled={step === 0}
-          className="group flex items-center gap-2 rounded-full border-2 border-char-950/10 bg-white px-10 py-3 font-display text-sm font-black uppercase tracking-widest text-char-950 transition-all hover:border-char-950/30 hover:bg-char-950/5 active:scale-95 disabled:opacity-20"
-        >
-          ← Back
-        </button>
-        {step < 4 && (
-          <button
-            onClick={() => setStep((s) => Math.min(4, s + 1))}
-            disabled={!canProceed()}
-            className="group flex items-center gap-2 rounded-full bg-[#2F1F17] px-12 py-4 font-display text-sm font-black uppercase tracking-widest text-white shadow-xl transition-all hover:bg-[#A83D1F] hover:text-white active:scale-95 disabled:opacity-30"
-          >
-            Next Step →
-          </button>
-        )}
-      </div>
+          {/* Content area starts here */}
 
       {bursts.map((b) => (
         <ConfettiBurst
@@ -423,6 +408,40 @@ const PizzaBuilder = () => {
             </div>
             <span className="bg-char-950 text-char-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-white/10">
               Next Step
+            </span>
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Blinking Back Button */}
+      <AnimatePresence>
+        {step > 0 && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, x: -50 }}
+            animate={{
+              opacity: 1,
+              scale: [1, 1.05, 1],
+              x: 0
+            }}
+            exit={{ opacity: 0, scale: 0.8, x: -50 }}
+            transition={{
+              scale: { repeat: Infinity, duration: 3, ease: "easeInOut" },
+              opacity: { duration: 0.3 }
+            }}
+            onClick={() => {
+              playClickSound();
+              setStep(s => Math.max(0, s - 1));
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="fixed left-6 bottom-24 md:left-10 md:bottom-1/2 md:translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
+          >
+            <div className="bg-white text-char-950 h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/20 border-4 border-char-950 group-hover:bg-char-900 transition-all">
+              <svg className="w-8 h-8 md:w-10 md:h-10 fill-current rotate-180" viewBox="0 0 24 24">
+                <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+              </svg>
+            </div>
+            <span className="bg-white text-char-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl border border-char-950/10">
+              Go Back
             </span>
           </motion.button>
         )}

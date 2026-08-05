@@ -11,7 +11,8 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
     '3xl': 'max-w-3xl',
     '4xl': 'max-w-4xl',
     '5xl': 'max-w-5xl',
-    '6xl': 'max-w-6xl',
+    '6xl': 'max-w-[1320px]',
+    '7xl': 'max-w-[1440px]',
     'full': 'max-w-full'
   };
 

@@ -116,7 +116,7 @@ const Menu = () => {
 
   return (
     <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-20 flex flex-col items-center">
-      <div className="w-full max-w-6xl bg-char-800 p-8 md:p-16 shadow-2xl rounded-[64px] border border-char-950/5">
+      <div className="w-full max-w-[1440px] bg-char-800 p-8 md:p-16 shadow-2xl rounded-[64px] border border-char-950/5">
         <div className="flex items-end justify-between gap-4 border-b-2 border-char-950/5 pb-8 mb-10">
           <div>
             <h1 className="font-display text-5xl font-black tracking-tight text-char-950">Menu</h1>

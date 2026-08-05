@@ -266,7 +266,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <PageLayout title="Admin panel" width="6xl" isFloating>
+    <PageLayout title="Admin panel" width="7xl" isFloating>
       <AnimatePresence>
           {selectedReceipt && (
               <ReceiptModal order={selectedReceipt} onClose={() => setSelectedReceipt(null)} />
@@ -309,7 +309,21 @@ const AdminDashboard = () => {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => document.getElementById(`section-${cat}`).scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                onClick={() => {
+                  const el = document.getElementById(`section-${cat}`);
+                  if (el) {
+                    const offset = 180; // height of sticky header + padding
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = el.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
                 className="px-8 py-2.5 text-[11px] font-black uppercase tracking-widest bg-char-950 text-white rounded-full shadow-lg transition-all hover:bg-tomato active:scale-95"
               >
                 {categoryLabels[cat]}
@@ -318,18 +332,21 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
-              <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
-                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-[#F5E6D3]/40 doodle-bg backdrop-blur-sm rounded-[48px] border border-char-950/10 shadow-sm scroll-mt-64 overflow-hidden relative group">
+              {/* Warm Beige Overlay for the section */}
+              <div className="absolute inset-0 bg-[#FDF5E6]/80 pointer-events-none" />
+
+              <div className="relative z-10 flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
+                <h2 className="font-display text-4xl font-black uppercase tracking-tight text-tomato drop-shadow-sm">{categoryLabels[cat]}</h2>
                 <button
                   onClick={() => { setNewItem({...newItem, category: cat}); setShowModal(true); }}
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
+                  className="h-12 w-12 flex items-center justify-center rounded-full bg-char-950 text-white shadow-xl hover:bg-tomato transition-all"
                 >
-                  <span className="text-2xl font-bold">+</span>
+                  <span className="text-3xl font-bold">+</span>
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="relative z-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {inventory
                   .filter((i) => i.category === cat)
                   .map((item) => {
