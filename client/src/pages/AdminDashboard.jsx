@@ -318,7 +318,7 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-32">
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
               <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
                 <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
                 <button
