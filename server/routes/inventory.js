@@ -20,6 +20,8 @@ router.post('/:id/image', protect, adminOnly, upload.single('image'), async (req
       ? await uploadBufferToCloudinary(req.file.buffer)
       : `/uploads/${req.file.filename}`;
 
+    console.log('✅ Image processed successfully:', imageUrl);
+
     const item = await Inventory.findByIdAndUpdate(
       req.params.id,
       { image: imageUrl },
@@ -28,6 +30,7 @@ router.post('/:id/image', protect, adminOnly, upload.single('image'), async (req
     if (!item) return res.status(404).json({ message: 'Item not found' });
     res.json(item);
   } catch (err) {
+    console.error('❌ IMAGE UPLOAD ERROR:', err);
     res.status(500).json({ message: 'Image upload failed', error: err.message });
   }
 });

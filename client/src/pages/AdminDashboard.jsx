@@ -206,8 +206,12 @@ const AdminDashboard = () => {
         }
     } catch (err) {
         console.error('Upload failed:', err);
-        const errorMsg = err.response?.data?.message || err.message || 'Check your internet or Cloudinary config';
-        showToast(`Upload failed: ${errorMsg}`);
+        const serverMsg = err.response?.data?.message;
+        const detail = err.response?.data?.error;
+        const fallback = err.message || 'Check your internet or Cloudinary config';
+
+        const finalMsg = detail ? `${serverMsg}: ${detail}` : (serverMsg || fallback);
+        showToast(`Upload failed: ${finalMsg.toUpperCase()}`);
     }
   };
 
