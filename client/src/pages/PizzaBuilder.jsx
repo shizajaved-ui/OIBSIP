@@ -32,7 +32,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-48 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -239,24 +239,24 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="5xl" isFloating>
-      <div className="flex flex-col items-center text-center">
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">🧑‍🍳</span>
-            <h1 className="font-display text-5xl font-black tracking-tight text-char-950">
+    <PageLayout width="4xl" isFloating>
+      <div className="flex flex-col items-center text-center -mt-16 mb-0">
+        <div className="flex flex-col items-center gap-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">🧑‍🍳</span>
+            <h1 className="font-display text-2xl font-black tracking-tight text-char-950">
               Build your pizza
             </h1>
           </div>
-          <p className="mt-2 text-lg font-medium text-char-950/40 italic">
+          <p className="text-[13px] font-bold text-char-950/40 italic">
             {CHEF_NOTES[step]}
           </p>
         </div>
       </div>
 
       {/* Stepper — Optimized with Terracotta Red - STICKY */}
-      <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-8 bg-char-800/95 backdrop-blur-md border-b border-char-950/10 transition-all duration-300">
-        <div className="relative mx-auto max-w-3xl w-full">
+      <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-4 px-6 md:px-12 py-1 bg-char-800/95 backdrop-blur-md border-b border-char-950/10 transition-all duration-300">
+        <div className="relative mx-auto max-w-xl w-full scale-90">
           <div className="absolute left-[20px] right-[20px] top-[22px] h-0.5 bg-char-950/10" />
           <div
             className="absolute left-[20px] top-[22px] h-0.5 bg-tomato-dark transition-all duration-500"
@@ -399,7 +399,7 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="fixed right-6 bottom-24 md:right-10 md:bottom-1/2 md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
+            className="fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >
             <div className="bg-char-950 text-white h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-4 border-white group-hover:bg-char-950/90 transition-all">
               <svg className="w-8 h-8 md:w-10 md:h-10 fill-current" viewBox="0 0 24 24">
@@ -433,7 +433,7 @@ const PizzaBuilder = () => {
               setStep(s => Math.max(0, s - 1));
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="fixed left-6 bottom-24 md:left-10 md:bottom-1/2 md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
+            className="fixed left-6 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >
             <div className="bg-white text-char-950 h-16 w-16 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/20 border-4 border-char-950 group-hover:bg-char-900 transition-all">
               <svg className="w-8 h-8 md:w-10 md:h-10 fill-current rotate-180" viewBox="0 0 24 24">

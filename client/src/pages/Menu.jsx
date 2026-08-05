@@ -19,7 +19,7 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onQuickAdd, adding }) => 
       onClick={() => onQuickAdd(item)}
       whileTap={{ scale: 0.97 }}
       disabled={adding === item._id}
-      className="group relative h-48 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 border-char-950/5 hover:border-tomato/30"
+      className="group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-800 text-left shadow-lg transition-all duration-200 border-char-950/5 hover:border-tomato/30"
     >
       {!showFallback ? (
         <>

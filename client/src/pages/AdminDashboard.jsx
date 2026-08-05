@@ -266,7 +266,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <PageLayout title="Admin panel" width="5xl" isFloating>
+    <PageLayout title="Admin panel" width="4xl" isFloating>
       <AnimatePresence>
           {selectedReceipt && (
               <ReceiptModal order={selectedReceipt} onClose={() => setSelectedReceipt(null)} />
@@ -309,7 +309,17 @@ const AdminDashboard = () => {
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => document.getElementById(`section-${cat}`).scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                onClick={() => {
+                  const el = document.getElementById(`section-${cat}`);
+                  if (el) {
+                    const offset = 210; // offset to show label and + button clearly
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = el.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                  }
+                }}
                 className="px-8 py-2.5 text-[11px] font-black uppercase tracking-widest bg-char-950 text-white rounded-full shadow-lg transition-all hover:bg-tomato active:scale-95"
               >
                 {categoryLabels[cat]}
@@ -337,9 +347,9 @@ const AdminDashboard = () => {
                     return (
                       <div
                         key={item._id}
-                        className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
+                        className={`bg-char-800 overflow-hidden flex flex-col border-t-4 border-t-basil shadow-md rounded-[24px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-32 w-full bg-char-950/5 shrink-0">
+                        <div className="relative h-36 w-full bg-char-950/5 shrink-0">
                           {item.image ? (
                             <img
                               src={resolveImageUrl(item.image)}

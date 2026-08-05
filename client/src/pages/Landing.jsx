@@ -103,7 +103,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="relative mx-auto h-72 w-72 sm:h-96 sm:w-96">
+          <div className="relative mx-auto h-52 w-52 sm:h-64 sm:w-64">
             {/* ambient color glow behind the pizza for depth */}
             <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-tomato/20 via-crust/15 to-basil/10 blur-3xl" />
 
