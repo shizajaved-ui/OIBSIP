@@ -266,7 +266,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <PageLayout title="Admin panel" width="6xl" isFloating>
+    <PageLayout title="Admin panel" width="5xl" isFloating>
       <AnimatePresence>
           {selectedReceipt && (
               <ReceiptModal order={selectedReceipt} onClose={() => setSelectedReceipt(null)} />
@@ -318,18 +318,18 @@ const AdminDashboard = () => {
           </div>
 
           {CATEGORIES.map((cat) => (
-            <div key={cat} id={`section-${cat}`} className="p-10 bg-[#DCC9A8] rounded-[48px] border border-char-950/10 shadow-sm scroll-mt-64 overflow-hidden relative group">
-              <div className="relative z-10 flex items-center justify-between mb-8 border-b-4 border-char-950/10 pb-4">
-                <h2 className="font-display text-4xl font-black uppercase tracking-tight text-char-950">{categoryLabels[cat]}</h2>
+            <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
+              <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
+                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
                 <button
                   onClick={() => { setNewItem({...newItem, category: cat}); setShowModal(true); }}
-                  className="h-12 w-12 flex items-center justify-center rounded-full bg-char-950 text-white shadow-xl hover:bg-tomato transition-all"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
                 >
-                  <span className="text-3xl font-bold">+</span>
+                  <span className="text-2xl font-bold">+</span>
                 </button>
               </div>
 
-              <div className="relative z-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {inventory
                   .filter((i) => i.category === cat)
                   .map((item) => {
@@ -339,7 +339,7 @@ const AdminDashboard = () => {
                         key={item._id}
                         className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-44 w-full bg-char-950/5 shrink-0">
+                        <div className="relative h-32 w-full bg-char-950/5 shrink-0">
                           {item.image ? (
                             <img
                               src={resolveImageUrl(item.image)}

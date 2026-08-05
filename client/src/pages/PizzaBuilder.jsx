@@ -32,7 +32,7 @@ const OptionCard = ({ item, selected, onSelect, multi }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-64 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-48 w-full overflow-hidden rounded-[32px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -239,7 +239,7 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="6xl" isFloating>
+    <PageLayout width="5xl" isFloating>
       <div className="flex flex-col items-center text-center">
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-4">
