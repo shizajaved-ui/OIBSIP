@@ -10,7 +10,19 @@ const router = express.Router();
 router.post('/:id/menu-visual', protect, adminOnly, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No image file provided' });
-    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+
+    let imageUrl;
+    if (isCloudinaryConfigured) {
+      try {
+        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+      } catch (cloudErr) {
+        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        imageUrl = `/uploads/${req.file.filename}`;
+      }
+    } else {
+      imageUrl = `/uploads/${req.file.filename}`;
+    }
+
     const item = await Inventory.findByIdAndUpdate(req.params.id, { menuVisual: imageUrl }, { new: true });
     res.json(item);
   } catch (err) {
@@ -22,7 +34,19 @@ router.post('/:id/menu-visual', protect, adminOnly, upload.single('image'), asyn
 router.post('/:id/inventory-card', protect, adminOnly, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No image file provided' });
-    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+
+    let imageUrl;
+    if (isCloudinaryConfigured) {
+      try {
+        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+      } catch (cloudErr) {
+        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        imageUrl = `/uploads/${req.file.filename}`;
+      }
+    } else {
+      imageUrl = `/uploads/${req.file.filename}`;
+    }
+
     const item = await Inventory.findByIdAndUpdate(req.params.id, { inventoryCard: imageUrl }, { new: true });
     res.json(item);
   } catch (err) {
@@ -34,7 +58,19 @@ router.post('/:id/inventory-card', protect, adminOnly, upload.single('image'), a
 router.post('/:id/builder-image', protect, adminOnly, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No image file provided' });
-    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+
+    let imageUrl;
+    if (isCloudinaryConfigured) {
+      try {
+        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+      } catch (cloudErr) {
+        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        imageUrl = `/uploads/${req.file.filename}`;
+      }
+    } else {
+      imageUrl = `/uploads/${req.file.filename}`;
+    }
+
     const item = await Inventory.findByIdAndUpdate(req.params.id, { builderImage: imageUrl }, { new: true });
     res.json(item);
   } catch (err) {
