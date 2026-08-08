@@ -4,17 +4,24 @@ const Inventory = require('./models/Inventory');
 
 const mapping = {
   'Classic Hand-Tossed': 'hand tossed.png',
+  'Thin Crust': 'plain.png',
   'Stuffed Crust': 'stuffed crust.png',
+  'Whole Wheat': 'glutten free.png',
+  'Cheese Burst': 'plain.png', // Fallback
   'Classic Tomato': 'tomato sauce.png',
   'Peri Peri': 'peri peri.png',
   'BBQ': 'bbq.png',
   'Alfredo (White Sauce)': 'alferedo.png',
-  'Mozzarella': 'plain.png',
+  'Mozzarella': 'mozzerella.png',
+  'Cheddar Blend': 'chedder blend.png',
+  'Vegan Cheese': 'vegan.png',
   'Onion': 'onion.png',
   'Corn': 'corn.png',
   'Olives': 'olives.png',
   'Jalapeno': 'jalepeno.png',
   'Tomato': 'tomato.png',
+  'Mushroom': 'mushroom.png',
+  'Capsicum': 'capcicum.png',
 };
 
 const run = async () => {

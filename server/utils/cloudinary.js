@@ -1,11 +1,21 @@
 const cloudinary = require('cloudinary').v2;
 
 // The Cloudinary SDK automatically picks up CLOUDINARY_URL from process.env if present.
-// We just need to check if it's there to enable/disable features in the app.
-const isCloudinaryConfigured = !!(process.env.CLOUDINARY_URL || process.env.CLOUDINARY_API_KEY);
+// If individual keys are provided instead, we configure it manually.
+const isCloudinaryConfigured = !!(
+  process.env.CLOUDINARY_URL ||
+  (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET)
+);
 
-if (isCloudinaryConfigured) {
+if (process.env.CLOUDINARY_URL) {
   cloudinary.config({ secure: true });
+} else if (isCloudinaryConfigured) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true
+  });
 }
 
 /**
