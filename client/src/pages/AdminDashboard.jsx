@@ -49,6 +49,17 @@ const ReceiptModal = ({ order, onClose }) => {
 
                     <div className="space-y-4 border-y-2 border-dashed border-char-950/10 py-8 mb-8">
                         <div className="flex justify-between items-center">
+                            <span className="font-display text-lg font-bold text-char-950">Quantity: {order.quantity || 1}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="font-display text-lg font-bold text-char-950">Thickness: {order.thickness?.name || 'Standard'}</span>
+                            <span className="font-bold text-char-950/40">₹{order.thickness?.price || 0}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="font-display text-lg font-bold text-char-950">Size: {order.size?.name || 'Regular'}</span>
+                            <span className="font-bold text-char-950/40">₹{order.size?.price || 0}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
                             <span className="font-display text-lg font-bold text-char-950">Base: {order.base?.name || 'Custom Base'}</span>
                             <span className="font-bold text-char-950/40">₹{order.base?.price || 0}</span>
                         </div>
@@ -121,7 +132,7 @@ const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
-  const [newItem, setNewItem] = useState({ name: '', category: 'base', stock: 100, threshold: 20, price: 0 });
+  const [newItem, setNewItem] = useState({ name: '', category: 'base', stock: 100, threshold: 20, price: 0, calories: 0 });
   const [toast, setToast] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
 
@@ -162,7 +173,7 @@ const AdminDashboard = () => {
       }
       setShowModal(false);
       setEditingItem(null);
-      setNewItem({ name: '', category: 'base', stock: 100, threshold: 20, price: 0 });
+      setNewItem({ name: '', category: 'base', stock: 100, threshold: 20, price: 0, calories: 0 });
       fetchInventory();
     } catch (err) {
       console.error('Failed to save item:', err);
@@ -191,15 +202,20 @@ const AdminDashboard = () => {
     }
   };
 
-  const uploadImage = async (id, file) => {
+  const uploadImage = async (id, file, type = 'card') => {
     const formData = new FormData();
     formData.append('image', file);
     try {
-        const { data } = await api.post(`/inventory/${id}/image`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        if (data.image) {
-            showToast('Visual updated successfully!');
+        let endpoint = `/inventory/${id}/menu-visual`; // professional menu slot
+        if (type === 'card') endpoint = `/inventory/${id}/inventory-card`; // dough card slot
+        if (type === 'preview') endpoint = `/inventory/${id}/builder-image`;
+
+        const { data } = await api.post(endpoint, formData);
+        if (data.menuVisual || data.inventoryCard || data.builderImage) {
+            let msg = 'Updated successfully!';
+            if (type === 'card') msg = 'Card photo (Dough) updated!';
+            if (type === 'menu') msg = 'Menu photo (Professional) updated!';
+            showToast(msg);
             fetchInventory();
         } else {
             showToast('Upload failed: No image URL returned');
@@ -211,7 +227,7 @@ const AdminDashboard = () => {
         const fallback = err.message || 'Check your internet or Cloudinary config';
 
         const finalMsg = detail ? `${serverMsg}: ${detail}` : (serverMsg || fallback);
-        showToast(`Upload failed: ${finalMsg.toUpperCase()}`);
+        showToast(`Upload failed: ${finalMsg}`);
     }
   };
 
@@ -259,6 +275,8 @@ const AdminDashboard = () => {
   const lowStockCount = inventory.filter(i => i.stock < i.threshold).length;
 
   const categoryLabels = {
+    thickness: 'Thickness',
+    size: 'Size',
     base: 'Bases',
     sauce: 'Sauces',
     cheese: 'Cheeses',
@@ -304,9 +322,9 @@ const AdminDashboard = () => {
       {tab === 'inventory' && (
         <div className="space-y-12">
           {/* Quick Jump Station - Professional Charcoal */}
-          <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-5 doodle-bg border-y border-char-950/10 relative overflow-hidden flex items-center justify-center">
-            {/* Warm Beige Overlay */}
-            <div className="absolute inset-0 bg-[#FDF5E6]/90" />
+          <div className="sticky top-[80px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-6 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
+            {/* Warm Beige Overlay - Reduced opacity for more "pop" */}
+            <div className="absolute inset-0 bg-[#FDF5E6]/70" />
 
             <div className="relative z-10 flex items-center justify-center gap-3 w-full">
               <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/60 mr-4">Select Station:</span>
@@ -335,7 +353,12 @@ const AdminDashboard = () => {
           {CATEGORIES.map((cat) => (
             <div key={cat} id={`section-${cat}`} className="p-10 bg-char-900/20 rounded-[48px] border border-char-950/5 shadow-sm scroll-mt-64">
               <div className="flex items-center justify-between mb-8 border-b-4 border-tomato/20 pb-4">
-                <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
+                <div>
+                  <h2 className="font-display text-3xl font-black uppercase tracking-tight text-tomato">{categoryLabels[cat]}</h2>
+                  <p className="text-[11px] font-bold text-char-950/40 mt-1 italic">
+                    Tip: Use WebP for speed • Card Photo = Menu Visual • Preview = Builder Layer
+                  </p>
+                </div>
                 <button
                   onClick={() => { setNewItem({...newItem, category: cat}); setShowModal(true); }}
                   className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
@@ -354,10 +377,10 @@ const AdminDashboard = () => {
                         key={item._id}
                         className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
                       >
-                        <div className="relative h-44 w-full bg-char-950/5 shrink-0">
-                          {item.image ? (
+                        <div className="relative h-48 w-full bg-char-950/5 shrink-0">
+                          {(item.inventoryCard || item.menuVisual || item.builderImage) ? (
                             <img
-                              src={resolveImageUrl(item.image)}
+                              src={resolveImageUrl(item.inventoryCard || item.menuVisual || item.builderImage)}
                               alt={item.name}
                               className="h-full w-full object-cover"
                             />
@@ -391,28 +414,27 @@ const AdminDashboard = () => {
                           <div className="flex-1">
                             <span className="font-display text-2xl font-black text-char-950 block mb-1 leading-tight">{item.name}</span>
                             <span className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60">Price Tag: ₹{item.price}</span>
-
-                            <div className="mt-8 flex flex-col gap-5">
-                              <div>
-                                  <label className="text-[12.5px] font-black uppercase tracking-widest text-char-950/70 mb-2 block">Inventory Level</label>
-                                  <input
-                                      type="number"
-                                      defaultValue={item.stock}
-                                      className="input-field w-full px-5 py-3 font-bold text-lg"
-                                      onBlur={(e) => updateStock(item._id, e.target.value)}
-                                  />
-                              </div>
-                            </div>
                           </div>
-                          <label className="mt-8 flex items-center justify-center gap-3 rounded-full bg-tomato py-4 text-[11px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-xl transition-all active:scale-95">
-                            {item.image ? 'Change Photo' : 'Upload Photo'}
-                            <input
-                              type="file"
-                              accept="image/*"
-                              className="hidden"
-                              onChange={(e) => e.target.files[0] && uploadImage(item._id, e.target.files[0])}
-                            />
-                          </label>
+                            <div className="mt-8 grid grid-cols-1 gap-3">
+                              <label className="flex items-center justify-center gap-3 rounded-full bg-tomato py-4 text-[10px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-lg transition-all active:scale-95">
+                                {item.inventoryCard ? 'Change Card Photo' : 'Upload Card Photo'}
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => e.target.files[0] && uploadImage(item._id, e.target.files[0], 'card')}
+                                />
+                              </label>
+                              <label className="flex items-center justify-center gap-3 rounded-full bg-basil py-4 text-[10px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-basil/90 shadow-lg transition-all active:scale-95">
+                                {item.builderImage ? 'Change Preview' : 'Upload Preview'}
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => e.target.files[0] && uploadImage(item._id, e.target.files[0], 'preview')}
+                                />
+                              </label>
+                            </div>
                         </div>
                       </div>
                     );
@@ -441,7 +463,7 @@ const AdminDashboard = () => {
             {inventory.filter(i => i.category === 'base').map(item => (
               <div key={item._id} className="bg-char-800 rounded-[40px] overflow-hidden border-t-8 border-t-tomato shadow-md flex flex-col">
                 <div className="relative h-48 w-full shrink-0">
-                  <img src={resolveImageUrl(item.image)} className="h-full w-full object-cover" alt={item.name} />
+                  <img src={resolveImageUrl(item.menuVisual)} className="h-full w-full object-cover" alt={item.name} />
                   <div className="absolute top-4 right-4 flex gap-2">
                     <button onClick={() => { setEditingItem(item); setShowModal(true); }} className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg">✎</button>
                     <button onClick={() => deleteItem(item._id)} className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/80 text-white hover:bg-tomato shadow-lg">✕</button>
@@ -449,9 +471,21 @@ const AdminDashboard = () => {
                 </div>
                 <div className="p-8 flex-1 flex flex-col">
                   <div className="flex-1">
-                    <h3 className="font-display text-xl font-black text-char-950 leading-[1.1]">{item.name}</h3>
+                    <h3 className="font-display text-2xl font-black text-char-950 leading-[1.1]">{item.name}</h3>
                     <p className="text-[12.5px] font-black uppercase tracking-widest text-char-950/60 mt-3">Menu Price</p>
                     <p className="text-3xl font-black text-tomato mt-1">₹{item.price + 199}</p>
+                  </div>
+
+                  <div className="mt-8 flex flex-col gap-3">
+                    <label className="flex items-center justify-center gap-3 rounded-full bg-tomato py-4 text-[11px] font-black uppercase tracking-widest text-white cursor-pointer hover:bg-tomato-dark shadow-xl transition-all active:scale-95">
+                      {item.menuVisual ? 'Change Menu Photo' : 'Upload Menu Photo'}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => e.target.files[0] && uploadImage(item._id, e.target.files[0], 'menu')}
+                      />
+                    </label>
                   </div>
                 </div>
               </div>
@@ -467,7 +501,7 @@ const AdminDashboard = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[110] bg-char-950 text-white px-10 py-5 rounded-full font-display text-sm font-black uppercase tracking-widest shadow-2xl border border-white/10"
+            className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[110] bg-char-950 text-white px-10 py-5 rounded-full font-display text-sm font-black tracking-widest shadow-2xl border border-white/10"
           >
             {toast}
           </motion.div>
@@ -476,37 +510,49 @@ const AdminDashboard = () => {
 
       {/* Item Management Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/60 backdrop-blur-md p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/70 backdrop-blur-md p-6">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative overflow-hidden w-full max-w-lg p-12 rounded-[48px] shadow-2xl border border-char-950/10"
+            className="relative w-full max-w-lg rounded-[48px] shadow-2xl border border-char-950/10 overflow-hidden"
             style={{
-              backgroundColor: 'rgba(253, 245, 230, 0.95)', // Warm Butter Honey with high opacity
-              backgroundImage: 'url("/assets/doodle-border.png")',
-              backgroundSize: '400px auto',
-              backgroundBlendMode: 'soft-light'
+              backgroundColor: '#FDF5E6',
+              maxHeight: '85vh'
             }}
           >
-            <div className="relative z-10">
-              <h3 className="font-display text-3xl font-black text-char-950 mb-8">
+            {/* Modal Header - Fixed */}
+            <div className="px-10 pt-10 pb-4 border-b border-char-950/5 relative z-20">
+              <h3 className="font-display text-3xl font-black text-char-950">
                 {editingItem ? 'Modify Item' : 'New Collection Item'}
               </h3>
+            </div>
+
+            {/* Modal Content - Scrollable */}
+            <div
+               className="p-10 pt-6 overflow-y-auto custom-scrollbar relative z-10"
+               style={{
+                 maxHeight: 'calc(85vh - 120px)',
+                 backgroundImage: 'url("/assets/doodle-border.png")',
+                 backgroundSize: '400px auto',
+                 backgroundBlendMode: 'soft-light'
+               }}
+            >
               <form onSubmit={handleSaveItem} className="space-y-6">
                 <div>
-                  <label className="text-xs font-black uppercase tracking-widest text-char-950/50 mb-2 block">Display Name</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Display Name</label>
                   <input
                     required
-                    className="input-field w-full px-6 py-4 font-bold bg-white/50 border-char-950/5"
+                    placeholder="e.g. Stuffed Crust"
+                    className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
                     value={editingItem ? editingItem.name : newItem.name}
                     onChange={(e) => editingItem ? setEditingItem({...editingItem, name: e.target.value}) : setNewItem({...newItem, name: e.target.value})}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-black uppercase tracking-widest text-char-950/50 mb-2 block">Station</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Station</label>
                     <select
-                      className="input-field w-full px-6 py-4 font-bold bg-white/50 border-char-950/5 border-r-8 border-transparent"
+                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm border-r-8 border-transparent"
                       value={editingItem ? editingItem.category : newItem.category}
                       onChange={(e) => editingItem ? setEditingItem({...editingItem, category: e.target.value}) : setNewItem({...newItem, category: e.target.value})}
                     >
@@ -514,43 +560,52 @@ const AdminDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="text-xs font-black uppercase tracking-widest text-char-950/50 mb-2 block">Price (₹)</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Price (₹)</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/50 border-char-950/5"
+                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
                       value={editingItem ? editingItem.price : newItem.price}
                       onChange={(e) => editingItem ? setEditingItem({...editingItem, price: Number(e.target.value)}) : setNewItem({...newItem, price: Number(e.target.value)})}
                     />
                   </div>
                 </div>
+                <div>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Calories (kcal)</label>
+                  <input
+                    type="number"
+                    className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                    value={editingItem ? editingItem.calories : newItem.calories}
+                    onChange={(e) => editingItem ? setEditingItem({...editingItem, calories: Number(e.target.value)}) : setNewItem({...newItem, calories: Number(e.target.value)})}
+                  />
+                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-black uppercase tracking-widest text-char-950/50 mb-2 block">Initial Count</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Initial Count</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/50 border-char-950/5"
+                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
                       value={editingItem ? editingItem.stock : newItem.stock}
                       onChange={(e) => editingItem ? setEditingItem({...editingItem, stock: Number(e.target.value)}) : setNewItem({...newItem, stock: Number(e.target.value)})}
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-black uppercase tracking-widest text-char-950/50 mb-2 block">Alert Level</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Alert Level</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/50 border-char-950/5"
+                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
                       value={editingItem ? editingItem.threshold : newItem.threshold}
                       onChange={(e) => editingItem ? setEditingItem({...editingItem, threshold: Number(e.target.value)}) : setNewItem({...newItem, threshold: Number(e.target.value)})}
                     />
                   </div>
                 </div>
                 <div className="flex gap-4 pt-6">
-                  <button type="submit" className="btn-primary flex-1 py-4 text-sm uppercase tracking-widest shadow-ember">
+                  <button type="submit" className="btn-primary flex-1 py-4 text-[11px] uppercase tracking-widest shadow-ember">
                     Save Changes
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-8 py-4 text-sm font-black uppercase tracking-widest text-char-950/40 hover:text-tomato transition-all"
+                    className="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-char-950/30 hover:text-tomato transition-all"
                   >
                     Cancel
                   </button>
@@ -596,7 +651,10 @@ const AdminDashboard = () => {
                       {order.user?.name || 'Customer'} <span className="text-sm font-medium text-char-950/40 italic">({order.user?.email || 'No Email'})</span>
                     </p>
                     <p className="mt-2 text-[10px] font-black uppercase tracking-widest text-char-950/40 leading-relaxed">
-                      {order.base?.name ? `Base: ${order.base.name}` : 'Custom Base'}
+                      {order.quantity > 1 ? `Quantity: ${order.quantity} · ` : ''}
+                      {order.thickness?.name ? `Thickness: ${order.thickness.name}` : ''}
+                      {order.size?.name ? ` · Size: ${order.size.name}` : ''}
+                      {order.base?.name ? ` · Base: ${order.base.name}` : ''}
                       {order.sauce?.name ? ` · Sauce: ${order.sauce.name}` : ''}
                       {order.cheese?.name ? ` · Cheese: ${order.cheese.name}` : ''}
                       {order.vegetables?.length > 0 && ` · Toppings: ${order.vegetables.map(v => v.name).join(', ')}`}

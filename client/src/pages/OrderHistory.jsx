@@ -20,6 +20,9 @@ const Receipt = ({ order }) => (
 
     <div className="mt-6 space-y-3">
       {[
+        { label: 'Quantity', val: order.quantity || 1 },
+        { label: 'Size', val: order.size?.name },
+        { label: 'Thickness', val: order.thickness?.name },
         { label: 'Base', val: order.base?.name },
         { label: 'Sauce', val: order.sauce?.name },
         { label: 'Cheese', val: order.cheese?.name },

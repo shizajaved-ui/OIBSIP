@@ -27,8 +27,9 @@ const razorpay = isDemoMode
 // the amount charged can't be manipulated by sending a fake total.
 router.post('/create-razorpay-order', protect, async (req, res) => {
   try {
-    const { base, sauce, cheese, vegetables } = req.body;
-    const amount = await calculatePizzaPrice({ base, sauce, cheese, vegetables });
+    const { thickness, size, base, sauce, cheese, vegetables, quantity = 1 } = req.body;
+    let amount = await calculatePizzaPrice({ thickness, size, base, sauce, cheese, vegetables });
+    amount = amount * quantity;
 
     if (isDemoMode) {
       // Return a fake order object shaped like Razorpay's real response, so the
@@ -57,7 +58,7 @@ router.post('/create-razorpay-order', protect, async (req, res) => {
 router.post('/', protect, async (req, res) => {
   try {
     const {
-      base, sauce, cheese, vegetables,
+      thickness, size, base, sauce, cheese, vegetables, quantity = 1,
       razorpayOrderId, razorpayPaymentId, razorpaySignature,
     } = req.body;
 
@@ -76,18 +77,22 @@ router.post('/', protect, async (req, res) => {
 
     // Recompute the price server-side rather than trusting whatever
     // totalAmount the client sends — this is what actually gets stored.
-    const totalAmount = await calculatePizzaPrice({ base, sauce, cheese, vegetables });
+    let totalAmount = await calculatePizzaPrice({ thickness, size, base, sauce, cheese, vegetables });
+    totalAmount = totalAmount * quantity;
 
     // Decrement stock for each chosen item
-    const ids = [base, sauce, cheese, ...(vegetables || [])];
-    await Inventory.updateMany({ _id: { $in: ids } }, { $inc: { stock: -1 } });
+    const ids = [thickness, size, base, sauce, cheese, ...(vegetables || [])];
+    await Inventory.updateMany({ _id: { $in: ids } }, { $inc: { stock: -quantity } });
 
     const order = await Order.create({
       user: req.user.id,
+      thickness,
+      size,
       base,
       sauce,
       cheese,
       vegetables,
+      quantity,
       totalAmount,
       paymentStatus: 'paid',
       razorpayOrderId,
@@ -105,7 +110,7 @@ router.post('/', protect, async (req, res) => {
 router.get('/my', protect, async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user.id })
-      .populate('base sauce cheese vegetables')
+      .populate('thickness size base sauce cheese vegetables')
       .sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
@@ -114,11 +119,11 @@ router.get('/my', protect, async (req, res) => {
 });
 
 // @route  GET /api/orders — admin: all orders
-router.get('/my', protect, adminOnly, async (req, res) => {
+router.get('/', protect, adminOnly, async (req, res) => {
   try {
     const orders = await Order.find()
       .populate('user', 'name email')
-      .populate('base sauce cheese vegetables')
+      .populate('thickness size base sauce cheese vegetables')
       .sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {

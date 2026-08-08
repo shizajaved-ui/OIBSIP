@@ -26,7 +26,7 @@ const getOrCreateCart = async (userId) => {
 };
 
 const populated = (cart) =>
-  cart.populate('items.base items.sauce items.cheese items.vegetables');
+  cart.populate('items.thickness items.size items.base items.sauce items.cheese items.vegetables');
 
 // @route  GET /api/cart — the logged-in user's cart, fully populated
 router.get('/', protect, async (req, res) => {
@@ -42,14 +42,14 @@ router.get('/', protect, async (req, res) => {
 // @route  POST /api/cart/items — add a configured pizza to the cart
 router.post('/items', protect, async (req, res) => {
   try {
-    const { base, sauce, cheese, vegetables = [], quantity = 1 } = req.body;
-    if (!base || !sauce || !cheese) {
-      return res.status(400).json({ message: 'Base, sauce, and cheese are required' });
+    const { thickness, size, base, sauce, cheese, vegetables = [], quantity = 1 } = req.body;
+    if (!thickness || !size || !base || !sauce || !cheese) {
+      return res.status(400).json({ message: 'Thickness, size, base, sauce, and cheese are required' });
     }
 
-    const unitPrice = await calculatePizzaPrice({ base, sauce, cheese, vegetables });
+    const unitPrice = await calculatePizzaPrice({ thickness, size, base, sauce, cheese, vegetables });
     const cart = await getOrCreateCart(req.user.id);
-    cart.items.push({ base, sauce, cheese, vegetables, quantity, unitPrice });
+    cart.items.push({ thickness, size, base, sauce, cheese, vegetables, quantity, unitPrice });
     await cart.save();
     await populated(cart);
     res.status(201).json(cart);
@@ -81,7 +81,7 @@ router.patch('/items/:itemId', protect, async (req, res) => {
 router.delete('/items/:itemId', protect, async (req, res) => {
   try {
     const cart = await getOrCreateCart(req.user.id);
-    cart.items.id(req.params.itemId)?.deleteOne();
+    cart.items.pull(req.params.itemId);
     await cart.save();
     await populated(cart);
     res.json(cart);
@@ -144,11 +144,13 @@ router.post('/checkout/confirm', protect, async (req, res) => {
 
     const orders = [];
     for (const item of cart.items) {
-      const ids = [item.base, item.sauce, item.cheese, ...item.vegetables];
+      const ids = [item.thickness, item.size, item.base, item.sauce, item.cheese, ...item.vegetables];
       await Inventory.updateMany({ _id: { $in: ids } }, { $inc: { stock: -item.quantity } });
 
       const order = await Order.create({
         user: req.user.id,
+        thickness: item.thickness,
+        size: item.size,
         base: item.base,
         sauce: item.sauce,
         cheese: item.cheese,

@@ -6,32 +6,39 @@ const { isCloudinaryConfigured, uploadBufferToCloudinary } = require('../utils/c
 
 const router = express.Router();
 
-// @route  POST /api/inventory/:id/image  — admin: upload a photo for an inventory item
-router.post('/:id/image', protect, adminOnly, upload.single('image'), async (req, res) => {
+// @route  POST /api/inventory/:id/menu-visual — admin: upload professional photo
+router.post('/:id/menu-visual', protect, adminOnly, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ message: 'No image file provided' });
-
-    // Cloudinary configured: req.file.buffer holds the image in memory (never
-    // touches local disk), uploaded straight to Cloudinary — persists across
-    // redeploys. Not configured: fall back to the local path multer already
-    // saved to disk (works locally, but won't survive a redeploy on hosts
-    // without persistent disk, e.g. Render's free tier).
-    const imageUrl = isCloudinaryConfigured
-      ? await uploadBufferToCloudinary(req.file.buffer)
-      : `/uploads/${req.file.filename}`;
-
-    console.log('✅ Image processed successfully:', imageUrl);
-
-    const item = await Inventory.findByIdAndUpdate(
-      req.params.id,
-      { image: imageUrl },
-      { new: true }
-    );
-    if (!item) return res.status(404).json({ message: 'Item not found' });
+    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+    const item = await Inventory.findByIdAndUpdate(req.params.id, { menuVisual: imageUrl }, { new: true });
     res.json(item);
   } catch (err) {
-    console.error('❌ IMAGE UPLOAD ERROR:', err);
-    res.status(500).json({ message: 'Image upload failed', error: err.message });
+    res.status(500).json({ message: 'Menu visual upload failed', error: err.message });
+  }
+});
+
+// @route  POST /api/inventory/:id/inventory-card — admin: upload dough card photo
+router.post('/:id/inventory-card', protect, adminOnly, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No image file provided' });
+    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+    const item = await Inventory.findByIdAndUpdate(req.params.id, { inventoryCard: imageUrl }, { new: true });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: 'Inventory card upload failed', error: err.message });
+  }
+});
+
+// @route  POST /api/inventory/:id/builder-image — admin: upload dough/crust photo for the visualizer
+router.post('/:id/builder-image', protect, adminOnly, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: 'No image file provided' });
+    const imageUrl = isCloudinaryConfigured ? await uploadBufferToCloudinary(req.file.buffer) : `/uploads/${req.file.filename}`;
+    const item = await Inventory.findByIdAndUpdate(req.params.id, { builderImage: imageUrl }, { new: true });
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: 'Builder image upload failed', error: err.message });
   }
 });
 

@@ -29,8 +29,8 @@ export const CartProvider = ({ children }) => {
     refreshCart();
   }, [refreshCart]);
 
-  const addToCart = async ({ base, sauce, cheese, vegetables = [], quantity = 1 }) => {
-    const { data } = await api.post('/cart/items', { base, sauce, cheese, vegetables, quantity });
+  const addToCart = async ({ thickness, size, base, sauce, cheese, vegetables = [], quantity = 1 }) => {
+    const { data } = await api.post('/cart/items', { thickness, size, base, sauce, cheese, vegetables, quantity });
     setCart(data);
     return data;
   };

@@ -8,7 +8,15 @@ import PageLayout from '../components/PageLayout';
 
 const describeItem = (item) => {
   const veg = item.vegetables?.map((v) => v.name).join(', ');
-  return [item.base?.name, item.sauce?.name, item.cheese?.name, veg].filter(Boolean).join(' · ');
+  return [
+    item.quantity > 1 ? `x${item.quantity}` : null,
+    item.size?.name,
+    item.thickness?.name,
+    item.base?.name,
+    item.sauce?.name,
+    item.cheese?.name,
+    veg
+  ].filter(Boolean).join(' · ');
 };
 
 const Cart = () => {
@@ -90,14 +98,22 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating useDoodleOverlay>
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
-        <div className="card flex flex-col items-center gap-3 p-16 text-center bg-white shadow-sm border-none">
-          <span className="text-5xl mb-2">🛒</span>
-          <p className="font-display text-2xl font-bold text-char-950">Your cart is empty.</p>
-          <button onClick={() => navigate('/menu')} className="btn-primary mt-6 px-10 py-4 text-lg">
+        <div
+          className="relative overflow-hidden flex flex-col items-center gap-3 p-16 text-center bg-[#FDF5E6] shadow-lg rounded-[48px] border border-char-950/5"
+          style={{
+            backgroundImage: 'url("/assets/doodle-border.png")',
+            backgroundSize: '400px auto',
+            backgroundBlendMode: 'soft-light'
+          }}
+        >
+          <span className="relative z-10 text-6xl mb-4 drop-shadow-md">🛒</span>
+          <p className="relative z-10 font-display text-3xl font-black text-char-950">Your cart is empty.</p>
+          <p className="relative z-10 text-sm font-medium text-char-950/40 italic mb-4">Start your artisanal pizza journey today.</p>
+          <button onClick={() => navigate('/menu')} className="relative z-10 btn-primary px-10 py-4 text-lg shadow-ember">
             Browse the menu
           </button>
         </div>
@@ -105,33 +121,42 @@ const Cart = () => {
         <>
           <div className="space-y-4">
             {items.map((item) => (
-              <div key={item._id} className="bg-char-900 rounded-3xl flex items-center justify-between gap-4 p-6 shadow-sm border border-char-950/5">
-                <div className="min-w-0">
-                  <h3 className="font-display text-xl font-bold text-char-950">{item.base?.name}</h3>
-                  <p className="mt-1 truncate text-xs font-bold uppercase tracking-widest text-char-950/30">{describeItem(item)}</p>
-                  <p className="mt-2 text-lg font-black text-tomato">₹{item.unitPrice}</p>
+              <div
+                key={item._id}
+                className="relative overflow-hidden bg-[#FDF5E6] rounded-[40px] flex items-center justify-between gap-6 p-10 shadow-lg border border-char-950/5 transition-all hover:shadow-2xl"
+                style={{
+                  backgroundImage: 'url("/assets/doodle-border.png")',
+                  backgroundSize: '400px auto',
+                  backgroundBlendMode: 'soft-light'
+                }}
+              >
+                <div className="relative z-10 min-w-0">
+                  <h3 className="font-display text-2xl font-black text-char-950">{item.base?.name}</h3>
+                  <p className="mt-1 truncate text-[11px] font-black uppercase tracking-[0.15em] text-char-950/40">{describeItem(item)}</p>
+                  <p className="mt-3 text-2xl font-black text-tomato drop-shadow-sm">₹{item.unitPrice}</p>
                 </div>
-                <div className="flex shrink-0 items-center gap-4">
-                  <div className="flex items-center rounded-full border-2 border-char-950/10 bg-white">
+                <div className="relative z-10 flex shrink-0 items-center gap-6">
+                  <div className="flex items-center rounded-full bg-white/60 backdrop-blur-md border border-char-950/10 shadow-inner p-1">
                     <button
                       onClick={() => updateQuantity(item._id, Math.max(1, item.quantity - 1))}
-                      className="px-4 py-2 text-xl font-black text-tomato hover:bg-tomato/5 rounded-l-full"
+                      className="h-10 w-10 flex items-center justify-center text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       −
                     </button>
-                    <span className="w-8 text-center font-display font-bold">{item.quantity}</span>
+                    <span className="w-10 text-center font-display font-black text-xl text-char-950">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                      className="px-4 py-2 text-xl font-black text-tomato hover:bg-tomato/5 rounded-r-full"
+                      className="h-10 w-10 flex items-center justify-center text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       +
                     </button>
                   </div>
                   <button
                     onClick={() => removeItem(item._id)}
-                    className="text-xs font-black uppercase tracking-widest text-char-950/30 transition hover:text-tomato"
+                    className="h-12 w-12 flex items-center justify-center rounded-full bg-tomato/10 text-tomato hover:bg-tomato hover:text-white transition-all shadow-md active:scale-90"
+                    title="Remove Item"
                   >
-                    Remove
+                    <span className="text-xl font-bold">✕</span>
                   </button>
                 </div>
               </div>

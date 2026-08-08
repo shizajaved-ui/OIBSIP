@@ -37,12 +37,12 @@ const SearchOverlay = ({ onClose }) => {
   return (
     <div
       ref={overlayRef}
-      className="absolute inset-x-0 top-full z-40 border-b border-char-950/10 bg-[#F5E6D3]/95 px-6 py-8 shadow-2xl backdrop-blur-xl sm:px-12"
+      className="absolute inset-x-0 top-full z-40 flex justify-center px-6 py-4"
     >
-      <div className="mx-auto flex max-w-4xl items-center gap-6">
-        <div className="flex flex-1 items-center gap-4 rounded-full border-2 border-char-950/10 bg-char-800 px-8 py-4 shadow-sm focus-within:ring-4 ring-tomato/20 transition-all">
+      <div className="w-full max-w-3xl animate-rise">
+        <div className="flex items-center gap-4 rounded-full border-2 border-char-950/15 bg-char-800 p-2 pl-6 shadow-2xl backdrop-blur-xl ring-8 ring-char-950/5">
           <div className="flex shrink-0 items-center justify-center">
-            <svg viewBox="0 0 24 24" className="h-6 w-6 text-tomato" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
               <path d="M21 21l-4.35-4.35" />
             </svg>
@@ -52,47 +52,47 @@ const SearchOverlay = ({ onClose }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search crusts, sauces, cheeses, toppings…"
-            className="flex-1 bg-transparent font-display text-xl font-bold text-char-950 outline-none placeholder:font-normal placeholder:italic placeholder:text-char-950/20"
+            className="flex-1 bg-transparent font-display text-lg font-bold text-char-950 outline-none placeholder:font-normal placeholder:italic placeholder:text-char-950/30"
           />
+          <button
+            onClick={onClose}
+            className="rounded-full bg-char-950 px-6 py-2.5 text-[10px] font-black uppercase tracking-widest text-white transition hover:bg-tomato shadow-md active:scale-95"
+          >
+            Close
+          </button>
         </div>
-        <button
-          onClick={onClose}
-          className="rounded-full bg-char-950 px-10 py-4 text-xs font-black uppercase tracking-widest text-white transition hover:bg-tomato shadow-lg active:scale-95"
-        >
-          Close
-        </button>
-      </div>
 
-      {results.length > 0 && (
-        <div className="mx-auto mt-6 max-w-4xl divide-y divide-char-950/10 overflow-hidden rounded-[40px] border border-char-950/10 bg-char-800 shadow-xl">
-          {results.map((item) => (
-            <button
-              key={item._id}
-              onClick={() => goToItem(item)}
-              className="group flex w-full items-center gap-4 px-6 py-4 text-left transition hover:bg-tomato/5"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-char-950/5 text-2xl group-hover:bg-tomato/10">
-                {getIngredientIcon(item)}
-              </div>
-              <span className="flex-1">
-                <span className="block font-display text-lg font-bold text-char-950">{item.name}</span>
-                <span className="block text-[10px] font-black uppercase tracking-widest text-char-950/40">{item.category}</span>
-              </span>
-              {item.price > 0 && (
-                <span className="rounded-full bg-tomato/10 px-3 py-1 text-xs font-black text-tomato">
-                  +₹{item.price}
+        {results.length > 0 && (
+          <div className="mt-3 divide-y divide-char-950/5 overflow-hidden rounded-[32px] border border-char-950/10 bg-char-800/95 shadow-2xl backdrop-blur-md">
+            {results.map((item) => (
+              <button
+                key={item._id}
+                onClick={() => goToItem(item)}
+                className="group flex w-full items-center gap-4 px-6 py-3 text-left transition hover:bg-tomato/5"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-char-950/5 text-xl group-hover:bg-tomato/10">
+                  {getIngredientIcon(item)}
+                </div>
+                <span className="flex-1">
+                  <span className="block font-display text-base font-bold text-char-950">{item.name}</span>
+                  <span className="block text-[9px] font-black uppercase tracking-widest text-char-950/40">{item.category}</span>
                 </span>
-              )}
-            </button>
-          ))}
-        </div>
-      )}
+                {item.price > 0 && (
+                  <span className="rounded-full bg-tomato/10 px-2 py-0.5 text-[10px] font-black text-tomato">
+                    +₹{item.price}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        )}
 
-      {query.trim() && results.length === 0 && (
-        <div className="mx-auto mt-6 max-w-4xl text-center">
-          <p className="font-display text-lg italic text-char-950/40">No matches for "{query}" — try another ingredient?</p>
-        </div>
-      )}
+        {query.trim() && results.length === 0 && (
+          <div className="mt-3 rounded-[24px] bg-char-800/90 p-4 text-center shadow-lg backdrop-blur-sm">
+            <p className="font-display text-base italic text-char-950/40">No matches for "{query}"</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -10,12 +10,18 @@ const BASE_PRICE = 199;
 // Recomputes a pizza's price entirely server-side, from the current
 // Inventory prices — never from a number the client sent. Trusting a
 // client-supplied total lets anyone submit any price for any pizza.
-const calculatePizzaPrice = async ({ base, sauce, cheese, vegetables = [] }) => {
-  const ids = [base, sauce, cheese, ...vegetables];
+const calculatePizzaPrice = async ({ thickness, size, base, sauce, cheese, vegetables = [] }) => {
+  const ids = [thickness, size, base, sauce, cheese, ...vegetables];
   const docs = await Inventory.find({ _id: { $in: ids } });
   const byId = new Map(docs.map((d) => [d._id.toString(), d]));
 
-  if (!byId.has(String(base)) || !byId.has(String(sauce)) || !byId.has(String(cheese))) {
+  if (
+    !byId.has(String(thickness)) ||
+    !byId.has(String(size)) ||
+    !byId.has(String(base)) ||
+    !byId.has(String(sauce)) ||
+    !byId.has(String(cheese))
+  ) {
     throw new Error('One or more selected ingredients no longer exist');
   }
 

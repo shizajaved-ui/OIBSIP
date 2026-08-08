@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const cartItemSchema = new mongoose.Schema({
+  thickness: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
+  size: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
   base: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
   sauce: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
   cheese: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },

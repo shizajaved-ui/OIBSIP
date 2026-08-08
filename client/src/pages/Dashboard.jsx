@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../utils/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import PizzaVisualizer from '../components/PizzaVisualizer';
 
 import PageLayout from '../components/PageLayout';
 
@@ -98,16 +99,23 @@ const Dashboard = () => {
               transition={{ duration: 0.3, delay: idx * 0.05 }}
               className="card p-8 bg-char-900 shadow-sm border-none border-l-8 border-l-tomato"
             >
-              <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="font-display text-2xl font-bold text-char-950">
-                    {order.base?.name || 'Artisan Custom Pizza'} {order.sauce?.name ? `· ${order.sauce.name}` : ''}
-                  </p>
-                  <p className="mt-1 text-sm font-bold text-char-950/40 uppercase tracking-widest">
-                    {order.cheese?.name || 'Mozzarella'} {order.vegetables?.length > 0 ? ` · ${order.vegetables.map(v => v.name).join(', ')}` : ' · No extra toppings'}
-                  </p>
+              <div className="mb-6 flex flex-wrap items-start justify-between gap-6">
+                <div className="flex gap-6 flex-1 min-w-0">
+                  <div className="hidden sm:block shrink-0 scale-75 -ml-8 -mt-8">
+                     <PizzaVisualizer selection={order} size="sm" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-display text-2xl font-bold text-char-950 truncate">
+                      {order.base?.name || 'Artisan Custom Pizza'}
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-char-950/40 uppercase tracking-widest leading-relaxed">
+                      {order.sauce?.name ? `${order.sauce.name}` : ''}
+                      {order.cheese?.name ? ` · ${order.cheese.name}` : ''}
+                      {order.vegetables?.length > 0 ? ` · ${order.vegetables.map(v => v.name).join(', ')}` : ' · No extra toppings'}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-right">
+                <div className="text-right shrink-0">
                   <p className="font-display text-2xl font-black text-tomato">₹{order.totalAmount}</p>
                   <p className="text-xs font-bold text-char-950/30">{new Date(order.createdAt).toLocaleString()}</p>
                 </div>

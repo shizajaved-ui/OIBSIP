@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema(
   {
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    thickness: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
+    size: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
     base: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
     sauce: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
     cheese: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
     vegetables: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Inventory' }],
+    quantity: { type: Number, default: 1, required: true },
     totalAmount: { type: Number, required: true },
     paymentStatus: { type: String, enum: ['pending', 'paid', 'failed'], default: 'pending' },
     razorpayOrderId: { type: String },
