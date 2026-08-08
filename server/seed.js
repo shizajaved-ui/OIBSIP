@@ -8,29 +8,29 @@ const User = require('./models/User');
 
 const inventoryItems = [
   // Bases
-  { name: 'Classic Hand-Tossed', category: 'base', stock: 100, threshold: 20, price: 0 },
-  { name: 'Thin Crust', category: 'base', stock: 100, threshold: 20, price: 0 },
-  { name: 'Cheese Burst', category: 'base', stock: 100, threshold: 20, price: 60 },
-  { name: 'Whole Wheat', category: 'base', stock: 100, threshold: 20, price: 20 },
-  { name: 'Stuffed Crust', category: 'base', stock: 100, threshold: 20, price: 80 },
+  { name: 'Classic Hand-Tossed', category: 'base', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/hand tossed.png' },
+  { name: 'Thin Crust', category: 'base', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/plain.png' },
+  { name: 'Cheese Burst', category: 'base', stock: 100, threshold: 20, price: 60, previewLayer: '/assets/layers/plain.png' },
+  { name: 'Whole Wheat', category: 'base', stock: 100, threshold: 20, price: 20, previewLayer: '/assets/layers/glutten free.png' },
+  { name: 'Stuffed Crust', category: 'base', stock: 100, threshold: 20, price: 80, previewLayer: '/assets/layers/stuffed crust.png' },
   // Sauces
-  { name: 'Classic Tomato', category: 'sauce', stock: 100, threshold: 20, price: 0 },
-  { name: 'Peri Peri', category: 'sauce', stock: 100, threshold: 20, price: 10 },
-  { name: 'BBQ', category: 'sauce', stock: 100, threshold: 20, price: 15 },
-  { name: 'Alfredo (White Sauce)', category: 'sauce', stock: 100, threshold: 20, price: 20 },
+  { name: 'Classic Tomato', category: 'sauce', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/tomato sauce.png' },
+  { name: 'Peri Peri', category: 'sauce', stock: 100, threshold: 20, price: 10, previewLayer: '/assets/layers/peri peri.png' },
+  { name: 'BBQ', category: 'sauce', stock: 100, threshold: 20, price: 15, previewLayer: '/assets/layers/bbq.png' },
+  { name: 'Alfredo (White Sauce)', category: 'sauce', stock: 100, threshold: 20, price: 20, previewLayer: '/assets/layers/alferedo.png' },
   { name: 'Pesto', category: 'sauce', stock: 100, threshold: 20, price: 25 },
   // Cheese
-  { name: 'Mozzarella', category: 'cheese', stock: 100, threshold: 20, price: 0 },
-  { name: 'Cheddar Blend', category: 'cheese', stock: 100, threshold: 20, price: 20 },
-  { name: 'Vegan Cheese', category: 'cheese', stock: 100, threshold: 20, price: 30 },
+  { name: 'Mozzarella', category: 'cheese', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/mozzerella.png' },
+  { name: 'Cheddar Blend', category: 'cheese', stock: 100, threshold: 20, price: 20, previewLayer: '/assets/layers/chedder blend.png' },
+  { name: 'Vegan Cheese', category: 'cheese', stock: 100, threshold: 20, price: 30, previewLayer: '/assets/layers/vegan.png' },
   // Vegetables
-  { name: 'Onion', category: 'vegetable', stock: 100, threshold: 20, price: 0 },
-  { name: 'Capsicum', category: 'vegetable', stock: 100, threshold: 20, price: 0 },
-  { name: 'Mushroom', category: 'vegetable', stock: 100, threshold: 20, price: 15 },
-  { name: 'Corn', category: 'vegetable', stock: 100, threshold: 20, price: 10 },
-  { name: 'Olives', category: 'vegetable', stock: 100, threshold: 20, price: 20 },
-  { name: 'Jalapeno', category: 'vegetable', stock: 100, threshold: 20, price: 15 },
-  { name: 'Tomato', category: 'vegetable', stock: 100, threshold: 20, price: 0 },
+  { name: 'Onion', category: 'vegetable', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/onion.png' },
+  { name: 'Capsicum', category: 'vegetable', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/capcicum.png' },
+  { name: 'Mushroom', category: 'vegetable', stock: 100, threshold: 20, price: 15, previewLayer: '/assets/layers/mushroom.png' },
+  { name: 'Corn', category: 'vegetable', stock: 100, threshold: 20, price: 10, previewLayer: '/assets/layers/corn.png' },
+  { name: 'Olives', category: 'vegetable', stock: 100, threshold: 20, price: 20, previewLayer: '/assets/layers/olives.png' },
+  { name: 'Jalapeno', category: 'vegetable', stock: 100, threshold: 20, price: 15, previewLayer: '/assets/layers/jalepeno.png' },
+  { name: 'Tomato', category: 'vegetable', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/tomato.png' },
 ];
 
 const run = async () => {
