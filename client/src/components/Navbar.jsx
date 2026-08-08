@@ -68,23 +68,23 @@ const Navbar = () => {
   };
 
   const pillClass =
-    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-5 py-2.5 text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
+    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-3 md:px-5 py-2 md:py-2.5 text-[10px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
 
   return (
     <header
       className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#F5E6D3]"
     >
-      <div className="mx-auto flex w-full items-center justify-between px-6 py-4 sm:px-12 relative">
+      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-3 md:py-4 relative">
         {/* Left Side: Logo */}
-        <Link to="/" className="flex shrink-0 items-center gap-3 group z-10">
-          <div className="h-12 w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
+        <Link to="/" className="flex shrink-0 items-center gap-2 md:gap-3 group z-10">
+          <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
             <img
               src="/assets/logo-artisan.png"
               alt="The Artisan Crust"
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="font-display text-2xl font-black tracking-tight text-char-950">
+          <span className="font-display text-lg md:text-2xl font-black tracking-tight text-char-950 hidden xs:block">
             The Artisan Crust
           </span>
         </Link>
@@ -102,8 +102,8 @@ const Navbar = () => {
         </nav>
 
         {/* Right Side: Actions */}
-        <div className="flex items-center gap-3 z-10">
-          <div className="flex items-center gap-3 border-l-2 border-char-950/5 pl-6">
+        <div className="flex items-center gap-2 md:gap-3 z-10">
+          <div className="flex items-center gap-2 md:gap-3 border-l-2 border-char-950/5 pl-2 md:pl-6">
             <button
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
@@ -122,7 +122,7 @@ const Navbar = () => {
               <CartIcon />
               <span className="hidden xl:inline">Cart</span>
               {itemCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-tomato text-[10px] font-black text-white shadow-md">
+                <span className="absolute -right-1 md:-right-2 -top-1 md:-top-2 flex h-4 w-4 md:h-5 md:w-5 items-center justify-center rounded-full bg-tomato text-[8px] md:text-[10px] font-black text-white shadow-md">
                   {itemCount}
                 </span>
               )}

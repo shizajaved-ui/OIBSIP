@@ -10,6 +10,8 @@ const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [registered, setRegistered] = useState(false);
+  const [toast, setToast] = useState('');
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,8 +21,14 @@ const Register = () => {
     setLoading(true);
     try {
       const { data } = await api.post('/auth/register', form);
-      login(data.token, data.user);
-      navigate('/dashboard');
+      setRegistered(true);
+      setToast('Account created! Welcome to the crust.');
+
+      // Delay to show success state before logging in/navigating
+      setTimeout(() => {
+        login(data.token, data.user);
+        navigate('/dashboard');
+      }, 1500);
     } catch (err) {
       if (!err.response) {
         setError('Server unreachable. Please make sure the backend is running on port 5000.');
@@ -29,7 +37,6 @@ const Register = () => {
         const detail = err.response.data?.error ? ` (${err.response.data.error})` : '';
         setError(`${msg}${detail}`);
       }
-    } finally {
       setLoading(false);
     }
   };
@@ -40,6 +47,17 @@ const Register = () => {
       subtitle="We'll send a verification link to your inbox."
       width="md"
     >
+      {/* Success Toast */}
+      {toast && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed left-1/2 top-24 z-[100] -translate-x-1/2 rounded-2xl bg-basil px-8 py-4 font-display text-lg font-black text-white shadow-2xl"
+        >
+          {toast}
+        </motion.div>
+      )}
+
       {error && (
         <div className="mb-6 rounded-2xl border border-tomato/20 bg-tomato/5 p-4 text-center text-sm font-bold text-tomato">
           {error}
@@ -72,8 +90,14 @@ const Register = () => {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
-        <button type="submit" disabled={loading} className="btn-primary w-full py-5 text-xl shadow-xl shadow-tomato/20">
-          {loading ? 'Creating account…' : 'Create account'}
+        <button
+          type="submit"
+          disabled={loading || registered}
+          className={`btn-primary w-full py-5 text-xl shadow-xl transition-colors duration-500 ${
+            registered ? 'bg-basil shadow-basil/20' : 'shadow-tomato/20'
+          }`}
+        >
+          {registered ? 'Registered! ✓' : loading ? 'Creating account…' : 'Create account'}
         </button>
       </form>
 

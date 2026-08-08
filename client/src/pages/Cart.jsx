@@ -103,17 +103,17 @@ const Cart = () => {
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
         <div
-          className="relative overflow-hidden flex flex-col items-center gap-3 p-16 text-center bg-[#FDF5E6] shadow-lg rounded-[48px] border border-char-950/5"
+          className="relative overflow-hidden flex flex-col items-center gap-3 p-8 md:p-16 text-center bg-[#FFFCF7] shadow-lg rounded-[48px] border border-char-950/5"
           style={{
             backgroundImage: 'url("/assets/doodle-border.png")',
             backgroundSize: '400px auto',
             backgroundBlendMode: 'soft-light'
           }}
         >
-          <span className="relative z-10 text-6xl mb-4 drop-shadow-md">🛒</span>
-          <p className="relative z-10 font-display text-3xl font-black text-char-950">Your cart is empty.</p>
+          <span className="relative z-10 text-4xl md:text-6xl mb-4 drop-shadow-md">🛒</span>
+          <p className="relative z-10 font-display text-2xl md:text-3xl font-black text-char-950">Your cart is empty.</p>
           <p className="relative z-10 text-sm font-medium text-char-950/40 italic mb-4">Start your artisanal pizza journey today.</p>
-          <button onClick={() => navigate('/menu')} className="relative z-10 btn-primary px-10 py-4 text-lg shadow-ember">
+          <button onClick={() => navigate('/menu')} className="relative z-10 btn-primary px-10 py-4 text-base md:text-lg shadow-ember w-full md:w-auto">
             Browse the menu
           </button>
         </div>
@@ -123,52 +123,52 @@ const Cart = () => {
             {items.map((item) => (
               <div
                 key={item._id}
-                className="relative overflow-hidden bg-[#FDF5E6] rounded-[40px] flex items-center justify-between gap-6 p-10 shadow-lg border border-char-950/5 transition-all hover:shadow-2xl"
+                className="relative overflow-hidden bg-[#FFFCF7] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-lg border border-char-950/5 transition-all hover:shadow-2xl"
                 style={{
                   backgroundImage: 'url("/assets/doodle-border.png")',
                   backgroundSize: '400px auto',
                   backgroundBlendMode: 'soft-light'
                 }}
               >
-                <div className="relative z-10 min-w-0">
-                  <h3 className="font-display text-2xl font-black text-char-950">{item.base?.name}</h3>
-                  <p className="mt-1 truncate text-[11px] font-black uppercase tracking-[0.15em] text-char-950/40">{describeItem(item)}</p>
-                  <p className="mt-3 text-2xl font-black text-tomato drop-shadow-sm">₹{item.unitPrice}</p>
+                <div className="relative z-10 min-w-0 flex-1">
+                  <h3 className="font-display text-xl md:text-2xl font-black text-char-950 truncate">{item.base?.name}</h3>
+                  <p className="mt-1 truncate text-[10px] md:text-[11px] font-black uppercase tracking-[0.15em] text-char-950/40">{describeItem(item)}</p>
+                  <p className="mt-2 md:mt-3 text-xl md:text-2xl font-black text-tomato drop-shadow-sm">₹{item.unitPrice}</p>
                 </div>
-                <div className="relative z-10 flex shrink-0 items-center gap-6">
+                <div className="relative z-10 flex w-full sm:w-auto shrink-0 items-center justify-between sm:justify-end gap-4 md:gap-6">
                   <div className="flex items-center rounded-full bg-white/60 backdrop-blur-md border border-char-950/10 shadow-inner p-1">
                     <button
                       onClick={() => updateQuantity(item._id, Math.max(1, item.quantity - 1))}
-                      className="h-10 w-10 flex items-center justify-center text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
+                      className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xl md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       −
                     </button>
-                    <span className="w-10 text-center font-display font-black text-xl text-char-950">{item.quantity}</span>
+                    <span className="w-8 md:w-10 text-center font-display font-black text-lg md:text-xl text-char-950">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                      className="h-10 w-10 flex items-center justify-center text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
+                      className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xl md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       +
                     </button>
                   </div>
                   <button
                     onClick={() => removeItem(item._id)}
-                    className="h-12 w-12 flex items-center justify-center rounded-full bg-tomato/10 text-tomato hover:bg-tomato hover:text-white transition-all shadow-md active:scale-90"
+                    className="h-10 w-10 md:h-12 md:w-12 flex items-center justify-center rounded-full bg-tomato/10 text-tomato hover:bg-tomato hover:text-white transition-all shadow-md active:scale-90"
                     title="Remove Item"
                   >
-                    <span className="text-xl font-bold">✕</span>
+                    <span className="text-lg md:text-xl font-bold">✕</span>
                   </button>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="bg-char-900 rounded-3xl mt-8 flex items-center justify-between p-8 border-2 border-dashed border-char-950/10">
-            <span className="font-display text-2xl font-black text-char-950">Total Amount</span>
-            <span className="font-display text-3xl font-black text-tomato">₹{total}</span>
+          <div className="bg-char-900 rounded-3xl mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
+            <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
+            <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
           </div>
 
-          {error && <p className="mt-4 text-center font-bold text-tomato">{error}</p>}
+          {error && <p className="mt-4 text-center font-bold text-tomato text-sm">{error}</p>}
           {demoMode && (
             <p className="mt-4 text-center text-xs font-bold text-char-950/30 uppercase tracking-widest italic">
               Demo mode — simulating checkout...

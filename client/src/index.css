@@ -8,10 +8,11 @@
 
 html, body, #root {
   height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background-color: #F5E6D3; /* Aged parchment beige */
+  background-color: #F9F4EE; /* Desaturated warm beige */
   color: #2F1F17;
   font-family: 'Plus Jakarta Sans', sans-serif;
   margin: 0;
@@ -41,6 +42,13 @@ body {
   background-size: 800px auto;
 }
 
+@media (max-width: 768px) {
+  .doodle-bg {
+    background-attachment: scroll;
+    background-size: 400px auto;
+  }
+}
+
 #root {
   position: relative;
   z-index: 1;
@@ -58,7 +66,7 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #F2E9D8;
+  background: #F9F4EE;
 }
 ::-webkit-scrollbar-thumb {
   background: #5C7A3A; /* Basil green accent */
@@ -69,8 +77,8 @@ body {
 }
 
 .card {
-  background-color: #FDF5E6; /* Warm butter honey */
-  border: 1px solid #EADFCF;
+  background-color: #FFFCF7; /* Very light cream */
+  border: 1px solid #F0E9DF;
   border-radius: 40px; /* Bolder rounding */
   box-shadow: 0 10px 30px -10px rgba(47, 31, 23, 0.15);
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
@@ -101,8 +109,8 @@ body {
 }
 
 .input-field {
-  background-color: #FDF5E6; /* Butter honey warmth */
-  border: 1px solid #EADFCF;
+  background-color: #FFFCF7; /* Very light cream */
+  border: 1px solid #F0E9DF;
   color: #2F1F17;
   border-radius: 0.9rem;
   transition: border-color 0.2s ease;

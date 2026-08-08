@@ -6,9 +6,9 @@ export default {
       colors: {
         char: {
           950: '#2F1F17', // roasted coffee bean
-          900: '#F5E6D3', // aged parchment beige
-          800: '#FDF5E6', // warm butter honey (old lace)
-          700: '#EADFCF', // deep linen / shadowed beige
+          900: '#F9F4EE', // desaturated warm beige (lighter)
+          800: '#FFFCF7', // very light cream (cards)
+          700: '#F0E9DF', // subtle linen (borders)
           600: '#DCC9A8',
         },
         cream: '#2B2118',
