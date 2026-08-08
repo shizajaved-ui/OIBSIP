@@ -1,28 +1,19 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { isCloudinaryConfigured } = require('../utils/cloudinary');
 
-// If Cloudinary is configured, keep the file in memory so the route can
-// stream it straight to Cloudinary — no local disk write, so it persists
-// across redeploys. If not, fall back to local disk storage so uploads
-// still work out of the box in local dev without any extra setup.
-let storage;
+// We always use disk storage now so that we have a local fallback file
+// in case Cloudinary uploads fail (e.g. due to invalid API keys).
+const uploadDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
-if (isCloudinaryConfigured) {
-  storage = multer.memoryStorage();
-} else {
-  const uploadDir = path.join(__dirname, '..', 'uploads');
-  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
-  storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, uploadDir),
-    filename: (req, file, cb) => {
-      const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-      cb(null, `${unique}${path.extname(file.originalname)}`);
-    },
-  });
-}
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `${unique}${path.extname(file.originalname)}`);
+  },
+});
 
 const fileFilter = (req, file, cb) => {
   const allowed = ['image/jpeg', 'image/png', 'image/webp'];
@@ -33,7 +24,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 3 * 1024 * 1024 }, // 3MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
 module.exports = upload;

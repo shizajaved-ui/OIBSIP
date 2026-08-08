@@ -2,7 +2,7 @@ const express = require('express');
 const Inventory = require('../models/Inventory');
 const { protect, adminOnly } = require('../middleware/auth');
 const upload = require('../middleware/upload');
-const { isCloudinaryConfigured, uploadBufferToCloudinary } = require('../utils/cloudinary');
+const { isCloudinaryConfigured, uploadFileToCloudinary } = require('../utils/cloudinary');
 
 const router = express.Router();
 
@@ -14,9 +14,9 @@ router.post('/:id/menu-visual', protect, adminOnly, upload.single('image'), asyn
     let imageUrl;
     if (isCloudinaryConfigured) {
       try {
-        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+        imageUrl = await uploadFileToCloudinary(req.file.path);
       } catch (cloudErr) {
-        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        console.error('Cloudinary upload failed, using local fallback:', cloudErr.message);
         imageUrl = `/uploads/${req.file.filename}`;
       }
     } else {
@@ -38,9 +38,9 @@ router.post('/:id/inventory-card', protect, adminOnly, upload.single('image'), a
     let imageUrl;
     if (isCloudinaryConfigured) {
       try {
-        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+        imageUrl = await uploadFileToCloudinary(req.file.path);
       } catch (cloudErr) {
-        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        console.error('Cloudinary upload failed, using local fallback:', cloudErr.message);
         imageUrl = `/uploads/${req.file.filename}`;
       }
     } else {
@@ -62,9 +62,9 @@ router.post('/:id/builder-image', protect, adminOnly, upload.single('image'), as
     let imageUrl;
     if (isCloudinaryConfigured) {
       try {
-        imageUrl = await uploadBufferToCloudinary(req.file.buffer);
+        imageUrl = await uploadFileToCloudinary(req.file.path);
       } catch (cloudErr) {
-        console.error('Cloudinary upload failed, falling back to local:', cloudErr);
+        console.error('Cloudinary upload failed, using local fallback:', cloudErr.message);
         imageUrl = `/uploads/${req.file.filename}`;
       }
     } else {

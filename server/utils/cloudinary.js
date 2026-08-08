@@ -19,15 +19,12 @@ if (process.env.CLOUDINARY_URL) {
 }
 
 /**
- * Uploads an image buffer to Cloudinary and returns the secure URL.
+ * Uploads an image file (by path) to Cloudinary and returns the secure URL.
  */
-const uploadBufferToCloudinary = (buffer) =>
+const uploadFileToCloudinary = (filePath) =>
   new Promise((resolve, reject) => {
-    // Convert buffer to base64 for reliable transport
-    const base64Image = `data:image/jpeg;base64,${buffer.toString('base64')}`;
-
     cloudinary.uploader.upload(
-      base64Image,
+      filePath,
       {
         resource_type: 'image',
         folder: 'pizza-app/inventory'
@@ -39,4 +36,4 @@ const uploadBufferToCloudinary = (buffer) =>
     );
   });
 
-module.exports = { isCloudinaryConfigured, uploadBufferToCloudinary };
+module.exports = { isCloudinaryConfigured, uploadFileToCloudinary };
