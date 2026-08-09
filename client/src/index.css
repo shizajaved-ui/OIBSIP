@@ -84,7 +84,7 @@ body {
 }
 
 .card {
-  background-color: #FFFBF9; /* Tinted terracotta white */
+  background-color: #FFF8F6; /* Noticeable terracotta tint */
   border: 1px solid #F0E9DF;
   border-radius: 40px; /* Bolder rounding */
   box-shadow: 0 10px 30px -10px rgba(47, 31, 23, 0.15);
@@ -116,7 +116,7 @@ body {
 }
 
 .input-field {
-  background-color: #FFFBF9; /* Tinted terracotta white */
+  background-color: #FFF8F6; /* Noticeable terracotta tint */
   border: 1px solid #F0E9DF;
   color: #2F1F17;
   border-radius: 0.9rem;

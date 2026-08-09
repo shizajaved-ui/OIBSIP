@@ -333,20 +333,9 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout width="6xl" isFloating>
-      {/* Header */}
-      <div ref={scrollRef} className="flex flex-col items-center text-center mb-8">
-        <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🧑‍🍳</span>
-            <h1 className="font-display text-4xl font-black tracking-tight text-char-950">
-              Build your pizza
-            </h1>
-          </div>
-          <p className="mt-1 text-base font-medium text-char-950/40 italic">
-            {CHEF_NOTES[step]}
-          </p>
-        </div>
+    <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
+      <div ref={scrollRef} className="hidden sm:block">
+         {/* Title and subtitle are now in PageLayout */}
       </div>
 
       {/* Stepper Navigation */}
@@ -435,8 +424,8 @@ const PizzaBuilder = () => {
 
               {/* Step 4: Final Review & Size */}
               {step === 4 && (
-                <div className="mx-auto max-w-xl overflow-hidden rounded-[40px] border border-char-950/10 bg-white p-10 shadow-2xl animate-rise">
-                  <h2 className="font-display text-3xl font-bold text-char-950 mb-8 border-b border-char-950/5 pb-6">Review your order</h2>
+                <div className="mx-auto max-w-xl overflow-hidden rounded-[40px] border border-char-950/10 bg-char-850 p-6 md:p-10 shadow-2xl animate-rise">
+                  <h2 className="font-display text-2xl md:text-3xl font-bold text-char-950 mb-8 border-b border-char-950/5 pb-6">Review your order</h2>
 
                   <SegmentedControl
                     label="Select Pizza Size"
@@ -450,7 +439,7 @@ const PizzaBuilder = () => {
                     <div className="flex items-center gap-4 bg-char-950/5 p-2 rounded-[20px] border border-char-950/5 w-fit">
                       <button
                         onClick={() => { playClickSound(); setSelection(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 1) })); }}
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
+                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-800 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
                       >
                         −
                       </button>
@@ -459,7 +448,7 @@ const PizzaBuilder = () => {
                       </span>
                       <button
                         onClick={() => { playClickSound(); setSelection(prev => ({ ...prev, quantity: prev.quantity + 1 })); }}
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-white text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
+                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-800 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
                       >
                         +
                       </button>
@@ -475,9 +464,9 @@ const PizzaBuilder = () => {
                       { label: 'Cheese', val: selection.cheese?.name },
                       { label: 'Veggies', val: selection.vegetables.map(v => v.name).join(', ') || 'None' }
                     ].map(row => (
-                      <div key={row.label} className="flex justify-between border-b border-char-950/5 pb-2">
-                        <span className="text-sm font-bold uppercase tracking-wider text-char-950/40">{row.label}</span>
-                        <span className="font-display text-lg font-bold text-char-950">{row.val}</span>
+                      <div key={row.label} className="grid grid-cols-[1fr_2.5fr] gap-4 border-b border-char-950/5 pb-2">
+                        <span className="text-[9px] md:text-sm font-bold uppercase tracking-wider text-char-950/40 self-center">{row.label}</span>
+                        <span className="font-display text-sm md:text-lg font-bold text-char-950 text-right">{row.val}</span>
                       </div>
                     ))}
                   </div>
@@ -538,7 +527,7 @@ const PizzaBuilder = () => {
                 <div className="absolute inset-0 bg-gradient-to-tr from-char-950/5 to-transparent pointer-events-none rounded-full" />
               </motion.div>
 
-              <div className="mt-4 md:mt-8 w-full bg-[#FDF5E6] rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-[#EADFCF] shadow-lg z-10 hidden md:block">
+              <div className="mt-4 md:mt-8 w-full bg-char-800 rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-[#EADFCF] shadow-lg z-10 hidden md:block">
                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.2em] text-char-950/40">
                   <span>Standard Preparation</span>
                   <span className="text-char-950/60">₹199</span>

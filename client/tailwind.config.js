@@ -7,8 +7,8 @@ export default {
         char: {
           950: '#2F1F17', // roasted coffee bean
           900: '#F9F4EE', // desaturated warm beige (lighter)
-          850: '#FFFBF9', // very subtle terracotta-tinted white
-          800: '#FFFCF7', // very light cream (cards)
+          850: '#FFF8F6', // noticeable terracotta tint (cards)
+          800: '#FFFBF9', // lighter tint (backgrounds/secondary)
           700: '#F0E9DF', // subtle linen (borders)
           600: '#DCC9A8',
         },

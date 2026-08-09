@@ -74,7 +74,7 @@ const Landing = () => {
     <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-16 flex flex-col items-center">
       <div className="w-full max-w-[1100px]">
         <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[56px] p-8 md:p-16 shadow-2xl border border-white/20 text-center lg:text-left">
-          <div>
+          <div className="text-center lg:text-left">
             <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-4 py-1 text-[10px] md:text-xs font-black uppercase tracking-widest text-tomato">
               Stone-fired, built your way
             </span>
@@ -83,7 +83,7 @@ const Landing = () => {
               <br />
               <span className="text-tomato italic text-2xl sm:text-[54px]">as an empty base.</span>
             </h1>
-            <p className="mt-6 mx-auto lg:mx-0 max-w-md text-sm md:text-base font-medium text-char-950/50 italic leading-relaxed">
+            <p className="mt-6 mx-auto lg:mx-0 max-w-md text-sm md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
               Pick your crust, your sauce, your cheese, your toppings. Track it
               from the stone oven to your door — in real time.
             </p>

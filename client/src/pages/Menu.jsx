@@ -7,6 +7,7 @@ import { useCart } from '../context/CartContext.jsx';
 import { getIngredientIcon } from '../utils/ingredientIcons.js';
 import { playClickSound } from '../utils/sound.js';
 import FlourBurst from '../components/FlourBurst.jsx';
+import PageLayout from '../components/PageLayout';
 
 const BASE_PRICE = 199;
 
@@ -232,14 +233,11 @@ const Menu = () => {
     : 0;
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-4 md:px-6 py-10 md:py-20 flex flex-col items-center">
-      <div className="w-full max-w-5xl bg-char-850 p-6 md:p-12 shadow-2xl rounded-none md:rounded-[64px] border-x-4 border-char-950/5 min-h-[calc(100vh-80px)]">
+    <>
+      <PageLayout title="Menu" subtitle="Ready to order pizzas? Or head to Build a Pizza to customize every layer yourself!" width="5xl" isFloating fullMobile useDoodleOverlay>
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b-2 border-char-950/5 pb-8 mb-10">
-          <div>
-            <h1 className="font-display text-3xl md:text-5xl font-black tracking-tight text-char-950">Menu</h1>
-            <p className="mt-2 text-sm md:text-lg font-medium text-char-950/40 italic">
-              Ready to order pizzas? Or head to Build a Pizza to customize every layer yourself!
-            </p>
+          <div className="hidden sm:block">
+            {/* Title and subtitle are now in PageLayout */}
           </div>
           <button
             onClick={() => navigate('/build')}
@@ -268,7 +266,7 @@ const Menu = () => {
             ))}
           </div>
         )}
-      </div>
+      </PageLayout>
 
       <AnimatePresence>
         {customizingItem && (
@@ -284,7 +282,7 @@ const Menu = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg overflow-hidden rounded-[48px] bg-[#FDF5E6] shadow-2xl border border-white/20"
+              className="relative w-full max-w-lg overflow-hidden rounded-[48px] bg-char-850 shadow-2xl border border-white/20"
               style={{
                 backgroundImage: 'url("/assets/doodle-border.png")',
                 backgroundSize: '400px auto',
@@ -363,7 +361,7 @@ const Menu = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg overflow-hidden rounded-[48px] bg-[#FDF5E6] shadow-2xl border border-white/20"
+              className="relative w-full max-w-lg overflow-hidden rounded-[48px] bg-char-850 shadow-2xl border border-white/20"
               style={{
                 backgroundImage: 'url("/assets/doodle-border.png")',
                 backgroundSize: '400px auto',
@@ -441,7 +439,7 @@ const Menu = () => {
           onComplete={() => setBursts(prev => prev.filter(item => item.id !== b.id))}
         />
       ))}
-    </div>
+    </>
   );
 };
 
