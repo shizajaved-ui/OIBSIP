@@ -55,7 +55,7 @@ const OptionCard = ({ item, selected, onSelect }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-800 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-850 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -110,7 +110,7 @@ const OptionCard = ({ item, selected, onSelect }) => {
 
       <div className="absolute inset-x-6 bottom-6">
         <h3 className="font-display text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
-        <p className={`mt-1 text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-800/95 text-char-950 px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
+        <p className={`mt-1 text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-850/95 text-char-950 px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
           {item.price > 0 ? 'Add-on' : 'Included'}
         </p>
       </div>
@@ -142,7 +142,7 @@ const PizzaBuilder = () => {
 
   const scrollToContent = () => {
     if (scrollRef.current) {
-      const offset = 140; // Landing point for the stepper
+      const offset = 140;
       const elementPosition = scrollRef.current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -168,7 +168,7 @@ const PizzaBuilder = () => {
         quantity: 1
       }));
 
-      // Preload all high-res assets to ensure instant clicks
+      // Preload assets
       data.forEach(item => {
         if (item.previewLayer) {
           const img = new Image();
@@ -228,7 +228,7 @@ const PizzaBuilder = () => {
   };
 
   // Pricing Logic
-  const basePrice = 199; // standard prep fee
+  const basePrice = 199;
   const unitPrice =
     basePrice +
     (selection.thickness?.price || 0) +
@@ -334,12 +334,8 @@ const PizzaBuilder = () => {
 
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
-      <div ref={scrollRef} className="hidden sm:block">
-         {/* Title and subtitle are now in PageLayout */}
-      </div>
-
       {/* Stepper Navigation - Fixed on top with shadow */}
-      <div className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 bg-[#F5EEE6]/95 backdrop-blur-md border-b border-char-950/10 flex items-center justify-center shadow-lg">
+      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 bg-[#F5EEE6]/95 backdrop-blur-md border-b border-char-950/10 flex items-center justify-center shadow-lg">
         <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 w-full flex-wrap">
           <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
           {STEPS.map((s, i) => (
@@ -367,8 +363,7 @@ const PizzaBuilder = () => {
       </div>
 
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-8">
-        {/* Main Selection Area */}
-        <div className="flex-1 w-full order-2 lg:order-1 px-2 md:px-0">
+        <div className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -378,7 +373,6 @@ const PizzaBuilder = () => {
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
               className="w-full"
             >
-              {/* Step 0: Crust & Thickness */}
               {step === 0 && (
                 <div className="space-y-10">
                   <SegmentedControl
@@ -400,7 +394,6 @@ const PizzaBuilder = () => {
                 </div>
               )}
 
-              {/* Steps 1-3: Sauce, Cheese, Toppings */}
               {(step === 1 || step === 2 || step === 3) && (
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
@@ -421,7 +414,6 @@ const PizzaBuilder = () => {
                 </div>
               )}
 
-              {/* Step 4: Final Review & Size */}
               {step === 4 && (
                 <div className="mx-auto max-w-xl overflow-hidden rounded-[40px] border border-char-950/10 bg-char-850 p-6 md:p-10 shadow-2xl animate-rise">
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-char-950 mb-8 border-b border-char-950/5 pb-6">Review your order</h2>
@@ -438,7 +430,7 @@ const PizzaBuilder = () => {
                     <div className="flex items-center gap-4 bg-char-950/5 p-2 rounded-[20px] border border-char-950/5 w-fit">
                       <button
                         onClick={() => { playClickSound(); setSelection(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 1) })); }}
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-800 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
+                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-850 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
                       >
                         −
                       </button>
@@ -447,7 +439,7 @@ const PizzaBuilder = () => {
                       </span>
                       <button
                         onClick={() => { playClickSound(); setSelection(prev => ({ ...prev, quantity: prev.quantity + 1 })); }}
-                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-800 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
+                        className="h-10 w-10 flex items-center justify-center rounded-full bg-char-850 text-tomato shadow-sm hover:shadow-md transition-all font-bold text-xl"
                       >
                         +
                       </button>
@@ -473,8 +465,8 @@ const PizzaBuilder = () => {
                   {error && <p className="mt-4 text-xs font-black text-tomato uppercase tracking-widest text-center">{error}</p>}
 
                   <div className="mt-10 flex items-center justify-between border-t-2 border-char-950 border-dashed pt-6">
-                    <span className="font-display text-2xl font-black text-char-950">Total Amount</span>
-                    <span className="font-display text-3xl font-black text-tomato">₹{total}</span>
+                    <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
+                    <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
                   </div>
                   <button
                     onClick={handlePayment}
@@ -489,12 +481,11 @@ const PizzaBuilder = () => {
           </AnimatePresence>
         </div>
 
-        {/* Sticky Visualizer Sidebar - Hidden on Review Step */}
         {step < 4 && (
           <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             <div className={`w-full transition-all duration-500 ${
               window.innerWidth < 768
-                ? 'fixed top-32 right-4 w-28 shadow-2xl rounded-[20px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1 overflow-visible'
+                ? 'fixed top-40 right-4 w-24 shadow-2xl rounded-[16px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-0.5 overflow-visible'
                 : 'bg-[#F3E9DC] rounded-[56px] p-8 border border-[#DCC9A8] shadow-2xl flex flex-col items-center relative overflow-hidden'
             }`}>
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
@@ -512,7 +503,6 @@ const PizzaBuilder = () => {
                   willChange: 'transform'
                 }}
               >
-                {/* The Wooden Board - Clean and simple */}
                 <div
                   className="absolute inset-0 rounded-full border md:border-4 border-[#8B5A2B]/10 shadow-[0_5px_15px_rgba(0,0,0,0.1)] md:shadow-[0_10px_20px_rgba(0,0,0,0.1)] overflow-hidden"
                   style={{
@@ -521,16 +511,13 @@ const PizzaBuilder = () => {
                     backgroundPosition: 'center',
                   }}
                 />
-
-                {/* Board Edge / 3D Depth */}
-                <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),_inset_0:1px_3px_rgba(255,255,255,0.1)] md:shadow-[inset_0_-4px_10px_rgba(0,0,0,0.3),_inset_0_2px_6px_rgba(255,255,255,0.1)] pointer-events-none" />
+                <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),_inset_0_1px_3px_rgba(255,255,255,0.1)] md:shadow-[inset_0_-4px_10px_rgba(0,0,0,0.3),_inset_0_2px_6px_rgba(255,255,255,0.1)] pointer-events-none" />
 
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
                    <div className={`${window.innerWidth < 768 ? 'scale-[0.8]' : 'scale-[0.96]'} drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]`}>
                       <PizzaVisualizer selection={selection} step={step} size={window.innerWidth < 768 ? "sm" : "md"} shouldRotate={false} />
                    </div>
                 </div>
-
                 <div className="absolute inset-0 bg-gradient-to-tr from-char-950/5 to-transparent pointer-events-none rounded-full" />
               </motion.div>
 
@@ -545,16 +532,14 @@ const PizzaBuilder = () => {
                 </div>
               </div>
 
-              {/* Mobile Total Display */}
-              <div className="md:hidden mt-1.5 text-center z-10">
-                <p className="text-[9px] font-black uppercase tracking-widest text-tomato">Total: ₹{total}</p>
+              <div className="md:hidden mt-1 text-center z-10">
+                <p className="text-[8px] font-black uppercase tracking-widest text-tomato">Total: ₹{total}</p>
               </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Effects */}
       {bursts.map((b) => (
         <ConfettiBurst
           key={b.id}
@@ -564,7 +549,6 @@ const PizzaBuilder = () => {
         />
       ))}
 
-      {/* Navigation Controls */}
       <AnimatePresence>
         {step < 4 && canProceed() && (
           <motion.button
