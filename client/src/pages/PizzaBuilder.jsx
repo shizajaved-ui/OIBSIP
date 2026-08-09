@@ -335,12 +335,12 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Fixed on top with shadow */}
-      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
+      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-start md:justify-center shadow-lg overflow-x-auto no-scrollbar">
         {/* Warm Overlay like Admin Station Header - Reduced opacity and blur for clarity */}
         <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
 
-        <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
-          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
+        <div className="relative z-10 flex items-center gap-1.5 md:gap-4 w-auto flex-nowrap px-4 md:px-0">
+          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block whitespace-nowrap">Select Step:</span>
           {STEPS.map((s, i) => (
             <button
               key={s}
@@ -351,7 +351,7 @@ const PizzaBuilder = () => {
                   setTimeout(scrollToContent, 100);
                 }
               }}
-              className={`px-2.5 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
+              className={`px-3 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md whitespace-nowrap ${
                 i === step
                   ? 'bg-tomato text-white scale-105 shadow-tomato/20 ring-4 ring-tomato/10'
                   : i < step
@@ -378,12 +378,15 @@ const PizzaBuilder = () => {
             >
               {step === 0 && (
                 <div className="space-y-10">
-                  <SegmentedControl
-                    label="Crust Thickness"
-                    items={byCategory('thickness')}
-                    selectedId={selection.thickness?._id}
-                    onSelect={(item) => selectThickness(item, 50)}
-                  />
+                  {/* Sticky Thickness Station - Like Admin Panel Station Header */}
+                  <div className="sticky top-[148px] z-20 -mx-4 md:-mx-12 mb-8 px-4 md:px-12 py-6 bg-[#F5EEE6]/90 backdrop-blur-md border-b border-char-950/5 shadow-sm">
+                    <SegmentedControl
+                      label="Crust Thickness"
+                      items={byCategory('thickness')}
+                      selectedId={selection.thickness?._id}
+                      onSelect={(item) => selectThickness(item, 50)}
+                    />
+                  </div>
                   <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                     {byCategory('base').map((item) => (
                       <OptionCard
