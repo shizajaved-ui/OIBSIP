@@ -74,23 +74,23 @@ const Navbar = () => {
     <header
       className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#F5E6D3]"
     >
-      <div className="mx-auto flex w-full items-center justify-between px-1.5 md:px-12 py-3 md:py-4 relative">
-        {/* Left Side: Logo */}
-        <Link to="/" className="flex shrink-0 items-center gap-1 md:gap-3 group z-10">
-          <div className="h-7 w-7 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
+      <div className="mx-auto flex w-full items-center justify-between px-3 md:px-12 py-3 md:py-4 gap-2">
+        {/* Left Side: Logo - Icon only on mobile */}
+        <Link to="/" className="flex shrink-0 items-center gap-2 group z-10">
+          <div className="h-8 w-8 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
             <img
               src="/assets/logo-artisan.png"
               alt="The Artisan Crust"
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="font-display text-[10px] md:text-2xl font-black tracking-tight text-char-950 hidden sm:block">
+          <span className="font-display text-2xl font-black tracking-tight text-char-950 hidden lg:block">
             The Artisan Crust
           </span>
         </Link>
 
-        {/* Middle: Main Nav - Centered and compact on mobile */}
-        <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 xs:gap-3 sm:gap-10">
+        {/* Middle: Main Nav - Fluid and compact */}
+        <nav className="flex items-center justify-center gap-2 sm:gap-6 md:gap-10 flex-1 min-w-0">
           {NAV_ITEMS.map((item) => (
             <Link key={item.path} to={item.path} className={linkClass(item.path)}>
               <span className={item.label === 'Build a pizza' ? 'hidden sm:inline' : ''}>
@@ -105,8 +105,8 @@ const Navbar = () => {
         </nav>
 
         {/* Right Side: Actions */}
-        <div className="flex items-center gap-1 md:gap-3 z-10">
-          <div className="flex items-center gap-1 md:gap-3 border-l-2 border-char-950/5 pl-1 md:pl-6">
+        <div className="flex items-center gap-1.5 md:gap-3 z-10 shrink-0">
+          <div className="flex items-center gap-1.5 md:gap-3 border-l-2 border-char-950/5 pl-1.5 md:pl-6">
             <button
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
