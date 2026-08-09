@@ -119,15 +119,15 @@ const OptionCard = ({ item, selected, onSelect }) => {
 };
 
 const MobileCompactControl = ({ items, selectedId, onSelect }) => (
-  <div className="flex gap-1 bg-char-950/5 p-1 rounded-xl border border-char-950/5 w-full">
+  <div className="flex gap-0.5 bg-char-950/10 p-0.5 rounded-lg border border-char-950/5 w-full">
     {items.map((item) => (
       <button
         key={item._id}
         onClick={() => onSelect(item)}
-        className={`flex-1 py-1.5 px-2 rounded-lg text-[9px] font-black uppercase tracking-tighter transition-all ${
+        className={`flex-1 py-1 rounded-md text-[8px] font-black uppercase tracking-tighter transition-all ${
           selectedId === item._id
             ? 'bg-white text-tomato shadow-sm scale-95'
-            : 'text-char-950/40'
+            : 'text-char-950/60'
         }`}
       >
         {item.name.split(' ')[0]}
@@ -353,8 +353,8 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Fixed on top with shadow */}
-      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-6 md:mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
-        {/* Warm Overlay like Admin Station Header - Reduced opacity and blur for clarity */}
+      <div ref={scrollRef} className="sticky top-[72px] z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 bg-[#FDF5E6]/95 backdrop-blur-md border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
+        {/* Warm Overlay - No doodle as requested */}
         <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
 
         <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
@@ -385,15 +385,28 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Stepper */}
       {step < 4 && (
-        <div className="sticky top-[152px] z-20 md:hidden -mx-4 mb-6 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
-          {/* Warm Beige Overlay like Admin Station */}
+        <div className="sticky top-[151px] z-40 md:hidden -mx-4 mb-6 px-4 py-2 bg-[#FDF5E6]/95 border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
+          {/* Warm Beige Overlay - No doodle as requested */}
           <div className="absolute inset-0 bg-[#FDF5E6]/80 backdrop-blur-sm" />
 
-          <div className="relative z-10 w-20 h-20 shrink-0">
-            <div className="absolute inset-0 rounded-full bg-char-950/5 shadow-inner" />
-            <div className="scale-[0.5] origin-center w-[200%] h-[200%] -translate-x-1/4 -translate-y-1/4 flex items-center justify-center">
-               <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
-            </div>
+          <div className="relative z-10 w-32 h-32 shrink-0 flex items-center justify-center">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+              className="relative w-full h-full flex items-center justify-center rounded-full shadow-lg"
+            >
+              <div
+                className="absolute inset-0 rounded-full border border-[#8B5A2B]/10 shadow-[0_5px_15px_rgba(0,0,0,0.1)] overflow-hidden"
+                style={{
+                  backgroundImage: 'url("/assets/wood-grain.jpg")',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <div className="relative z-10 scale-[0.75] flex items-center justify-center w-full h-full drop-shadow-2xl">
+                 <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
+              </div>
+            </motion.div>
           </div>
 
           <div className="relative z-10 flex-1">
