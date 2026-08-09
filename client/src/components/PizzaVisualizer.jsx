@@ -5,10 +5,12 @@ import { getIngredientIcon } from '../utils/ingredientIcons.js';
 const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) => {
   const isLarge = size === "lg";
   const isSmall = size === "sm";
+  const isResponsive = size === "responsive";
 
   const containerSize =
     isLarge ? "h-80 w-80 md:h-[500px] md:w-[500px]" :
     isSmall ? "h-32 w-32" :
+    isResponsive ? "h-full w-full md:h-80 md:w-80" :
     "h-64 w-64 md:h-80 md:w-80";
 
   // Animation variants for each layer dropping in - Removed blur to keep crust sharp
@@ -157,11 +159,11 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
 
       {/* Empty State Note */}
       {!selection.base && (
-        <div className="absolute z-50 text-center pointer-events-none">
-          <p className="font-display text-lg md:text-xl font-black text-char-950/20 italic tracking-[0.2em] uppercase leading-relaxed">
+        <div className="absolute z-50 text-center pointer-events-none px-4">
+          <p className={`font-display font-black text-char-950/20 italic tracking-[0.2em] uppercase leading-relaxed ${isResponsive ? 'text-[9px] md:text-xl' : isSmall ? 'text-[9px]' : 'text-lg md:text-xl'}`}>
             Select<br/>Your Crust
           </p>
-          <div className="mt-4 h-1 w-12 bg-char-950/10 mx-auto rounded-full" />
+          <div className={`mt-2 md:mt-4 h-0.5 md:h-1 w-8 md:w-12 bg-char-950/10 mx-auto rounded-full`} />
         </div>
       )}
     </div>
