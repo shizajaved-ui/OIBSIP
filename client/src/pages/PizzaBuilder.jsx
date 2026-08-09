@@ -488,7 +488,7 @@ const PizzaBuilder = () => {
           <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             {/* Mobile View: Fixed Mini Player | Desktop View: Large Interactive Board */}
             <div className="transition-all duration-500
-              fixed top-[260px] right-4 w-36 h-36 shadow-2xl rounded-[32px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
+              fixed top-[260px] right-4 w-40 h-40 shadow-2xl rounded-[32px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
               md:relative md:top-0 md:right-0 md:w-full md:h-auto md:bg-[#F3E9DC] md:rounded-[56px] md:p-8 md:border md:border-[#DCC9A8] md:shadow-2xl md:flex md:flex-col md:items-center md:overflow-hidden md:z-10">
 
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none md:block hidden" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
@@ -509,7 +509,7 @@ const PizzaBuilder = () => {
                 <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),_inset_0_1px_3px_rgba(255,255,255,0.1)] md:shadow-[inset_0_-4px_10px_rgba(0,0,0,0.3),_inset_0_2px_6px_rgba(255,255,255,0.1)] pointer-events-none" />
 
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
-                   <div className="scale-[0.88] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
+                   <div className="scale-[0.9] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
                       <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
                    </div>
                 </div>
@@ -556,7 +556,7 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               setTimeout(scrollToContent, 100);
             }}
-            className="fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
+            className="fixed right-2 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
           >
             <div className="bg-char-950 text-white h-10 w-10 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-2 md:border-4 border-white group-hover:bg-char-950/90 transition-all">
               <svg className="w-5 h-5 md:w-10 md:h-10 fill-current" viewBox="0 0 24 24">
@@ -582,7 +582,7 @@ const PizzaBuilder = () => {
               setStep(s => Math.max(0, s - 1));
               setTimeout(scrollToContent, 100);
             }}
-            className="fixed left-6 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
+            className="fixed left-2 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
           >
             <div className="bg-white text-char-950 h-10 w-10 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/20 border-2 md:border-4 border-char-950 group-hover:bg-char-900 transition-all">
               <svg className="w-5 h-5 md:w-10 md:h-10 fill-current rotate-180" viewBox="0 0 24 24">
