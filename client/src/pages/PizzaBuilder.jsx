@@ -338,27 +338,26 @@ const PizzaBuilder = () => {
          {/* Title and subtitle are now in PageLayout */}
       </div>
 
-      {/* Stepper Navigation */}
-      <div className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-8 px-4 md:px-12 py-4 md:py-6 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
-        <div className="absolute inset-0 bg-[#FDF5E6]/70" />
-        <div className="relative z-10 flex items-center justify-center gap-2 md:gap-3 w-full flex-wrap">
-          <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.25em] text-char-950/60 mr-2 md:mr-4">Select Step:</span>
+      {/* Stepper Navigation - Fixed on top with shadow */}
+      <div className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 bg-[#F5EEE6]/95 backdrop-blur-md border-b border-char-950/10 flex items-center justify-center shadow-lg">
+        <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 w-full flex-wrap">
+          <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
           {STEPS.map((s, i) => (
             <button
               key={s}
               onClick={() => {
-                if (i < step) {
+                if (i <= step) {
                   playClickSound();
                   setStep(i);
-                  scrollToContent();
+                  setTimeout(scrollToContent, 100);
                 }
               }}
-              className={`px-4 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full shadow-lg transition-all active:scale-95 ${
+              className={`px-4 md:px-8 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
                 i === step
-                  ? 'bg-tomato text-white'
+                  ? 'bg-tomato text-white scale-105 shadow-tomato/20 ring-4 ring-tomato/10'
                   : i < step
-                  ? 'bg-char-950 text-white hover:bg-tomato/80 cursor-pointer'
-                  : 'bg-char-950/10 text-char-950/30 cursor-not-allowed shadow-none border border-char-950/5'
+                  ? 'bg-char-950 text-white hover:bg-tomato cursor-pointer'
+                  : 'bg-char-950/5 text-char-950/20 cursor-not-allowed border border-char-950/5 shadow-none'
               }`}
             >
               {s}
@@ -576,7 +575,7 @@ const PizzaBuilder = () => {
             onClick={() => {
               playClickSound();
               setStep(s => s + 1);
-              scrollToContent();
+              setTimeout(scrollToContent, 100);
             }}
             className="fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >
@@ -602,7 +601,7 @@ const PizzaBuilder = () => {
             onClick={() => {
               playClickSound();
               setStep(s => Math.max(0, s - 1));
-              scrollToContent();
+              setTimeout(scrollToContent, 100);
             }}
             className="fixed left-6 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-2 group"
           >

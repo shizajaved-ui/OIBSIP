@@ -38,10 +38,10 @@ const SearchOverlay = ({ onClose }) => {
   return (
     <div
       ref={overlayRef}
-      className="absolute inset-x-0 top-full z-40 flex justify-center px-2 md:px-6 py-4"
+      className="absolute inset-x-0 top-full z-40 flex justify-center px-4 md:px-6 py-4"
     >
       <div className="w-full max-w-3xl animate-rise">
-        <div className="flex items-center gap-2 md:gap-4 rounded-full border-2 border-char-950/15 bg-char-850 p-1.5 md:p-2 pl-4 md:pl-6 shadow-2xl backdrop-blur-xl ring-4 md:ring-8 ring-char-950/5">
+        <div className="flex items-center gap-3 md:gap-4 rounded-full border-2 border-char-950/15 bg-char-850 p-2 pl-5 md:pl-6 shadow-2xl backdrop-blur-xl ring-4 md:ring-8 ring-char-950/5">
           <div className="flex shrink-0 items-center justify-center">
             <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-5 md:w-5 text-tomato" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
@@ -52,12 +52,12 @@ const SearchOverlay = ({ onClose }) => {
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search pizza flavors…"
+            placeholder="Search flavors…"
             className="flex-1 bg-transparent font-display text-sm md:text-lg font-bold text-char-950 outline-none placeholder:font-normal placeholder:italic placeholder:text-char-950/30 min-w-0"
           />
           <button
             onClick={onClose}
-            className="rounded-full bg-char-950 px-4 md:px-6 py-2 md:py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white transition hover:bg-tomato shadow-md active:scale-95 shrink-0"
+            className="rounded-full bg-char-950 px-5 md:px-6 py-2.5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-white transition hover:bg-tomato shadow-md active:scale-95 shrink-0"
           >
             Close
           </button>
