@@ -118,6 +118,24 @@ const OptionCard = ({ item, selected, onSelect }) => {
   );
 };
 
+const MobileCompactControl = ({ items, selectedId, onSelect }) => (
+  <div className="flex gap-1 bg-char-950/5 p-1 rounded-xl border border-char-950/5 w-full">
+    {items.map((item) => (
+      <button
+        key={item._id}
+        onClick={() => onSelect(item)}
+        className={`flex-1 py-1.5 px-2 rounded-lg text-[9px] font-black uppercase tracking-tighter transition-all ${
+          selectedId === item._id
+            ? 'bg-white text-tomato shadow-sm scale-95'
+            : 'text-char-950/40'
+        }`}
+      >
+        {item.name.split(' ')[0]}
+      </button>
+    ))}
+  </div>
+);
+
 const PizzaBuilder = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -335,12 +353,12 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Fixed on top with shadow */}
-      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-start md:justify-center shadow-lg overflow-x-auto no-scrollbar">
+      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-6 md:mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
         {/* Warm Overlay like Admin Station Header - Reduced opacity and blur for clarity */}
         <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
 
-        <div className="relative z-10 flex items-center gap-1.5 md:gap-4 w-auto flex-nowrap px-4 md:px-0">
-          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block whitespace-nowrap">Select Step:</span>
+        <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
+          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
           {STEPS.map((s, i) => (
             <button
               key={s}
@@ -351,7 +369,7 @@ const PizzaBuilder = () => {
                   setTimeout(scrollToContent, 100);
                 }
               }}
-              className={`px-3 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md whitespace-nowrap ${
+              className={`px-2.5 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
                 i === step
                   ? 'bg-tomato text-white scale-105 shadow-tomato/20 ring-4 ring-tomato/10'
                   : i < step
@@ -365,6 +383,45 @@ const PizzaBuilder = () => {
         </div>
       </div>
 
+      {/* Mobile Preview & Thickness Header - Sticky below Stepper */}
+      {step < 4 && (
+        <div className="sticky top-[152px] z-20 md:hidden -mx-4 mb-6 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
+          {/* Warm Beige Overlay like Admin Station */}
+          <div className="absolute inset-0 bg-[#FDF5E6]/80 backdrop-blur-sm" />
+
+          <div className="relative z-10 w-20 h-20 shrink-0">
+            <div className="absolute inset-0 rounded-full bg-char-950/5 shadow-inner" />
+            <div className="scale-[0.5] origin-center w-[200%] h-[200%] -translate-x-1/4 -translate-y-1/4 flex items-center justify-center">
+               <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
+            </div>
+          </div>
+
+          <div className="relative z-10 flex-1">
+            {step === 0 ? (
+              <div>
+                <p className="text-[8px] font-black uppercase tracking-widest text-char-950/40 mb-1.5 ml-1">Select Thickness</p>
+                <MobileCompactControl
+                  items={byCategory('thickness')}
+                  selectedId={selection.thickness?._id}
+                  onSelect={(item) => selectThickness(item, 50)}
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-between pr-2">
+                 <div>
+                    <p className="text-[8px] font-black uppercase tracking-widest text-char-950/40">Active Step</p>
+                    <p className="font-display text-[13px] font-black text-char-950 uppercase tracking-tight">{STEPS[step]}</p>
+                 </div>
+                 <div className="text-right">
+                    <p className="text-[8px] font-black uppercase tracking-widest text-char-950/40">Total</p>
+                    <p className="font-display text-base font-black text-tomato">₹{total}</p>
+                 </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-8">
         <div className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
           <AnimatePresence mode="wait">
@@ -377,9 +434,8 @@ const PizzaBuilder = () => {
               className="w-full"
             >
               {step === 0 && (
-                <div className="space-y-10">
-                  {/* Sticky Thickness Station - Like Admin Panel Station Header */}
-                  <div className="sticky top-[148px] z-20 -mx-4 md:-mx-12 mb-8 px-4 md:px-12 py-6 bg-[#F5EEE6]/90 backdrop-blur-md border-b border-char-950/5 shadow-sm">
+                <div className="space-y-6 md:space-y-10">
+                  <div className="hidden md:block">
                     <SegmentedControl
                       label="Crust Thickness"
                       items={byCategory('thickness')}
@@ -488,11 +544,9 @@ const PizzaBuilder = () => {
         </div>
 
         {step < 4 && (
-          <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
-            {/* Mobile View: Fixed Mini Player | Desktop View: Large Interactive Board */}
-            <div className="transition-all duration-500
-              fixed top-[260px] right-4 w-40 h-40 shadow-2xl rounded-[32px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
-              md:relative md:top-0 md:right-0 md:w-full md:h-auto md:bg-[#F3E9DC] md:rounded-[56px] md:p-8 md:border md:border-[#DCC9A8] md:shadow-2xl md:flex md:flex-col md:items-center md:overflow-hidden md:z-10">
+          <div className="hidden md:block sticky top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
+            {/* Desktop View: Large Interactive Board (Mobile Mini Player Removed) */}
+            <div className="transition-all duration-500 relative w-full h-auto bg-[#F3E9DC] rounded-[56px] p-8 border border-[#DCC9A8] shadow-2xl flex flex-col items-center overflow-hidden z-10">
 
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none md:block hidden" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
 
@@ -512,7 +566,7 @@ const PizzaBuilder = () => {
                 <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),_inset_0_1px_3px_rgba(255,255,255,0.1)] md:shadow-[inset_0_-4px_10px_rgba(0,0,0,0.3),_inset_0_2px_6px_rgba(255,255,255,0.1)] pointer-events-none" />
 
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
-                   <div className="scale-[0.9] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
+                   <div className="scale-[0.88] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
                       <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
                    </div>
                 </div>
@@ -559,7 +613,7 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               setTimeout(scrollToContent, 100);
             }}
-            className="fixed right-2 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
+            className="fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
           >
             <div className="bg-char-950 text-white h-10 w-10 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-2 md:border-4 border-white group-hover:bg-char-950/90 transition-all">
               <svg className="w-5 h-5 md:w-10 md:h-10 fill-current" viewBox="0 0 24 24">
@@ -585,7 +639,7 @@ const PizzaBuilder = () => {
               setStep(s => Math.max(0, s - 1));
               setTimeout(scrollToContent, 100);
             }}
-            className="fixed left-2 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
+            className="fixed left-6 bottom-24 md:left-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
           >
             <div className="bg-white text-char-950 h-10 w-10 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/20 border-2 md:border-4 border-char-950 group-hover:bg-char-900 transition-all">
               <svg className="w-5 h-5 md:w-10 md:h-10 fill-current rotate-180" viewBox="0 0 24 24">

@@ -134,8 +134,8 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none"
               >
-                {/* Topping Container: Shrink to 74% to keep them strictly inside the cheese area - Removed overflow hidden to prevent clipping on small screens */}
-                <div className="relative w-[74%] h-[74%] rounded-full">
+                {/* Topping Container: Shrink to 74% to keep them strictly inside the cheese area */}
+                <div className="relative w-[74%] h-[74%] rounded-full overflow-hidden">
                   {v.previewLayer ? (
                     <img
                       src={resolveImageUrl(v.previewLayer)}
@@ -148,7 +148,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
                       }}
                     />
                   ) : (
-                    <ToppingEmojiFallback v={v} idx={idx} isLarge={isLarge} isSmall={isSmall} isResponsive={isResponsive} count={selection.vegetables.length} />
+                    <ToppingEmojiFallback v={v} idx={idx} isLarge={isLarge} isSmall={isSmall} count={selection.vegetables.length} />
                   )}
                 </div>
               </motion.div>
@@ -170,14 +170,13 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
   );
 };
 
-const ToppingEmojiFallback = ({ v, idx, isLarge, isSmall, isResponsive, count }) => {
+const ToppingEmojiFallback = ({ v, idx, isLarge, isSmall, count }) => {
   // Use a smaller spread to ensure emojis stay inside the sauce area
-  // On responsive mobile, we need a tiny spread
-  const spread = isLarge ? 120 : (isSmall || isResponsive) ? 35 : 75;
+  const spread = isLarge ? 120 : isSmall ? 35 : 75;
   const angle = (idx * (2 * Math.PI / count)) + (idx * 0.5);
   return (
     <div
-      className={`absolute filter drop-shadow-[0_5px_8px_rgba(47,31,23,0.4)] ${isLarge ? 'text-7xl' : (isSmall || isResponsive) ? 'text-2xl' : 'text-5xl'}`}
+      className={`absolute filter drop-shadow-[0_5px_8px_rgba(47,31,23,0.4)] ${isLarge ? 'text-7xl' : isSmall ? 'text-2xl' : 'text-5xl'}`}
       style={{
         left: '50%',
         top: '50%',
