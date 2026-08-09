@@ -24,23 +24,24 @@ const SearchOverlay = ({ onClose }) => {
   }, [onClose]);
 
   const results = query.trim()
-    ? inventory.filter((i) => i.name.toLowerCase().includes(query.trim().toLowerCase())).slice(0, 8)
+    ? inventory
+        .filter((i) => i.category === 'base' && i.name.toLowerCase().includes(query.trim().toLowerCase()))
+        .slice(0, 8)
     : [];
 
   const goToItem = (item) => {
     onClose();
     setQuery('');
-    if (item.category === 'base') navigate('/menu');
-    else navigate('/build');
+    navigate('/menu');
   };
 
   return (
     <div
       ref={overlayRef}
-      className="absolute inset-x-0 top-full z-40 flex justify-center px-6 py-4"
+      className="absolute inset-x-0 top-full z-40 flex justify-center px-4 md:px-6 py-4"
     >
       <div className="w-full max-w-3xl animate-rise">
-        <div className="flex items-center gap-4 rounded-full border-2 border-char-950/15 bg-char-800 p-2 pl-6 shadow-2xl backdrop-blur-xl ring-8 ring-char-950/5">
+        <div className="flex items-center gap-4 rounded-full border-2 border-char-950/15 bg-char-850 p-2 pl-6 shadow-2xl backdrop-blur-xl ring-8 ring-char-950/5">
           <div className="flex shrink-0 items-center justify-center">
             <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8" />
@@ -51,8 +52,8 @@ const SearchOverlay = ({ onClose }) => {
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search crusts, sauces, cheeses, toppings…"
-            className="flex-1 bg-transparent font-display text-lg font-bold text-char-950 outline-none placeholder:font-normal placeholder:italic placeholder:text-char-950/30"
+            placeholder="Search pizza flavors…"
+            className="flex-1 bg-transparent font-display text-base md:text-lg font-bold text-char-950 outline-none placeholder:font-normal placeholder:italic placeholder:text-char-950/30"
           />
           <button
             onClick={onClose}

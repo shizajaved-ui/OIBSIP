@@ -68,7 +68,7 @@ const Navbar = () => {
   };
 
   const pillClass =
-    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-3 md:px-5 py-2 md:py-2.5 text-[10px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
+    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-2.5 md:px-5 py-2 md:py-2.5 text-[9px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
 
   return (
     <header

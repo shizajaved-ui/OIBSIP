@@ -123,7 +123,7 @@ const Cart = () => {
             {items.map((item) => (
               <div
                 key={item._id}
-                className="relative overflow-hidden bg-[#FFFCF7] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-lg border border-char-950/5 transition-all hover:shadow-2xl"
+                className="relative overflow-hidden bg-[#FFFBF9] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-lg border-2 border-tomato/5 transition-all hover:shadow-2xl hover:border-tomato/20"
                 style={{
                   backgroundImage: 'url("/assets/doodle-border.png")',
                   backgroundSize: '400px auto',

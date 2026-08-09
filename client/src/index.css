@@ -12,7 +12,7 @@ html, body, #root {
 }
 
 body {
-  background-color: #F9F4EE; /* Desaturated warm beige */
+  background-color: #F5EEE6; /* Toasted Linen - Better contrast for cards */
   color: #2F1F17;
   font-family: 'Plus Jakarta Sans', sans-serif;
   margin: 0;
@@ -65,8 +65,15 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
 }
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
 ::-webkit-scrollbar-track {
-  background: #F9F4EE;
+  background: #F5EEE6;
 }
 ::-webkit-scrollbar-thumb {
   background: #5C7A3A; /* Basil green accent */
@@ -77,7 +84,7 @@ body {
 }
 
 .card {
-  background-color: #FFFCF7; /* Very light cream */
+  background-color: #FFFBF9; /* Tinted terracotta white */
   border: 1px solid #F0E9DF;
   border-radius: 40px; /* Bolder rounding */
   box-shadow: 0 10px 30px -10px rgba(47, 31, 23, 0.15);
@@ -109,7 +116,7 @@ body {
 }
 
 .input-field {
-  background-color: #FFFCF7; /* Very light cream */
+  background-color: #FFFBF9; /* Tinted terracotta white */
   border: 1px solid #F0E9DF;
   color: #2F1F17;
   border-radius: 0.9rem;

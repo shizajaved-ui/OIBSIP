@@ -28,9 +28,9 @@ const Receipt = ({ order }) => (
         { label: 'Cheese', val: order.cheese?.name },
         { label: 'Veggies', val: order.vegetables?.map((v) => v.name).join(', ') || 'None' }
       ].map(row => (
-        <div key={row.label} className="flex justify-between">
-          <span className="font-bold text-char-950/30 uppercase tracking-widest text-[10px]">{row.label}</span>
-          <span className="font-display font-bold text-char-950">{row.val}</span>
+        <div key={row.label} className="grid grid-cols-[1fr_2fr] gap-4 border-b border-char-950/5 pb-2 last:border-0">
+          <span className="font-bold text-char-950/30 uppercase tracking-widest text-[9px] md:text-[10px] self-start mt-1">{row.label}</span>
+          <span className="font-display font-bold text-char-950 text-right break-words">{row.val}</span>
         </div>
       ))}
     </div>

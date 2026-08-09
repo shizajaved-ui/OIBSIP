@@ -232,18 +232,18 @@ const Menu = () => {
     : 0;
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-20 flex flex-col items-center">
-      <div className="w-full max-w-5xl bg-char-800 p-8 md:p-12 shadow-2xl rounded-[64px] border border-char-950/5">
-        <div className="flex items-end justify-between gap-4 border-b-2 border-char-950/5 pb-8 mb-10">
+    <div className="doodle-bg min-h-[calc(100vh-80px)] px-4 md:px-6 py-10 md:py-20 flex flex-col items-center">
+      <div className="w-full max-w-5xl bg-char-850 p-6 md:p-12 shadow-2xl rounded-none md:rounded-[64px] border-x-4 border-char-950/5 min-h-[calc(100vh-80px)]">
+        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b-2 border-char-950/5 pb-8 mb-10">
           <div>
-            <h1 className="font-display text-5xl font-black tracking-tight text-char-950">Menu</h1>
-            <p className="mt-2 text-lg font-medium text-char-950/40 italic">
+            <h1 className="font-display text-3xl md:text-5xl font-black tracking-tight text-char-950">Menu</h1>
+            <p className="mt-2 text-sm md:text-lg font-medium text-char-950/40 italic">
               Ready to order pizzas? Or head to Build a Pizza to customize every layer yourself!
             </p>
           </div>
           <button
             onClick={() => navigate('/build')}
-            className="hidden shrink-0 rounded-full bg-char-950 px-8 py-3 text-sm font-black uppercase tracking-widest text-white transition-all hover:bg-tomato shadow-lg active:scale-95 sm:block"
+            className="w-full sm:w-auto shrink-0 rounded-full bg-char-950 px-8 py-3.5 text-xs md:text-sm font-black uppercase tracking-widest text-white transition-all hover:bg-tomato shadow-lg active:scale-95"
           >
             Build your own
           </button>

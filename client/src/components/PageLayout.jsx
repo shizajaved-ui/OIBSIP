@@ -16,17 +16,17 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
   };
 
   return (
-    <div className={`min-h-[calc(100vh-80px)] ${showDoodle ? 'doodle-bg' : 'bg-char-900'} flex justify-center ${isFloating ? 'items-start py-10 md:py-20 px-4 md:px-6' : 'items-stretch'}`}>
+    <div className={`min-h-[calc(100vh-80px)] ${showDoodle ? 'doodle-bg' : 'bg-char-900'} flex justify-center ${isFloating ? 'items-start py-0 md:py-20 px-4 md:px-6' : 'items-stretch'}`}>
       {/*
           This centered container acts as the "split" in the background.
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative overflow-hidden' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? 'rounded-[40px] md:rounded-[64px] border border-char-950/5' : ''}`}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative overflow-hidden' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? 'rounded-none md:rounded-[64px] border-x-4 border-char-950/5 min-h-[calc(100vh-80px)]' : ''}`}
         style={useDoodleOverlay ? {
           backgroundImage: 'url("/assets/doodle-border.png")',
           backgroundSize: '300px auto',
-          backgroundColor: '#FFFCF7',
+          backgroundColor: '#FFFBF9',
           backgroundBlendMode: 'soft-light'
         } : {}}
       >

@@ -49,7 +49,8 @@ const ReceiptModal = ({ order, onClose }) => {
 
                     <div className="space-y-4 border-y-2 border-dashed border-char-950/10 py-8 mb-8">
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Quantity: {order.quantity || 1}</span>
+                            <span className="font-display text-lg font-bold text-char-950">Quantity</span>
+                            <span className="font-bold text-char-950/40">{order.quantity || 1}</span>
                         </div>
                         <div className="flex justify-between items-center">
                             <span className="font-display text-lg font-bold text-char-950">Thickness: {order.thickness?.name || 'Standard'}</span>
@@ -73,7 +74,7 @@ const ReceiptModal = ({ order, onClose }) => {
                         </div>
                         {order.vegetables?.length > 0 && (
                             <div className="pt-2">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-2">Toppings</p>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-2 border-b border-char-950/5 pb-1">Toppings</p>
                                 {order.vegetables.map(v => (
                                     <div key={v._id} className="flex justify-between items-center text-sm mb-1">
                                         <span className="font-medium text-char-950/70">{v.name}</span>

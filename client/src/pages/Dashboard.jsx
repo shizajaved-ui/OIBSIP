@@ -74,9 +74,14 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
-        <Link to="/build" className="btn-primary w-full md:w-auto text-center px-8 py-4 text-base md:text-lg shadow-xl shadow-tomato/20">
-          + New pizza
-        </Link>
+        <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          <Link to="/menu" className="btn-primary w-full sm:w-auto text-center px-8 py-4 text-base md:text-lg shadow-xl shadow-tomato/20">
+            View Menu
+          </Link>
+          <Link to="/build" className="rounded-full border-2 border-char-950/10 bg-white w-full sm:w-auto text-center px-8 py-4 text-base md:text-lg font-black uppercase tracking-widest text-char-950 transition hover:border-char-950/30 active:scale-95 shadow-lg">
+            + Custom
+          </Link>
+        </div>
       </div>
 
       {loading ? (
