@@ -73,30 +73,30 @@ const Landing = () => {
   return (
     <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-16 flex flex-col items-center">
       <div className="w-full max-w-[1100px]">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[56px] p-8 md:p-16 shadow-2xl border border-white/20 text-center lg:text-left">
+        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[48px] md:rounded-[56px] p-6 md:p-16 shadow-2xl border border-white/20 text-center lg:text-left">
           <div className="text-center lg:text-left">
-            <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-4 py-1 text-[10px] md:text-xs font-black uppercase tracking-widest text-tomato">
+            <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-3 md:px-4 py-1 text-[9px] md:text-xs font-black uppercase tracking-widest text-tomato">
               Stone-fired, built your way
             </span>
-            <h1 className="font-display text-3xl font-black leading-tight tracking-[-0.02em] text-char-950 sm:text-[54px]">
+            <h1 className="font-display text-2xl md:text-[54px] font-black leading-tight tracking-[-0.02em] text-char-950">
               Every pizza starts
               <br />
-              <span className="text-tomato italic text-2xl sm:text-[54px]">as an empty base.</span>
+              <span className="text-tomato italic text-xl md:text-[54px]">as an empty base.</span>
             </h1>
-            <p className="mt-6 mx-auto lg:mx-0 max-w-md text-sm md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
+            <p className="mt-4 md:mt-6 mx-auto lg:mx-0 max-w-md text-xs md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
               Pick your crust, your sauce, your cheese, your toppings. Track it
               from the stone oven to your door — in real time.
             </p>
-            <div className="mt-8 md:mt-10 flex items-center justify-center lg:justify-start gap-3 md:gap-4">
+            <div className="mt-6 md:mt-10 flex items-center justify-center lg:justify-start gap-3 md:gap-4">
               <Link
                 to="/register"
-                className="btn-primary px-6 md:px-8 py-3 md:py-3.5 text-sm md:text-base transition active:scale-95 shadow-xl shadow-tomato/20"
+                className="btn-primary px-5 md:px-8 py-2.5 md:py-3.5 text-xs md:text-base transition active:scale-95 shadow-xl shadow-tomato/20"
               >
                 Start building
               </Link>
               <Link
                 to="/login"
-                className="rounded-full border-2 border-char-950/10 bg-white px-6 md:px-8 py-3 md:py-3.5 text-sm md:text-base font-black uppercase tracking-widest text-char-950 transition hover:border-char-950/30 active:scale-95"
+                className="rounded-full border-2 border-char-950/10 bg-white px-5 md:px-8 py-2.5 md:py-3.5 text-xs md:text-base font-black uppercase tracking-widest text-char-950 transition hover:border-char-950/30 active:scale-95"
               >
                 Sign in
               </Link>
