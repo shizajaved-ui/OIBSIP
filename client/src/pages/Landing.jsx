@@ -71,11 +71,11 @@ const Landing = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-0 md:px-6 py-16 flex flex-col items-center overflow-hidden">
+    <div className="doodle-bg min-h-[calc(100vh-80px)] px-0 md:px-6 pt-0 pb-16 md:py-16 flex flex-col items-center overflow-hidden">
       <div className="w-full max-w-[1100px] px-0 md:px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-none md:rounded-[56px] p-8 md:p-16 shadow-2xl border-y md:border border-white/20 text-center lg:text-left">
+        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-none md:rounded-[56px] pt-12 pb-8 px-8 md:p-16 shadow-2xl border-y md:border border-white/20 text-center lg:text-left">
           <div className="text-center lg:text-left px-4 md:px-0">
-            <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-3 md:px-4 py-1 text-[9px] md:text-xs font-black uppercase tracking-widest text-tomato">
+            <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-3 md:px-4 py-1 text-xs md:text-sm font-black uppercase tracking-widest text-tomato">
               Stone-fired, built your way
             </span>
             <h1 className="font-display text-4xl md:text-[54px] font-black leading-tight tracking-[-0.02em] text-char-950">

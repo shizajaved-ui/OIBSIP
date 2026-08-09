@@ -335,9 +335,12 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Fixed on top with shadow */}
-      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 bg-[#F5EEE6]/95 backdrop-blur-md border-b border-char-950/10 flex items-center justify-center shadow-lg">
-        <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 w-full flex-wrap">
-          <span className="text-[10px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
+      <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
+        {/* Warm Overlay like Admin Station Header */}
+        <div className="absolute inset-0 bg-[#FDF5E6]/80 backdrop-blur-sm" />
+
+        <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
+          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
           {STEPS.map((s, i) => (
             <button
               key={s}
@@ -348,7 +351,7 @@ const PizzaBuilder = () => {
                   setTimeout(scrollToContent, 100);
                 }
               }}
-              className={`px-4 md:px-8 py-2.5 text-[10px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
+              className={`px-2.5 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
                 i === step
                   ? 'bg-tomato text-white scale-105 shadow-tomato/20 ring-4 ring-tomato/10'
                   : i < step
@@ -485,7 +488,7 @@ const PizzaBuilder = () => {
           <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             <div className={`w-full transition-all duration-500 ${
               window.innerWidth < 768
-                ? 'fixed top-40 right-4 w-24 shadow-2xl rounded-[16px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-0.5 overflow-visible'
+                ? 'fixed top-36 right-4 w-20 shadow-2xl rounded-[16px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-0.5 overflow-visible'
                 : 'bg-[#F3E9DC] rounded-[56px] p-8 border border-[#DCC9A8] shadow-2xl flex flex-col items-center relative overflow-hidden'
             }`}>
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
