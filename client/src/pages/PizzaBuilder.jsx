@@ -487,8 +487,8 @@ const PizzaBuilder = () => {
         {step < 4 && (
           <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             {/* Mobile View: Fixed Mini Player | Desktop View: Large Interactive Board */}
-            <div className="w-full transition-all duration-500
-              fixed top-[160px] right-4 w-28 h-28 shadow-2xl rounded-[24px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
+            <div className="transition-all duration-500
+              fixed top-[180px] right-4 w-20 h-20 shadow-2xl rounded-[20px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1 overflow-visible z-50
               md:relative md:top-0 md:right-0 md:w-full md:h-auto md:bg-[#F3E9DC] md:rounded-[56px] md:p-8 md:border md:border-[#DCC9A8] md:shadow-2xl md:flex md:flex-col md:items-center md:overflow-hidden md:z-10">
 
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none md:block hidden" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
@@ -497,10 +497,6 @@ const PizzaBuilder = () => {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
                 className="relative rounded-full flex items-center justify-center z-10 w-full aspect-square shadow-lg md:shadow-[0_20px_40px_rgba(47,31,23,0.3)]"
-                style={{
-                  transform: 'none',
-                  willChange: 'transform'
-                }}
               >
                 <div
                   className="absolute inset-0 rounded-full border border-[#8B5A2B]/10 md:border-4 shadow-[0_5px_15px_rgba(0,0,0,0.1)] md:shadow-[0_10px_20px_rgba(0,0,0,0.1)] overflow-hidden"
@@ -513,7 +509,7 @@ const PizzaBuilder = () => {
                 <div className="absolute inset-0 rounded-full shadow-[inset_0_-2px_6px_rgba(0,0,0,0.3),_inset_0_1px_3px_rgba(255,255,255,0.1)] md:shadow-[inset_0_-4px_10px_rgba(0,0,0,0.3),_inset_0_2px_6px_rgba(255,255,255,0.1)] pointer-events-none" />
 
                 <div className="relative z-10 w-full h-full flex items-center justify-center">
-                   <div className="scale-[0.85] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
+                   <div className="scale-[0.75] md:scale-[0.96] drop-shadow-[0_10px_20px_rgba(47,31,23,0.3)]">
                       <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
                    </div>
                 </div>
@@ -531,8 +527,8 @@ const PizzaBuilder = () => {
                 </div>
               </div>
 
-              <div className="md:hidden absolute -bottom-6 left-1/2 -translate-x-1/2 w-full text-center z-10">
-                <p className="text-[9px] font-black uppercase tracking-widest text-tomato bg-white/90 px-3 py-1 rounded-full shadow-sm inline-block border border-tomato/10">Total: ₹{total}</p>
+              <div className="md:hidden absolute -bottom-8 left-1/2 -translate-x-1/2 w-full text-center z-10">
+                <p className="text-[9px] font-black uppercase tracking-widest text-tomato bg-white/95 px-3 py-1 rounded-full shadow-md inline-block border border-tomato/10">₹{total}</p>
               </div>
             </div>
           </div>
