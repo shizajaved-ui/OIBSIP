@@ -71,19 +71,19 @@ const Landing = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-6 py-16 flex flex-col items-center">
-      <div className="w-full max-w-[1100px]">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-[48px] md:rounded-[56px] p-6 md:p-16 shadow-2xl border border-white/20 text-center lg:text-left">
-          <div className="text-center lg:text-left">
+    <div className="doodle-bg min-h-[calc(100vh-80px)] px-0 md:px-6 py-16 flex flex-col items-center overflow-hidden">
+      <div className="w-full max-w-[1100px] px-0 md:px-4">
+        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-none md:rounded-[56px] p-8 md:p-16 shadow-2xl border-y md:border border-white/20 text-center lg:text-left">
+          <div className="text-center lg:text-left px-4 md:px-0">
             <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-3 md:px-4 py-1 text-[9px] md:text-xs font-black uppercase tracking-widest text-tomato">
               Stone-fired, built your way
             </span>
-            <h1 className="font-display text-2xl md:text-[54px] font-black leading-tight tracking-[-0.02em] text-char-950">
+            <h1 className="font-display text-4xl md:text-[54px] font-black leading-tight tracking-[-0.02em] text-char-950">
               Every pizza starts
               <br />
-              <span className="text-tomato italic text-xl md:text-[54px]">as an empty base.</span>
+              <span className="text-tomato italic text-3xl md:text-[54px]">as an empty base.</span>
             </h1>
-            <p className="mt-4 md:mt-6 mx-auto lg:mx-0 max-w-md text-xs md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
+            <p className="mt-6 mx-auto lg:mx-0 max-w-md text-sm md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
               Pick your crust, your sauce, your cheese, your toppings. Track it
               from the stone oven to your door — in real time.
             </p>
