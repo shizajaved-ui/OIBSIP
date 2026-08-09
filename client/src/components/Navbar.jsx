@@ -60,7 +60,7 @@ const Navbar = () => {
   const linkClass = (path) => {
     const isActive = !!matchPath({ path, end: path === '/' }, location.pathname);
 
-    return `pb-1 text-[13px] font-black uppercase tracking-[0.15em] transition-all duration-300 ${
+    return `pb-1 text-[9px] md:text-[13px] font-black uppercase tracking-wider md:tracking-[0.15em] transition-all duration-300 ${
       isActive
         ? 'border-b-2 border-tomato text-tomato'
         : 'border-b-2 border-transparent text-char-950/40 hover:text-tomato'
@@ -68,32 +68,35 @@ const Navbar = () => {
   };
 
   const pillClass =
-    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-2.5 md:px-5 py-2 md:py-2.5 text-[9px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
+    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-2 md:px-5 py-2 md:py-2.5 text-[9px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
 
   return (
     <header
       className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#F5E6D3]"
     >
-      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-3 md:py-4 relative">
+      <div className="mx-auto flex w-full items-center justify-between px-1.5 md:px-12 py-3 md:py-4 relative">
         {/* Left Side: Logo */}
-        <Link to="/" className="flex shrink-0 items-center gap-2 md:gap-3 group z-10">
-          <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
+        <Link to="/" className="flex shrink-0 items-center gap-1 md:gap-3 group z-10">
+          <div className="h-7 w-7 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
             <img
               src="/assets/logo-artisan.png"
               alt="The Artisan Crust"
               className="h-full w-full object-cover"
             />
           </div>
-          <span className="font-display text-lg md:text-2xl font-black tracking-tight text-char-950 hidden xs:block">
+          <span className="font-display text-[10px] md:text-2xl font-black tracking-tight text-char-950 hidden sm:block">
             The Artisan Crust
           </span>
         </Link>
 
-        {/* Middle: Main Nav - Absolutely Centered */}
-        <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden items-center gap-10 lg:flex">
-          {NAV_ITEMS.filter(item => !(user?.role === 'admin' && item.label === 'About')).map((item) => (
+        {/* Middle: Main Nav - Centered and compact on mobile */}
+        <nav className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-1.5 xs:gap-3 sm:gap-10">
+          {NAV_ITEMS.map((item) => (
             <Link key={item.path} to={item.path} className={linkClass(item.path)}>
-              {item.label}
+              <span className={item.label === 'Build a pizza' ? 'hidden sm:inline' : ''}>
+                {item.label === 'Build a pizza' ? 'Build' : item.label}
+              </span>
+              {item.label === 'Build a pizza' && <span className="sm:hidden">Build</span>}
             </Link>
           ))}
           {user?.role === 'admin' && (
@@ -102,8 +105,8 @@ const Navbar = () => {
         </nav>
 
         {/* Right Side: Actions */}
-        <div className="flex items-center gap-2 md:gap-3 z-10">
-          <div className="flex items-center gap-2 md:gap-3 border-l-2 border-char-950/5 pl-2 md:pl-6">
+        <div className="flex items-center gap-1 md:gap-3 z-10">
+          <div className="flex items-center gap-1 md:gap-3 border-l-2 border-char-950/5 pl-1 md:pl-6">
             <button
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
