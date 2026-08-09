@@ -23,12 +23,12 @@ const CHEF_NOTES = [
 const SegmentedControl = ({ label, items, selectedId, onSelect }) => (
   <div className="mb-8">
     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-char-950/40 mb-3 ml-2">{label}</p>
-    <div className="flex flex-wrap gap-2 p-1.5 bg-char-950/5 rounded-[20px] border border-char-950/5">
+    <div className="flex gap-1.5 p-1.5 bg-char-950/5 rounded-[20px] border border-char-950/5 overflow-x-auto no-scrollbar">
       {items.map((item) => (
         <button
           key={item._id}
           onClick={() => onSelect(item)}
-          className={`flex-1 min-w-[100px] px-6 py-2.5 rounded-[16px] text-[11px] font-black uppercase tracking-widest transition-all ${
+          className={`flex-1 min-w-0 whitespace-nowrap px-3 md:px-6 py-2 md:py-2.5 rounded-[16px] text-[9px] md:text-[11px] font-black uppercase tracking-widest transition-all ${
             selectedId === item._id
               ? 'bg-white text-tomato shadow-md'
               : 'text-char-950/40 hover:text-char-950 hover:bg-white/50'
@@ -336,8 +336,8 @@ const PizzaBuilder = () => {
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Fixed on top with shadow */}
       <div ref={scrollRef} className="sticky top-[72px] z-30 -mx-4 md:-mx-12 mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
-        {/* Warm Overlay like Admin Station Header */}
-        <div className="absolute inset-0 bg-[#FDF5E6]/80 backdrop-blur-sm" />
+        {/* Warm Overlay like Admin Station Header - Reduced opacity and blur for clarity */}
+        <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
 
         <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
           <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
@@ -488,7 +488,7 @@ const PizzaBuilder = () => {
           <div className="sticky top-[145px] md:top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[400px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             {/* Mobile View: Fixed Mini Player | Desktop View: Large Interactive Board */}
             <div className="transition-all duration-500
-              fixed top-[180px] right-4 w-32 h-32 shadow-2xl rounded-[28px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
+              fixed top-[260px] right-4 w-36 h-36 shadow-2xl rounded-[32px] bg-char-850/90 backdrop-blur-md border border-basil/20 p-1.5 overflow-visible z-50
               md:relative md:top-0 md:right-0 md:w-full md:h-auto md:bg-[#F3E9DC] md:rounded-[56px] md:p-8 md:border md:border-[#DCC9A8] md:shadow-2xl md:flex md:flex-col md:items-center md:overflow-hidden md:z-10">
 
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none md:block hidden" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
