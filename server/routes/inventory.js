@@ -71,7 +71,12 @@ router.post('/:id/builder-image', protect, adminOnly, upload.single('image'), as
       imageUrl = `/uploads/${req.file.filename}`;
     }
 
-    const item = await Inventory.findByIdAndUpdate(req.params.id, { builderImage: imageUrl }, { new: true });
+    // We update both builderImage (for the card) and previewLayer (for the actual pizza stack)
+    const item = await Inventory.findByIdAndUpdate(
+      req.params.id,
+      { builderImage: imageUrl, previewLayer: imageUrl },
+      { new: true }
+    );
     res.json(item);
   } catch (err) {
     res.status(500).json({ message: 'Builder image upload failed', error: err.message });
