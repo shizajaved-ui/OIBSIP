@@ -447,7 +447,7 @@ const PizzaBuilder = () => {
               className="w-full"
             >
               {step === 0 && (
-                <div className="space-y-6 md:space-y-10">
+                <div className="space-y-6 md:space-y-10 px-2 md:px-0">
                   <div className="hidden md:block">
                     <SegmentedControl
                       label="Crust Thickness"
@@ -470,7 +470,7 @@ const PizzaBuilder = () => {
               )}
 
               {(step === 1 || step === 2 || step === 3) && (
-                <div className="grid grid-cols-2 gap-3 md:gap-8">
+                <div className="grid grid-cols-2 gap-3 md:gap-8 px-2 md:px-0">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                     <OptionCard
                       key={item._id}
