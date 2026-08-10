@@ -22,16 +22,14 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''}`}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative doodle-bg' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''}`}
         style={useDoodleOverlay ? {
-          backgroundImage: 'url("/assets/doodle-border.png")',
-          backgroundSize: '300px auto',
           backgroundColor: '#FFF8F6',
           backgroundBlendMode: 'soft-light'
         } : {}}
       >
         {useDoodleOverlay && (
-          <div className={`absolute inset-0 bg-[#FFFCF7]/80 backdrop-blur-[2px] ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
+          <div className={`absolute inset-0 bg-[#FFFCF7]/40 md:bg-[#FFFCF7]/80 backdrop-blur-[1px] md:backdrop-blur-[2px] ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,17 +38,17 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
           className="relative z-10 w-full flex flex-col items-center"
         >
           {(title || subtitle) && (
-            <div className="w-full bg-basil/[0.08] rounded-[32px] md:rounded-[48px] border-2 border-basil/10 p-8 md:p-12 text-center mb-10 md:mb-14 shadow-sm relative overflow-hidden group">
+            <div className="w-full bg-basil md:bg-basil/[0.08] rounded-[32px] md:rounded-[48px] border-2 border-basil/10 p-8 md:p-12 text-center mb-10 md:mb-14 shadow-sm relative overflow-hidden group">
               {/* Subtle noise texture for that premium card look */}
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
 
               {title && (
-                <h1 className="relative z-10 font-display text-3xl md:text-5xl font-black tracking-tight text-char-950 mb-3 md:mb-4 transition-transform group-hover:scale-[1.01]">
+                <h1 className="relative z-10 font-display text-3xl md:text-5xl font-black tracking-tight text-white md:text-char-950 mb-3 md:mb-4 transition-transform group-hover:scale-[1.01]">
                   {title}
                 </h1>
               )}
               {subtitle && (
-                <p className="relative z-10 text-sm md:text-lg font-bold text-basil/70 italic tracking-wide">
+                <p className="relative z-10 text-sm md:text-lg font-bold text-white/80 md:text-basil/70 italic tracking-wide">
                   {subtitle}
                 </p>
               )}
