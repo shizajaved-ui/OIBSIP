@@ -42,7 +42,7 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
       whileTap={{ scale: 0.98 }}
       whileHover={{ scale: 1.02 }}
       onClick={() => onShowDetails(item)}
-      className="group relative h-72 w-full overflow-hidden rounded-[48px] border bg-char-800 text-left shadow-lg transition-all duration-300 border-char-950/5 hover:border-tomato/30 cursor-pointer hover:shadow-2xl"
+      className="group relative h-60 md:h-72 w-full overflow-hidden rounded-[32px] md:rounded-[48px] border bg-char-800 text-left shadow-lg transition-all duration-300 border-char-950/5 hover:border-tomato/30 cursor-pointer hover:shadow-2xl"
     >
       {!showFallback ? (
         <>
@@ -63,7 +63,7 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className="text-8xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
+            <span className="text-5xl md:text-8xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
               {getIngredientIcon(item)}
             </span>
           </div>
@@ -77,12 +77,12 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
       )}
 
       {/* Action Buttons Top Right */}
-      <div className="absolute right-4 top-4 flex flex-col gap-2 z-10">
+      <div className="absolute right-3 top-3 md:right-4 md:top-4 flex flex-col gap-2 z-10">
         <button
           onClick={(e) => { e.stopPropagation(); onShowDetails(item); }}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-char-950 transition-all shadow-lg border border-white/10"
+          className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-char-950 transition-all shadow-lg border border-white/10"
         >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
             <path d="M12 16v-4" />
             <path d="M12 8h.01" />
@@ -90,23 +90,23 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
         </button>
       </div>
 
-      <span className="absolute left-4 top-4 rounded-full bg-tomato px-4 py-1.5 font-display text-[13px] font-black text-white shadow-md">
+      <span className="absolute left-3 top-3 md:left-4 md:top-4 rounded-full bg-tomato px-3 py-1 md:px-4 md:py-1.5 font-display text-[10px] md:text-[13px] font-black text-white shadow-md">
         ₹{total}
       </span>
 
-      <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
+      <div className="absolute inset-x-4 bottom-4 md:inset-x-6 md:bottom-6 flex items-end justify-between gap-2 md:gap-4">
         <div className="min-w-0">
-          <h3 className="font-display text-2xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
-          <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-stone-300/90 truncate">
+          <h3 className="font-display text-base md:text-2xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md truncate md:whitespace-normal">{item.name}</h3>
+          <p className="mt-0.5 md:mt-1 text-[8px] md:text-[11px] font-bold uppercase tracking-[0.1em] md:tracking-[0.15em] text-stone-300/90 truncate">
             {defaultSauce?.name} · {defaultCheese?.name}
           </p>
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onAddClick(item, e); }}
           disabled={adding === item._id}
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-char-950 text-white shadow-xl transition-all hover:bg-tomato active:scale-90 ${adding === item._id ? 'animate-pulse' : ''}`}
+          className={`flex h-8 w-8 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-char-950 text-white shadow-xl transition-all hover:bg-tomato active:scale-90 ${adding === item._id ? 'animate-pulse' : ''}`}
         >
-           <span className="text-2xl font-bold">{adding === item._id ? '·' : '+'}</span>
+           <span className="text-xl md:text-2xl font-bold">{adding === item._id ? '·' : '+'}</span>
         </button>
       </div>
     </motion.div>
@@ -252,7 +252,7 @@ const Menu = () => {
             <p className="font-display text-2xl font-bold text-char-950/20 italic animate-pulse">Loading the menu…</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 md:gap-8 lg:grid-cols-3">
             {bases.map((item) => (
               <MenuCard
                 key={item._id}
