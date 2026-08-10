@@ -98,19 +98,12 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating useDoodleOverlay>
-      <div className="w-full bg-[#FDF5E6]/90 backdrop-blur-md rounded-[48px] p-6 md:p-10 shadow-xl border border-tomato/10">
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
+      <div className="w-full bg-[#FFFCF7] rounded-[48px] p-6 md:p-10 shadow-xl border border-char-950/5">
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
-        <div
-          className="relative overflow-hidden flex flex-col items-center gap-3 p-8 md:p-16 text-center bg-[#FFFCF7] shadow-lg rounded-[48px] border border-char-950/5"
-          style={{
-            backgroundImage: 'url("/assets/doodle-border.png")',
-            backgroundSize: '400px auto',
-            backgroundBlendMode: 'soft-light'
-          }}
-        >
+        <div className="flex flex-col items-center gap-3 p-8 md:p-16 text-center">
           <span className="relative z-10 text-4xl md:text-6xl mb-4 drop-shadow-md">🛒</span>
           <p className="relative z-10 font-display text-2xl md:text-3xl font-black text-char-950">Your cart is empty.</p>
           <p className="relative z-10 text-sm font-medium text-char-950/40 italic mb-4">Start your artisanal pizza journey today.</p>
@@ -124,12 +117,7 @@ const Cart = () => {
             {items.map((item) => (
               <div
                 key={item._id}
-                className="relative overflow-hidden bg-[#FFFBF9] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-lg border-2 border-tomato/5 transition-all hover:shadow-2xl hover:border-tomato/20"
-                style={{
-                  backgroundImage: 'url("/assets/doodle-border.png")',
-                  backgroundSize: '400px auto',
-                  backgroundBlendMode: 'soft-light'
-                }}
+                className="relative overflow-hidden bg-[#FFFBF9] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-md border border-tomato/5 transition-all hover:shadow-lg hover:border-tomato/20"
               >
                 <div className="relative z-10 min-w-0 flex-1">
                   <h3 className="font-display text-xl md:text-2xl font-black text-char-950 truncate">{item.base?.name}</h3>
