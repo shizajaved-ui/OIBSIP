@@ -436,7 +436,7 @@ const PizzaBuilder = () => {
       )}
 
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-0 md:mt-8">
-        <div className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
+        <div className="flex-1 w-full order-2 lg:order-1">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -447,7 +447,7 @@ const PizzaBuilder = () => {
               className="w-full"
             >
               {step === 0 && (
-                <div className="space-y-6 md:space-y-10">
+                <div className="space-y-6 md:space-y-10 px-4 md:px-0">
                   <div className="hidden md:block">
                     <SegmentedControl
                       label="Crust Thickness"
@@ -470,7 +470,7 @@ const PizzaBuilder = () => {
               )}
 
               {(step === 1 || step === 2 || step === 3) && (
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 px-4 md:px-0">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                     <OptionCard
                       key={item._id}
@@ -490,7 +490,7 @@ const PizzaBuilder = () => {
               )}
 
               {step === 4 && (
-                <div className="mx-auto max-w-xl overflow-hidden rounded-[40px] border border-char-950/10 bg-char-850 p-6 md:p-10 shadow-2xl animate-rise">
+                <div className="mx-auto max-w-xl w-full overflow-hidden rounded-none md:rounded-[40px] border-y md:border border-char-950/10 bg-char-850/90 backdrop-blur-sm p-6 md:p-10 shadow-none md:shadow-2xl animate-rise">
                   <h2 className="font-display text-2xl md:text-3xl font-bold text-char-950 mb-8 border-b border-char-950/5 pb-6">Review your order</h2>
 
                   <SegmentedControl

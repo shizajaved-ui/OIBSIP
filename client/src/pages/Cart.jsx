@@ -98,7 +98,7 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating useDoodleOverlay>
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating fullMobile useDoodleOverlay>
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
@@ -119,7 +119,7 @@ const Cart = () => {
         </div>
       ) : (
         <>
-          <div className="space-y-4">
+          <div className="space-y-4 px-4 md:px-0">
             {items.map((item) => (
               <div
                 key={item._id}
@@ -163,7 +163,7 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="bg-char-900 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
+          <div className="mx-4 md:mx-0 bg-char-900 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
             <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
             <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
           </div>
@@ -175,13 +175,15 @@ const Cart = () => {
             </p>
           )}
 
-          <button
-            onClick={handleCheckout}
-            disabled={placing}
-            className="btn-primary mt-10 w-full py-5 text-xl shadow-xl shadow-tomato/20"
-          >
-            {placing ? 'Processing kitchen ticket…' : `Checkout · ₹${total}`}
-          </button>
+          <div className="px-4 md:px-0">
+            <button
+              onClick={handleCheckout}
+              disabled={placing}
+              className="btn-primary mt-10 w-full py-5 text-xl shadow-xl shadow-tomato/20"
+            >
+              {placing ? 'Processing kitchen ticket…' : `Checkout · ₹${total}`}
+            </button>
+          </div>
         </>
       )}
     </PageLayout>
