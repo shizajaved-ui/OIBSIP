@@ -54,64 +54,79 @@ const OptionCard = ({ item, selected, onSelect }) => {
   return (
     <motion.button
       onClick={handleClick}
-      whileTap={{ scale: 0.97 }}
-      className={`group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-850 text-left shadow-lg transition-all duration-200 ${
-        selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
+      whileTap={{ scale: 0.95 }}
+      whileHover={{ y: -4 }}
+      className={`group relative h-60 w-full overflow-hidden rounded-[32px] border bg-char-850 text-left transition-all duration-500 ${
+        selected
+          ? 'border-tomato shadow-[0_20px_50px_-12px_rgba(200,78,41,0.3)] ring-4 ring-tomato/10 scale-[1.02] z-10'
+          : 'border-char-950/5 hover:border-tomato/30 shadow-md'
       }`}
       style={{ cursor: getCursorStyle(item) }}
     >
+      {/* Background Animated Glow for Selected State */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-gradient-to-tr from-tomato/20 to-transparent pointer-events-none"
+          />
+        )}
+      </AnimatePresence>
+
       {!showFallback ? (
         <>
           <img
             src={resolveImageUrl(item.inventoryCard)}
             alt={item.name}
             onError={() => setImgFailed(true)}
-            className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-110"
+            className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${selected ? 'scale-110 opacity-100' : 'opacity-80 group-hover:scale-105 group-hover:opacity-90'}`}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to top, rgba(47,31,23,0.8) 0%, rgba(47,31,23,0.3) 40%, transparent 100%)',
+                'linear-gradient(to top, rgba(47,31,23,0.9) 0%, rgba(47,31,23,0.4) 40%, transparent 100%)',
             }}
           />
         </>
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className="text-7xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
+            <span className={`text-7xl drop-shadow-2xl transition-all duration-500 ${selected ? 'scale-125 rotate-12' : 'group-hover:scale-110'}`}>
               {getIngredientIcon(item)}
             </span>
           </div>
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(47,31,23,0.6) 0%, transparent 60%)',
+              background: 'linear-gradient(to top, rgba(47,31,23,0.7) 0%, transparent 60%)',
             }}
           />
         </>
       )}
 
       {item.price > 0 && (
-        <span className="absolute left-4 top-4 rounded-full bg-tomato px-3 py-1 font-display text-[12px] font-black text-white shadow-md">
+        <span className="absolute left-5 top-5 rounded-full bg-tomato px-3 py-1 font-display text-[12px] font-black text-white shadow-xl border border-white/20">
           +₹{item.price}
         </span>
       )}
 
       <div
-        className={`absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-300 ease-out ${
+        className={`absolute right-5 top-5 flex h-9 w-9 items-center justify-center rounded-full border-2 transition-all duration-500 ease-out ${
           selected
             ? 'scale-110 border-white bg-tomato shadow-lg'
             : 'scale-0 border-transparent bg-transparent'
         }`}
       >
-        <span className="text-xs font-black text-white">✓</span>
+        <span className="text-sm font-black text-white">✓</span>
       </div>
 
       <div className="absolute inset-x-6 bottom-6">
-        <h3 className="font-display text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
-        <p className={`mt-1 text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-850/95 text-char-950 px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
-          {item.price > 0 ? 'Add-on' : 'Included'}
+        <h3 className="font-display text-2xl font-black leading-tight text-white drop-shadow-md">{item.name}</h3>
+        <p className={`mt-1.5 text-[10px] font-black uppercase tracking-[0.2em] inline-block px-2.5 py-1 rounded-full border shadow-sm transition-colors duration-300 ${item.price > 0 ? (selected ? 'bg-white text-tomato border-white' : 'bg-char-850/90 text-char-950 border-char-950/10') : 'text-stone-300/80 border-white/10'}`}>
+          {item.price > 0 ? 'Premium Add-on' : 'Included'}
         </p>
       </div>
     </motion.button>
@@ -353,12 +368,9 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Sticky only on Desktop */}
-      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 bg-[#FDF5E6]/95 backdrop-blur-md border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-none md:shadow-lg">
-        {/* Warm Overlay - No doodle as requested for Stepper */}
-        <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
-
-        <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
-          <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
+      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-6 bg-white/40 backdrop-blur-md border-b border-char-950/5 relative overflow-hidden flex items-center justify-center shadow-sm">
+        <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 w-full flex-wrap">
+          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-char-950/40 mr-4 hidden xs:block">Progress</span>
           {STEPS.map((s, i) => (
             <button
               key={s}
@@ -369,15 +381,15 @@ const PizzaBuilder = () => {
                   setTimeout(scrollToContent, 100);
                 }
               }}
-              className={`px-2.5 md:px-8 py-2 md:py-2.5 text-[9px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all active:scale-95 shadow-md ${
+              className={`px-4 md:px-8 py-2 md:py-3 text-[10px] md:text-[11px] font-black uppercase tracking-widest rounded-full transition-all duration-500 active:scale-90 ${
                 i === step
-                  ? 'bg-tomato text-white scale-105 shadow-tomato/20 ring-4 ring-tomato/10'
+                  ? 'bg-tomato text-white shadow-[0_10px_20px_-5px_rgba(200,78,41,0.4)] scale-110'
                   : i < step
-                  ? 'bg-char-950 text-white hover:bg-tomato cursor-pointer'
-                  : 'bg-char-950/5 text-char-950/20 cursor-not-allowed border border-char-950/5 shadow-none'
+                  ? 'bg-char-950 text-white hover:bg-tomato'
+                  : 'bg-char-950/5 text-char-950/20 cursor-not-allowed'
               }`}
             >
-              {s}
+              {i + 1}. {s}
             </button>
           ))}
         </div>
@@ -385,34 +397,37 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Navbar */}
       {step < 4 && (
-        <div className="sticky top-[72px] z-40 md:hidden -mx-4 mb-0 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
-          {/* Warm Beige Overlay with Doodle Background restored */}
-          <div className="absolute inset-0 bg-[#FDF5E6]/85 backdrop-blur-sm" />
+        <div className="sticky top-[104px] z-40 md:hidden -mx-4 mb-0 px-4 py-4 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center gap-5 shadow-2xl">
+          {/* Enhanced Warm Beige Overlay with Glass Effect */}
+          <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 
-          <div className="relative z-10 w-32 h-32 shrink-0 flex items-center justify-center">
+          <div className="relative z-10 w-28 h-28 shrink-0 flex items-center justify-center">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
-              className="relative w-full h-full flex items-center justify-center rounded-full shadow-lg"
+              className="relative w-full h-full flex items-center justify-center rounded-full shadow-[0_15px_35px_rgba(47,31,23,0.3)]"
             >
               <div
-                className="absolute inset-0 rounded-full border border-[#8B5A2B]/10 shadow-[0_5px_15px_rgba(0,0,0,0.1)] overflow-hidden"
+                className="absolute inset-0 rounded-full border-4 border-white/20 overflow-hidden"
                 style={{
                   backgroundImage: 'url("/assets/wood-grain.jpg")',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="relative z-10 scale-[1.15] flex items-center justify-center w-full h-full drop-shadow-2xl">
+              <div className="relative z-10 scale-[1.25] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
                  <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
               </div>
             </motion.div>
           </div>
 
-          <div className="relative z-10 flex-1">
+          <div className="relative z-10 flex-1 flex flex-col justify-center">
             {step === 0 ? (
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-tomato mb-2 ml-1 drop-shadow-sm animate-pulse">Select Thickness</p>
+              <div className="animate-rise">
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-tomato mb-2 ml-1 drop-shadow-sm flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-tomato animate-pulse" />
+                  Select Thickness
+                </p>
                 <MobileCompactControl
                   items={byCategory('thickness')}
                   selectedId={selection.thickness?._id}
@@ -420,14 +435,14 @@ const PizzaBuilder = () => {
                 />
               </div>
             ) : (
-              <div className="flex items-center justify-between pr-2">
+              <div className="flex flex-col gap-1 pr-2 animate-rise">
                  <div>
-                    <p className="text-[8px] font-black uppercase tracking-widest text-char-950/40">Active Step</p>
-                    <p className="font-display text-[13px] font-black text-char-950 uppercase tracking-tight">{STEPS[step]}</p>
+                    <p className="text-[9px] font-black uppercase tracking-[0.2em] text-char-950/30">Step {step + 1} of 5</p>
+                    <p className="font-display text-lg font-black text-char-950 uppercase tracking-tighter leading-none">{STEPS[step]}</p>
                  </div>
-                 <div className="text-right">
-                    <p className="text-[8px] font-black uppercase tracking-widest text-char-950/40">Total</p>
-                    <p className="font-display text-base font-black text-tomato">₹{total}</p>
+                 <div className="mt-1 pt-2 border-t border-char-950/5 flex items-center justify-between">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-tomato/60">Total Bill</span>
+                    <span className="font-display text-xl font-black text-tomato">₹{total}</span>
                  </div>
               </div>
             )}

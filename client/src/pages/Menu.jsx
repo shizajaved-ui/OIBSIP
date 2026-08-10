@@ -40,47 +40,47 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ y: -6 }}
       onClick={() => onShowDetails(item)}
-      className="group relative h-72 w-full overflow-hidden rounded-[48px] border bg-char-800 text-left shadow-lg transition-all duration-300 border-char-950/5 hover:border-tomato/30 cursor-pointer hover:shadow-2xl"
+      className="group relative h-80 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left transition-all duration-500 border-char-950/5 hover:border-tomato/30 cursor-pointer shadow-xl hover:shadow-[0_20px_50px_-12px_rgba(47,31,23,0.3)]"
     >
       {!showFallback ? (
         <>
           <img
             src={resolveImageUrl(item.menuVisual)}
             alt={item.name}
-            className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-110"
+            className="absolute inset-0 h-full w-full object-cover transition-all duration-700 opacity-90 group-hover:scale-110 group-hover:opacity-100"
             onError={() => setImgFailed(true)}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to top, rgba(47,31,23,0.9) 0%, rgba(47,31,23,0.4) 50%, transparent 100%)',
+                'linear-gradient(to top, rgba(47,31,23,0.95) 0%, rgba(47,31,23,0.4) 50%, transparent 100%)',
             }}
           />
         </>
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className="text-8xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
+            <span className="text-8xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
               {getIngredientIcon(item)}
             </span>
           </div>
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(47,31,23,0.7) 0%, transparent 70%)',
+              background: 'linear-gradient(to top, rgba(47,31,23,0.8) 0%, transparent 70%)',
             }}
           />
         </>
       )}
 
       {/* Action Buttons Top Right */}
-      <div className="absolute right-4 top-4 flex flex-col gap-2 z-10">
+      <div className="absolute right-5 top-5 flex flex-col gap-2 z-10">
         <button
           onClick={(e) => { e.stopPropagation(); onShowDetails(item); }}
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white hover:text-char-950 transition-all shadow-lg border border-white/10"
+          className="h-11 w-11 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-char-950 transition-all shadow-lg border border-white/20"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
@@ -90,23 +90,24 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
         </button>
       </div>
 
-      <span className="absolute left-4 top-4 rounded-full bg-tomato px-4 py-1.5 font-display text-[13px] font-black text-white shadow-md">
+      <span className="absolute left-5 top-5 rounded-full bg-tomato px-4 py-1.5 font-display text-[14px] font-black text-white shadow-2xl border border-white/20">
         ₹{total}
       </span>
 
       <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-4">
-        <div className="min-w-0">
-          <h3 className="font-display text-2xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
-          <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.15em] text-stone-300/90 truncate">
+        <div className="min-w-0 flex-1">
+          <h3 className="font-display text-2xl md:text-3xl font-black leading-tight text-white drop-shadow-md">{item.name}</h3>
+          <p className="mt-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-stone-300/90 truncate flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-basil" />
             {defaultSauce?.name} · {defaultCheese?.name}
           </p>
         </div>
         <button
           onClick={(e) => { e.stopPropagation(); onAddClick(item, e); }}
           disabled={adding === item._id}
-          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-char-950 text-white shadow-xl transition-all hover:bg-tomato active:scale-90 ${adding === item._id ? 'animate-pulse' : ''}`}
+          className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-white text-char-950 shadow-2xl transition-all hover:bg-tomato hover:text-white active:scale-90 border-4 border-char-950/10 ${adding === item._id ? 'animate-pulse' : ''}`}
         >
-           <span className="text-2xl font-bold">{adding === item._id ? '·' : '+'}</span>
+           <span className="text-3xl font-black">{adding === item._id ? '·' : '+'}</span>
         </button>
       </div>
     </motion.div>

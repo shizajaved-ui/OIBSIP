@@ -12,10 +12,12 @@ html, body, #root {
 }
 
 body {
-  background-color: #F5EEE6; /* Toasted Linen - Better contrast for cards */
+  background-color: #F5EEE6; /* Toasted Linen */
   color: #2F1F17;
   font-family: 'Plus Jakarta Sans', sans-serif;
   margin: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
 }
 
 /* Grainy noise overlay for that artisanal paper feel */
@@ -84,35 +86,44 @@ body {
 }
 
 .card {
-  background-color: #FFF8F6; /* Noticeable terracotta tint */
+  background-color: #FFFDFB;
   border: 1px solid #F0E9DF;
-  border-radius: 40px; /* Bolder rounding */
-  box-shadow: 0 10px 30px -10px rgba(47, 31, 23, 0.15);
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 48px;
+  box-shadow:
+    0 4px 6px -1px rgba(47, 31, 23, 0.05),
+    0 10px 30px -5px rgba(47, 31, 23, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .card:hover {
-  border-color: #DCC9A8;
-  box-shadow: 0 14px 34px -8px rgba(47, 31, 23, 0.2);
+  border-color: #C84E29/30;
+  box-shadow:
+    0 20px 40px -12px rgba(47, 31, 23, 0.15),
+    0 0 0 4px rgba(200, 78, 41, 0.05);
+  transform: translateY(-4px) scale(1.01);
 }
 
 .btn-primary {
-  background: #C84E29;
+  background: linear-gradient(135deg, #C84E29 0%, #A83D1F 100%);
   color: #FFFCF6;
-  font-weight: 700;
-  border-radius: 1.5rem;
-  transition: box-shadow 0.2s ease, transform 0.15s ease, background-color 0.2s ease;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 2rem;
+  box-shadow: 0 8px 20px -6px rgba(200, 78, 41, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .btn-primary:hover {
-  background: #D66B45;
-  box-shadow: 0 10px 24px -6px rgba(200, 78, 41, 0.35);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #D66B45 0%, #C84E29 100%);
+  box-shadow: 0 12px 28px -4px rgba(200, 78, 41, 0.5);
+  transform: translateY(-2px);
 }
 
 .btn-primary:active {
-  background: #A83D1F;
-  transform: scale(0.96);
+  transform: scale(0.95);
+  box-shadow: 0 4px 12px -2px rgba(200, 78, 41, 0.4);
 }
 
 .input-field {

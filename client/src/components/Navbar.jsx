@@ -57,22 +57,22 @@ const Navbar = () => {
   // 13px, bold, wide-tracked, uppercase — per spec. Active tab gets the
   // terracotta underline; inactive tabs stay roasted-brown so they still
   // read clearly against the darker header background.
-  const linkClass = (path) => {
+const linkClass = (path) => {
     const isActive = !!matchPath({ path, end: path === '/' }, location.pathname);
 
-    return `pb-1 text-[9px] md:text-[13px] font-black uppercase tracking-wider md:tracking-[0.15em] transition-all duration-300 ${
+    return `relative pb-1 text-[9px] md:text-[13px] font-black uppercase tracking-wider md:tracking-[0.15em] transition-all duration-300 ${
       isActive
-        ? 'border-b-2 border-tomato text-tomato'
-        : 'border-b-2 border-transparent text-char-950/40 hover:text-tomato'
+        ? 'text-tomato'
+        : 'text-char-950/40 hover:text-tomato'
     }`;
   };
 
   const pillClass =
-    'flex items-center gap-1.5 rounded-full bg-[#A83D1F] px-2.5 md:px-4 py-2 md:py-2.5 text-[8px] md:text-[11px] font-black uppercase tracking-[0.05em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
+    'flex items-center gap-1.5 rounded-full bg-gradient-to-br from-[#A83D1F] to-[#C84E29] px-2.5 md:px-4 py-2 md:py-2.5 text-[8px] md:text-[11px] font-black uppercase tracking-[0.05em] text-white shadow-lg transition-all duration-500 hover:shadow-tomato/20 hover:scale-105 active:scale-95 border border-white/10';
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b border-char-950/10 bg-[#F5E6D3]"
+      className="sticky top-0 z-50 w-full border-b border-char-950/5 bg-[#F5E6D3]/80 backdrop-blur-xl"
     >
       <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-4 md:py-6 gap-2">
         {/* Left Side: Logo - Icon only on mobile */}
