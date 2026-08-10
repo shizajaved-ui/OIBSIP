@@ -55,7 +55,7 @@ const OptionCard = ({ item, selected, onSelect }) => {
     <motion.button
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
-      className={`group relative h-48 md:h-60 w-full overflow-hidden rounded-[24px] border bg-char-850 text-left shadow-lg transition-all duration-200 ${
+      className={`group relative h-60 w-full overflow-hidden rounded-[24px] border bg-char-850 text-left shadow-lg transition-all duration-200 ${
         selected ? 'border-tomato shadow-ember scale-[1.02] z-10' : 'border-char-950/5 hover:border-tomato/30'
       }`}
       style={{ cursor: getCursorStyle(item) }}
@@ -79,7 +79,7 @@ const OptionCard = ({ item, selected, onSelect }) => {
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className="text-5xl md:text-7xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
+            <span className="text-7xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
               {getIngredientIcon(item)}
             </span>
           </div>
@@ -93,24 +93,24 @@ const OptionCard = ({ item, selected, onSelect }) => {
       )}
 
       {item.price > 0 && (
-        <span className="absolute left-3 top-3 md:left-4 md:top-4 rounded-full bg-tomato px-2 md:px-3 py-0.5 md:py-1 font-display text-[10px] md:text-[12px] font-black text-white shadow-md">
+        <span className="absolute left-4 top-4 rounded-full bg-tomato px-3 py-1 font-display text-[12px] font-black text-white shadow-md">
           +₹{item.price}
         </span>
       )}
 
       <div
-        className={`absolute right-3 top-3 md:right-4 md:top-4 flex h-6 w-6 md:h-8 md:w-8 items-center justify-center rounded-full border-2 transition-all duration-300 ease-out ${
+        className={`absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all duration-300 ease-out ${
           selected
             ? 'scale-110 border-white bg-tomato shadow-lg'
             : 'scale-0 border-transparent bg-transparent'
         }`}
       >
-        <span className="text-[10px] md:text-xs font-black text-white">✓</span>
+        <span className="text-xs font-black text-white">✓</span>
       </div>
 
-      <div className="absolute inset-x-4 bottom-4 md:inset-x-6 md:bottom-6">
-        <h3 className="font-display text-base md:text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md truncate md:whitespace-normal">{item.name}</h3>
-        <p className={`mt-0.5 md:mt-1 text-[8px] md:text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-850/95 text-char-950 px-1.5 md:px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
+      <div className="absolute inset-x-6 bottom-6">
+        <h3 className="font-display text-xl font-black leading-[1.1] tracking-tight text-white drop-shadow-md">{item.name}</h3>
+        <p className={`mt-1 text-[10px] font-black uppercase tracking-[0.15em] inline-block ${item.price > 0 ? 'bg-char-850/95 text-char-950 px-2 py-0.5 rounded-md shadow-sm' : 'text-stone-300/80'}`}>
           {item.price > 0 ? 'Add-on' : 'Included'}
         </p>
       </div>
@@ -447,7 +447,7 @@ const PizzaBuilder = () => {
               className="w-full"
             >
               {step === 0 && (
-                <div className="space-y-6 md:space-y-10 px-2 md:px-0">
+                <div className="space-y-6 md:space-y-10">
                   <div className="hidden md:block">
                     <SegmentedControl
                       label="Crust Thickness"
@@ -456,7 +456,7 @@ const PizzaBuilder = () => {
                       onSelect={(item) => selectThickness(item, 50)}
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-3 md:gap-8">
+                  <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                     {byCategory('base').map((item) => (
                       <OptionCard
                         key={item._id}
@@ -470,7 +470,7 @@ const PizzaBuilder = () => {
               )}
 
               {(step === 1 || step === 2 || step === 3) && (
-                <div className="grid grid-cols-2 gap-3 md:gap-8 px-2 md:px-0">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                     <OptionCard
                       key={item._id}
