@@ -415,7 +415,7 @@ const PizzaBuilder = () => {
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="relative z-10 scale-[1.25] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+              <div className="relative z-10 scale-[1.1] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
                  <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
               </div>
             </motion.div>
