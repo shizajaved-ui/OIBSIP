@@ -353,7 +353,7 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Sticky only on Desktop */}
-      <div ref={scrollRef} className="md:sticky md:top-[72px] z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 bg-[#FDF5E6]/95 backdrop-blur-md border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
+      <div ref={scrollRef} className="md:sticky md:top-[80px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 bg-[#FDF5E6]/95 backdrop-blur-md border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-none md:shadow-lg">
         {/* Warm Overlay - No doodle as requested for Stepper */}
         <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
 
@@ -385,7 +385,7 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Navbar */}
       {step < 4 && (
-        <div className="sticky top-[72px] z-40 md:hidden -mx-4 mb-0 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
+        <div className="sticky top-[56px] z-40 md:hidden -mx-4 mb-0 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
           {/* Warm Beige Overlay with Doodle Background restored */}
           <div className="absolute inset-0 bg-[#FDF5E6]/85 backdrop-blur-sm" />
 
@@ -435,7 +435,7 @@ const PizzaBuilder = () => {
         </div>
       )}
 
-      <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-4 md:mt-8">
+      <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-0 md:mt-8">
         <div className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
           <AnimatePresence mode="wait">
             <motion.div
