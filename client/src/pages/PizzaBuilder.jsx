@@ -368,7 +368,7 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Sticky only on Desktop */}
-      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-6 bg-white/40 backdrop-blur-md border-b border-char-950/5 relative overflow-hidden flex items-center justify-center shadow-sm">
+      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-6 bg-transparent md:bg-white/40 md:backdrop-blur-md border-none md:border-b border-char-950/5 relative overflow-hidden flex items-center justify-center shadow-none md:shadow-sm">
         <div className="relative z-10 flex items-center justify-center gap-2 md:gap-4 w-full flex-wrap">
           <span className="text-[10px] font-black uppercase tracking-[0.3em] text-char-950/40 mr-4 hidden xs:block">Progress</span>
           {STEPS.map((s, i) => (
@@ -397,7 +397,7 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Navbar */}
       {step < 4 && (
-        <div className="sticky top-[104px] z-40 md:hidden -mx-4 mb-0 px-4 py-4 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center gap-5 shadow-2xl">
+        <div className="sticky top-[72px] z-40 md:hidden -mx-4 mb-0 px-4 py-4 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center gap-5 shadow-2xl">
           {/* Enhanced Warm Beige Overlay with Glass Effect */}
           <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 
@@ -415,7 +415,7 @@ const PizzaBuilder = () => {
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="relative z-10 scale-[1.1] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+              <div className="relative z-10 scale-[0.9] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
                  <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
               </div>
             </motion.div>

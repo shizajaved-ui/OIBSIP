@@ -72,7 +72,7 @@ const linkClass = (path) => {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b border-char-950/5 bg-[#F5E6D3]/80 backdrop-blur-xl"
+      className="sticky top-0 z-50 w-full border-b border-char-950/5 bg-[#F5E6D3]"
     >
       <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-4 md:py-6 gap-2">
         {/* Left Side: Logo - Icon only on mobile */}
@@ -90,7 +90,7 @@ const linkClass = (path) => {
         </Link>
 
         {/* Middle: Main Nav - Fluid and compact */}
-        <nav className="flex items-center justify-center gap-3 sm:gap-6 md:gap-12 flex-1 min-w-0">
+        <nav className="flex items-center justify-center gap-4 sm:gap-6 md:gap-12 flex-1 min-w-0">
           {NAV_ITEMS.map((item) => (
             <Link key={item.path} to={item.path} className={linkClass(item.path)}>
               <span className={item.label === 'Build a pizza' ? 'hidden sm:inline' : ''}>

@@ -98,7 +98,7 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating useDoodleOverlay>
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
@@ -113,7 +113,7 @@ const Cart = () => {
           <span className="relative z-10 text-4xl md:text-6xl mb-4 drop-shadow-md">🛒</span>
           <p className="relative z-10 font-display text-2xl md:text-3xl font-black text-char-950">Your cart is empty.</p>
           <p className="relative z-10 text-sm font-medium text-char-950/40 italic mb-4">Start your artisanal pizza journey today.</p>
-          <button onClick={() => navigate('/menu')} className="relative z-10 btn-primary px-10 py-4 text-base md:text-lg shadow-ember w-full md:w-auto">
+          <button onClick={() => navigate('/menu')} className="relative z-10 btn-primary px-6 py-2.5 text-xs md:text-lg shadow-ember w-full md:w-auto">
             Browse the menu
           </button>
         </div>

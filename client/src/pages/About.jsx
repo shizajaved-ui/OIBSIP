@@ -15,7 +15,7 @@ const About = () => (
         <h2 className="font-display text-3xl md:text-5xl font-black tracking-tighter text-char-950 mb-8 leading-[1.1]">
             A pizzeria built around the idea that everyone's "perfect pizza" is different.
         </h2>
-        <p className="max-w-3xl mx-auto text-base md:text-lg font-medium text-char-950/40 italic leading-relaxed mb-12">
+        <p className="max-w-3xl mx-auto text-base md:text-lg font-bold text-char-950/80 italic leading-relaxed mb-12">
         The Artisan Crust started as a single stone oven and a stubborn belief: the best pizza
         is the one you actually wanted, not the one that happened to be on the
         menu. So we built a place — and an app — where the crust, the sauce, the
@@ -32,7 +32,7 @@ const About = () => (
     ))}
     </div>
 
-    <div className="mt-20 flex flex-col items-center gap-6 p-10 md:p-16 text-center rounded-[64px] bg-basil text-white shadow-2xl relative overflow-hidden group">
+    <div className="mt-20 flex flex-col items-center gap-6 p-10 md:p-16 text-center rounded-[64px] bg-basil/80 text-white shadow-2xl relative overflow-hidden group">
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
         <span className="text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 relative z-10">🍕</span>
         <h3 className="font-display text-4xl font-black relative z-10">Hungry yet?</h3>
