@@ -98,7 +98,8 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating useDoodleOverlay>
+      <div className="w-full bg-[#FDF5E6]/90 backdrop-blur-md rounded-[48px] p-6 md:p-10 shadow-xl border border-tomato/10">
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
@@ -163,7 +164,7 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="bg-char-900 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
+          <div className="bg-char-900/50 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
             <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
             <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
           </div>
@@ -184,6 +185,7 @@ const Cart = () => {
           </button>
         </>
       )}
+      </div>
     </PageLayout>
   );
 };

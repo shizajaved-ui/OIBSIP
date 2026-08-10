@@ -11,11 +11,11 @@ const VALUES = [
 
 const About = () => (
   <PageLayout title="About Us" subtitle="Our story, our values, and our passion for pizza." width="6xl" isFloating fullMobile useDoodleOverlay>
-    <div className="text-center">
+    <div className="text-center bg-tomato/5 p-8 md:p-0 rounded-[40px] md:rounded-none shadow-sm md:shadow-none mb-12">
         <h2 className="font-display text-3xl md:text-5xl font-black tracking-tighter text-char-950 mb-8 leading-[1.1]">
             A pizzeria built around the idea that everyone's "perfect pizza" is different.
         </h2>
-        <p className="max-w-3xl mx-auto text-base md:text-lg font-bold text-char-950/80 italic leading-relaxed mb-12">
+        <p className="max-w-3xl mx-auto text-base md:text-lg font-bold text-char-950/80 italic leading-relaxed">
         The Artisan Crust started as a single stone oven and a stubborn belief: the best pizza
         is the one you actually wanted, not the one that happened to be on the
         menu. So we built a place — and an app — where the crust, the sauce, the
@@ -23,11 +23,11 @@ const About = () => (
         </p>
     </div>
 
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-3">
     {VALUES.map((v) => (
-        <div key={v.title} className="bg-white/40 backdrop-blur-md rounded-[40px] p-10 shadow-lg border border-white/20 transition-all duration-500 hover:shadow-2xl hover:bg-white/60 hover:-translate-y-2 group">
-        <h3 className="font-display text-2xl font-black text-tomato mb-3 group-hover:scale-105 transition-transform duration-300">{v.title}</h3>
-        <p className="text-base font-bold text-char-950/60 leading-relaxed">{v.desc}</p>
+        <div key={v.title} className="bg-white/40 backdrop-blur-md rounded-[32px] md:rounded-[40px] p-6 md:p-10 shadow-lg border border-white/20 transition-all duration-500 hover:shadow-2xl hover:bg-white/60 hover:-translate-y-2 group">
+        <h3 className="font-display text-xl md:text-2xl font-black text-tomato mb-2 md:mb-3 group-hover:scale-105 transition-transform duration-300">{v.title}</h3>
+        <p className="text-sm md:text-base font-bold text-char-950/60 leading-relaxed">{v.desc}</p>
         </div>
     ))}
     </div>

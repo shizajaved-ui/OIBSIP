@@ -401,7 +401,7 @@ const PizzaBuilder = () => {
           {/* Enhanced Warm Beige Overlay with Glass Effect */}
           <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 
-          <div className="relative z-10 w-28 h-28 shrink-0 flex items-center justify-center">
+          <div className="relative z-10 w-32 h-32 shrink-0 flex items-center justify-center">
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
@@ -415,7 +415,7 @@ const PizzaBuilder = () => {
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="relative z-10 scale-[0.9] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+              <div className="relative z-10 scale-[1.2] flex items-center justify-center w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
                  <PizzaVisualizer selection={selection} step={step} size="responsive" shouldRotate={false} />
               </div>
             </motion.div>

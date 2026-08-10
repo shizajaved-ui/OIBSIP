@@ -45,7 +45,7 @@ const Account = () => {
 
   return (
     <PageLayout title="Account" width="2xl" isFloating fullMobile useDoodleOverlay>
-      <div className="bg-char-800 rounded-[32px] p-8 shadow-sm">
+      <div className="bg-white rounded-[32px] p-8 shadow-sm">
         <div className="flex items-center gap-6">
           <span className="flex h-16 w-14 shrink-0 items-center justify-center rounded-2xl bg-tomato text-white font-display text-2xl font-black shadow-lg shadow-tomato/20">
             {profile?.name?.[0]?.toUpperCase() || '·'}
@@ -59,9 +59,9 @@ const Account = () => {
                 autoFocus
               />
             ) : (
-              <h2 className="truncate font-display text-2xl font-bold text-white">{profile?.name || '…'}</h2>
+              <h2 className="truncate font-display text-2xl font-bold text-char-950">{profile?.name || '…'}</h2>
             )}
-            <p className="truncate text-sm font-bold text-white/30 uppercase tracking-widest">{profile?.email}</p>
+            <p className="truncate text-sm font-bold text-char-950/30 uppercase tracking-widest">{profile?.email}</p>
           </div>
         </div>
 
@@ -75,7 +75,7 @@ const Account = () => {
               </button>
               <button
                 onClick={() => { setEditing(false); setName(profile?.name || ''); }}
-                className="rounded-full border-2 border-char-950/10 bg-char-850 px-6 py-2 text-sm font-black uppercase tracking-widest text-white transition-all hover:border-char-950/30"
+                className="rounded-full border-2 border-char-950/10 bg-white px-6 py-2 text-sm font-black uppercase tracking-widest text-char-950 transition-all hover:border-char-950/30"
               >
                 Cancel
               </button>
@@ -83,7 +83,7 @@ const Account = () => {
           ) : (
             <button
               onClick={() => setEditing(true)}
-              className="rounded-full border-2 border-char-950/10 bg-char-850 px-6 py-2 text-sm font-black uppercase tracking-widest text-white transition-all hover:border-char-950/30"
+              className="rounded-full border-2 border-char-950/10 bg-white px-6 py-2 text-sm font-black uppercase tracking-widest text-char-950 transition-all hover:border-char-950/30"
             >
               Edit name
             </button>
@@ -100,17 +100,17 @@ const Account = () => {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Link to="/dashboard" className="group bg-char-850 rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
+        <Link to="/dashboard" className="group bg-white rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-display text-lg font-bold text-white">Dashboard</span>
+            <span className="font-display text-lg font-bold text-char-950">Dashboard</span>
             <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
         </Link>
-        <Link to="/history" className="group bg-char-850 rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
+        <Link to="/history" className="group bg-white rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-display text-lg font-bold text-white">Order History</span>
+            <span className="font-display text-lg font-bold text-char-950">Order History</span>
             <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -120,7 +120,7 @@ const Account = () => {
 
       <button
         onClick={handleLogout}
-        className="mt-10 w-full rounded-full border-2 border-char-950/10 bg-char-850 px-5 py-4 font-display text-sm font-black uppercase tracking-widest text-tomato transition-all hover:border-tomato/40 hover:bg-tomato/5"
+        className="mt-10 w-full rounded-full border-2 border-char-950/10 bg-white px-5 py-4 font-display text-sm font-black uppercase tracking-widest text-tomato transition-all hover:border-tomato/40 hover:bg-tomato/5"
       >
         Sign out
       </button>
