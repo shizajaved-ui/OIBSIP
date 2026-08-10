@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext.jsx';
 import SearchOverlay from './SearchOverlay.jsx';
 
 const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" className="h-[14px] w-[14px] md:h-[16px] md:w-[16px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="7" />
     <path d="M21 21l-4.3-4.3" />
   </svg>
@@ -27,14 +27,14 @@ const PizzaOvenIcon = () => (
 );
 
 const UserIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" className="h-[14px] w-[14px] md:h-[16px] md:w-[16px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 21a8 8 0 1 0-16 0" />
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
 const CartIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg viewBox="0 0 24 24" className="h-[14px] w-[14px] md:h-[16px] md:w-[16px]" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="9" cy="21" r="1" />
     <circle cx="19" cy="21" r="1" />
     <path d="M2.5 3h2l2.6 12.6a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21.5 7H6" />
@@ -68,7 +68,7 @@ const Navbar = () => {
   };
 
   const pillClass =
-    'flex items-center gap-2 rounded-full bg-[#A83D1F] px-3 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[12px] font-black uppercase tracking-[0.1em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
+    'flex items-center gap-1.5 rounded-full bg-[#A83D1F] px-2.5 md:px-4 py-2 md:py-2.5 text-[8px] md:text-[11px] font-black uppercase tracking-[0.05em] text-white shadow-md transition-all duration-300 hover:bg-char-950 hover:shadow-lg active:scale-95';
 
   return (
     <header
@@ -90,7 +90,7 @@ const Navbar = () => {
         </Link>
 
         {/* Middle: Main Nav - Fluid and compact */}
-        <nav className="flex items-center justify-center gap-2 sm:gap-6 md:gap-10 flex-1 min-w-0">
+        <nav className="flex items-center justify-center gap-3 sm:gap-6 md:gap-12 flex-1 min-w-0">
           {NAV_ITEMS.map((item) => (
             <Link key={item.path} to={item.path} className={linkClass(item.path)}>
               <span className={item.label === 'Build a pizza' ? 'hidden sm:inline' : ''}>
