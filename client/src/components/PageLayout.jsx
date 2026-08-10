@@ -22,16 +22,10 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''}`}
-        style={useDoodleOverlay ? {
-          backgroundImage: 'url("/assets/doodle-border.png")',
-          backgroundSize: '300px auto',
-          backgroundColor: '#FFF8F6',
-          backgroundBlendMode: 'soft-light'
-        } : {}}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''} ${useDoodleOverlay ? 'doodle-bg relative' : 'bg-char-800'}`}
       >
         {useDoodleOverlay && (
-          <div className={`absolute inset-0 bg-[#FFFCF7]/80 backdrop-blur-[2px] ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
+          <div className={`absolute inset-0 bg-[#FFFCF7]/30 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

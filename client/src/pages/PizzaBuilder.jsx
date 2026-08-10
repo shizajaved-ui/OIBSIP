@@ -353,9 +353,9 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Sticky only on Desktop */}
-      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 bg-[#FDF5E6]/95 backdrop-blur-md border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-none md:shadow-lg">
-        {/* Warm Overlay - No doodle as requested for Stepper */}
-        <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[2px]" />
+      <div ref={scrollRef} className="md:sticky md:top-[104px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 md:mb-10 px-4 md:px-12 py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-none md:shadow-lg">
+        {/* Warm Overlay - Reduced opacity for doodle visibility */}
+        <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[1px]" />
 
         <div className="relative z-10 flex items-center justify-center gap-1.5 md:gap-4 w-full flex-wrap">
           <span className="text-[9px] font-black uppercase tracking-[0.25em] text-char-950/50 mr-2 md:mr-4 hidden xs:block">Select Step:</span>
@@ -386,8 +386,8 @@ const PizzaBuilder = () => {
       {/* Mobile Preview & Thickness Header - Sticky below Navbar */}
       {step < 4 && (
         <div className="sticky top-[72px] z-40 md:hidden -mx-4 mb-0 px-4 py-3 doodle-bg border-b border-char-950/15 relative overflow-hidden flex items-center gap-4 shadow-md">
-          {/* Warm Beige Overlay with Doodle Background restored */}
-          <div className="absolute inset-0 bg-[#FDF5E6]/85 backdrop-blur-sm" />
+          {/* Warm Beige Overlay with Doodle Background restored - Lower opacity */}
+          <div className="absolute inset-0 bg-[#FDF5E6]/60 backdrop-blur-[1px]" />
 
           <div className="relative z-10 w-32 h-32 shrink-0 flex items-center justify-center">
             <motion.div
