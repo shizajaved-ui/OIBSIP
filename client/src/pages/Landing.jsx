@@ -54,10 +54,15 @@ const PizzaIllustration = ({ highlight }) => {
 
 const Steam = ({ delay, x }) => (
   <motion.div
-    className="absolute h-16 w-1.5 rounded-full bg-char-700/40"
-    style={{ left: x, bottom: '92%' }}
-    animate={{ y: [-4, -28, -4], opacity: [0, 0.6, 0] }}
-    transition={{ duration: 3.2, repeat: Infinity, delay, ease: 'easeInOut' }}
+    className="absolute h-24 w-2 rounded-full bg-white/30 blur-md"
+    style={{ left: x, bottom: '85%' }}
+    animate={{
+      y: [0, -60],
+      x: [0, 10, -10, 5],
+      opacity: [0, 0.8, 0],
+      scale: [0.8, 1.5]
+    }}
+    transition={{ duration: 4, repeat: Infinity, delay, ease: 'easeOut' }}
   />
 );
 
@@ -71,32 +76,39 @@ const Landing = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-80px)] px-0 md:px-6 pt-0 pb-16 md:py-16 flex flex-col items-center overflow-hidden">
-      <div className="w-full max-w-[1100px] px-0 md:px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/80 backdrop-blur-md rounded-none md:rounded-[56px] pt-12 pb-8 px-8 md:p-16 shadow-2xl border-y md:border border-white/20 text-center lg:text-left">
-          <div className="text-center lg:text-left px-4 md:px-0">
-            <span className="mb-4 inline-block rounded-full border border-tomato/20 bg-tomato/10 px-3 md:px-4 py-1 text-xs md:text-sm font-black uppercase tracking-widest text-tomato">
+    <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 pt-0 pb-16 md:py-16 flex flex-col items-center overflow-hidden">
+      <div className="w-full max-w-[1200px] px-0 md:px-4">
+        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/90 backdrop-blur-xl rounded-none md:rounded-[64px] pt-16 pb-12 px-8 md:p-20 shadow-[0_30px_100px_-15px_rgba(42,33,24,0.4)] border-y md:border border-white/10 text-center lg:text-left relative overflow-hidden">
+          {/* Background Highlight */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-tomato/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-basil/5 rounded-full blur-[100px] -ml-48 -mb-48 pointer-events-none" />
+
+          <div className="text-center lg:text-left px-4 md:px-0 relative z-10">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 inline-block rounded-full border border-tomato/30 bg-tomato/10 px-4 py-1.5 text-xs md:text-sm font-black uppercase tracking-[0.2em] text-tomato shadow-sm"
+            >
               Stone-fired, built your way
-            </span>
-            <h1 className="font-display text-4xl md:text-[54px] font-black leading-tight tracking-[-0.02em] text-char-950">
-              Every pizza starts
+            </motion.span>
+            <h1 className="font-display text-5xl md:text-[68px] font-black leading-[1.05] tracking-tight text-char-950">
+              Your perfect pizza
               <br />
-              <span className="text-tomato italic text-3xl md:text-[54px]">as an empty base.</span>
+              <span className="text-tomato italic text-4xl md:text-[68px] drop-shadow-sm">starts here.</span>
             </h1>
-            <p className="mt-6 mx-auto lg:mx-0 max-w-md text-sm md:text-base font-medium text-char-950/50 italic leading-relaxed text-center lg:text-left">
-              Pick your crust, your sauce, your cheese, your toppings. Track it
-              from the stone oven to your door — in real time.
+            <p className="mt-8 mx-auto lg:mx-0 max-w-md text-base md:text-lg font-medium text-char-950/60 italic leading-relaxed text-center lg:text-left">
+              Craft your signature pie from scratch. Premium ingredients, real stone ovens, delivered fresh in real-time.
             </p>
-            <div className="mt-6 md:mt-10 flex items-center justify-center lg:justify-start gap-3 md:gap-4">
+            <div className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 md:gap-6">
               <Link
                 to="/register"
-                className="btn-primary px-5 md:px-8 py-2.5 md:py-3.5 text-xs md:text-base transition active:scale-95 shadow-xl shadow-tomato/20"
+                className="btn-primary px-10 py-4 md:py-5 text-base md:text-lg transition w-full sm:w-auto text-center"
               >
                 Start building
               </Link>
               <Link
                 to="/login"
-                className="rounded-full border-2 border-char-950/10 bg-white px-5 md:px-8 py-2.5 md:py-3.5 text-xs md:text-base font-black uppercase tracking-widest text-char-950 transition hover:border-char-950/30 active:scale-95"
+                className="rounded-full border-2 border-char-950/5 bg-white/50 backdrop-blur-md px-10 py-4 md:py-5 text-base md:text-lg font-black uppercase tracking-widest text-char-950 transition hover:bg-white hover:border-char-950/20 active:scale-95 w-full sm:w-auto text-center shadow-lg"
               >
                 Sign in
               </Link>
@@ -122,17 +134,21 @@ const Landing = () => {
           </div>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {FEATURES.map((s) => (
-            <div
+        <div className="mt-24 grid grid-cols-1 gap-8 sm:grid-cols-3">
+          {FEATURES.map((s, i) => (
+            <motion.div
               key={s.step}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
               onMouseEnter={() => setHighlight(s.layer)}
               onMouseLeave={() => setHighlight(null)}
-              className="bg-char-800 rounded-[32px] p-8 shadow-sm border border-char-950/5 transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-default"
+              className="group bg-white/40 backdrop-blur-md rounded-[40px] p-10 shadow-xl border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white/60 hover:shadow-2xl relative overflow-hidden"
             >
-              <h3 className="font-display text-lg font-bold text-tomato mb-2">{s.step}</h3>
-              <p className="text-sm font-medium text-char-950/50 leading-relaxed">{s.desc}</p>
-            </div>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-tomato/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-tomato/10 transition-colors" />
+              <h3 className="font-display text-2xl font-black text-tomato mb-3 relative z-10">{s.step}</h3>
+              <p className="text-base font-bold text-char-950/60 leading-relaxed relative z-10">{s.desc}</p>
+            </motion.div>
           ))}
         </div>
       </div>

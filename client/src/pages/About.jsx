@@ -25,20 +25,21 @@ const About = () => (
 
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
     {VALUES.map((v) => (
-        <div key={v.title} className="bg-char-850 rounded-[32px] p-8 shadow-sm border border-tomato/10 transition-all hover:shadow-md hover:-translate-y-1">
-        <h3 className="font-display text-lg font-bold text-tomato mb-2">{v.title}</h3>
-        <p className="text-sm font-medium text-char-950/50 leading-relaxed">{v.desc}</p>
+        <div key={v.title} className="bg-white/40 backdrop-blur-md rounded-[40px] p-10 shadow-lg border border-white/20 transition-all duration-500 hover:shadow-2xl hover:bg-white/60 hover:-translate-y-2 group">
+        <h3 className="font-display text-2xl font-black text-tomato mb-3 group-hover:scale-105 transition-transform duration-300">{v.title}</h3>
+        <p className="text-base font-bold text-char-950/60 leading-relaxed">{v.desc}</p>
         </div>
     ))}
     </div>
 
-    <div className="mt-16 flex flex-col items-center gap-4 p-8 md:p-12 text-center rounded-[48px] bg-basil/10 border border-basil/20 shadow-sm">
-        <span className="text-5xl">🍕</span>
-        <h3 className="font-display text-3xl font-black text-char-950">Hungry yet?</h3>
-        <p className="max-w-md text-lg font-medium text-char-950/60 italic">
+    <div className="mt-20 flex flex-col items-center gap-6 p-10 md:p-16 text-center rounded-[64px] bg-basil text-white shadow-2xl relative overflow-hidden group">
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
+        <span className="text-6xl group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 relative z-10">🍕</span>
+        <h3 className="font-display text-4xl font-black relative z-10">Hungry yet?</h3>
+        <p className="max-w-md text-xl font-medium text-white/80 italic relative z-10">
             Pick something off the menu, or start from scratch and build your own from the crust up.
         </p>
-        <Link to="/menu" className="btn-primary mt-4 px-10 py-4 text-lg shadow-xl shadow-tomato/20">
+        <Link to="/menu" className="bg-white text-char-950 px-12 py-5 rounded-full font-black uppercase tracking-widest text-lg shadow-xl hover:scale-105 active:scale-95 transition-all relative z-10">
             View Menu
         </Link>
     </div>
