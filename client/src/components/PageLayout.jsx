@@ -31,7 +31,7 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
         } : {}}
       >
         {useDoodleOverlay && (
-          <div className="absolute inset-0 bg-[#FFFCF7]/80 backdrop-blur-[2px]" />
+          <div className={`absolute inset-0 bg-[#FFFCF7]/80 backdrop-blur-[2px] ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

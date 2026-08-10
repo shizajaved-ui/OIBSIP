@@ -163,7 +163,7 @@ const Cart = () => {
             ))}
           </div>
 
-          <div className="bg-char-900 rounded-3xl mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
+          <div className="bg-char-900 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
             <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
             <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
           </div>
