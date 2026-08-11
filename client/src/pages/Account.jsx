@@ -44,7 +44,7 @@ const Account = () => {
   };
 
   return (
-    <PageLayout title="Account" width="2xl" isFloating fullMobile useDoodleOverlay>
+    <PageLayout title="Account" width="2xl" isFloating fullMobile>
       <div className="bg-white rounded-[32px] p-8 shadow-sm">
         <div className="flex items-center gap-6">
           <span className="flex h-16 w-14 shrink-0 items-center justify-center rounded-2xl bg-tomato text-white font-display text-2xl font-black shadow-lg shadow-tomato/20">
