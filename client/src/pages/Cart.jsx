@@ -99,7 +99,7 @@ const Cart = () => {
 
   return (
     <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
-      <div className="w-full bg-[#FFFCF7] rounded-[48px] p-6 md:p-10 shadow-xl border border-char-950/5">
+      <div className="w-full bg-[#FFFCF7] md:bg-white rounded-[48px] p-6 md:p-10 shadow-xl border border-char-950/5">
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (

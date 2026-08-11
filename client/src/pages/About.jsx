@@ -11,7 +11,7 @@ const VALUES = [
 
 const About = () => (
   <PageLayout title="About Us" subtitle="Our story, our values, and our passion for pizza." width="6xl" isFloating fullMobile useDoodleOverlay>
-    <div className="text-center bg-tomato/5 p-8 md:p-0 rounded-[40px] md:rounded-none shadow-sm md:shadow-none mb-12">
+    <div className="text-center bg-tomato/5 md:bg-transparent p-8 md:p-0 rounded-[40px] md:rounded-none shadow-sm md:shadow-none mb-12">
         <h2 className="font-display text-3xl md:text-5xl font-black tracking-tighter text-char-950 mb-8 leading-[1.1]">
             A pizzeria built around the idea that everyone's "perfect pizza" is different.
         </h2>
