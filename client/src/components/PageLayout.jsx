@@ -22,10 +22,10 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} ${useDoodleOverlay ? 'relative doodle-bg' : 'bg-char-800'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''}`}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''} ${useDoodleOverlay ? 'relative doodle-bg md:bg-[#FFF8F6] md:bg-none' : 'bg-char-800'}`}
       >
         {useDoodleOverlay && (
-          <div className={`absolute inset-0 bg-[#FFFCF7]/10 md:bg-[#FFFCF7]/80 backdrop-blur-[1px] md:backdrop-blur-[2px] ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
+          <div className={`absolute inset-0 bg-[#FFFCF7]/10 md:bg-[#FFFCF7]/85 backdrop-blur-[1px] md:backdrop-blur-none ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

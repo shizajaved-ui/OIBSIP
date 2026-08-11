@@ -78,7 +78,7 @@ const Landing = () => {
   return (
     <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 pt-0 pb-16 md:py-16 flex flex-col items-center overflow-hidden">
       <div className="w-full max-w-[1200px] px-0 md:px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/30 md:bg-char-800/90 backdrop-blur-2xl md:backdrop-blur-xl rounded-none md:rounded-[64px] pt-16 pb-12 px-8 md:p-20 shadow-[0_30px_100px_-15px_rgba(42,33,24,0.4)] border-y md:border border-white/20 md:border-white/10 text-center lg:text-left relative overflow-hidden">
+        <div className="grid items-center gap-12 lg:grid-cols-2 bg-char-800/30 md:bg-char-800/70 backdrop-blur-2xl md:backdrop-blur-xl rounded-none md:rounded-[64px] pt-16 pb-12 px-8 md:p-20 shadow-[0_30px_100px_-15px_rgba(42,33,24,0.4)] border-y md:border border-white/20 md:border-white/10 text-center lg:text-left relative overflow-hidden">
           {/* Background Highlight */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-tomato/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-basil/5 rounded-full blur-[100px] -ml-48 -mb-48 pointer-events-none" />

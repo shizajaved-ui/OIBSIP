@@ -74,10 +74,10 @@ const linkClass = (path) => {
     <header
       className="sticky top-0 z-50 w-full border-b border-char-950/5 bg-[#F5E6D3] md:bg-[#F5E6D3]/80 md:backdrop-blur-xl"
     >
-      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-3 md:py-4 gap-2">
+      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-12 py-3 md:py-3 gap-2">
         {/* Left Side: Logo - Icon only on mobile */}
         <Link to="/" className="flex shrink-0 items-center gap-2 group z-10">
-          <div className="h-10 w-10 md:h-14 md:w-14 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
+          <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">
             <img
               src="/assets/logo-artisan.png"
               alt="The Artisan Crust"
@@ -90,7 +90,7 @@ const linkClass = (path) => {
         </Link>
 
         {/* Middle: Main Nav - Fluid and compact */}
-        <nav className="flex items-center justify-center gap-2 sm:gap-6 md:gap-5 flex-1 min-w-0">
+        <nav className="flex items-center justify-center gap-2 sm:gap-6 md:gap-6 flex-1 min-w-0">
           {NAV_ITEMS.map((item) => (
             <Link key={item.path} to={item.path} className={linkClass(item.path)}>
               <span className={item.label === 'Build a pizza' ? 'hidden sm:inline' : ''}>

@@ -54,54 +54,42 @@ const OptionCard = ({ item, selected, onSelect }) => {
   return (
     <motion.button
       onClick={handleClick}
-      whileTap={{ scale: 0.95 }}
+      whileTap={{ scale: 0.97 }}
       whileHover={{ y: -4 }}
-      className={`group relative h-60 w-full overflow-hidden rounded-[32px] border bg-char-850 text-left transition-all duration-500 ${
+      className={`group relative h-60 w-full overflow-hidden rounded-[32px] border bg-char-850 text-left transition-all duration-300 ${
         selected
-          ? 'border-tomato shadow-[0_20px_50px_-12px_rgba(200,78,41,0.3)] ring-4 ring-tomato/10 scale-[1.02] z-10'
+          ? 'border-tomato shadow-xl ring-4 ring-tomato/10 scale-[1.02] z-10'
           : 'border-char-950/5 hover:border-tomato/30 shadow-md'
       }`}
       style={{ cursor: getCursorStyle(item) }}
     >
-      {/* Background Animated Glow for Selected State */}
-      <AnimatePresence>
-        {selected && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-gradient-to-tr from-tomato/20 to-transparent pointer-events-none"
-          />
-        )}
-      </AnimatePresence>
-
       {!showFallback ? (
         <>
           <img
             src={resolveImageUrl(item.inventoryCard)}
             alt={item.name}
             onError={() => setImgFailed(true)}
-            className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ${selected ? 'scale-110 opacity-100' : 'opacity-80 group-hover:scale-105 group-hover:opacity-90'}`}
+            className={`absolute inset-0 h-full w-full object-cover transition-all duration-500 ${selected ? 'scale-110 opacity-100' : 'opacity-90 group-hover:scale-105'}`}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to top, rgba(47,31,23,0.9) 0%, rgba(47,31,23,0.4) 40%, transparent 100%)',
+                'linear-gradient(to top, rgba(47,31,23,0.8) 0%, rgba(47,31,23,0.3) 40%, transparent 100%)',
             }}
           />
         </>
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className={`text-7xl drop-shadow-2xl transition-all duration-500 ${selected ? 'scale-125 rotate-12' : 'group-hover:scale-110'}`}>
+            <span className={`text-7xl drop-shadow-md transition-all duration-300 ${selected ? 'scale-110' : 'group-hover:scale-105'}`}>
               {getIngredientIcon(item)}
             </span>
           </div>
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(47,31,23,0.7) 0%, transparent 60%)',
+              background: 'linear-gradient(to top, rgba(47,31,23,0.6) 0%, transparent 60%)',
             }}
           />
         </>

@@ -40,37 +40,37 @@ const MenuCard = ({ item, defaultSauce, defaultCheese, onAddClick, onShowDetails
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}
-      whileHover={{ y: -6 }}
+      whileHover={{ y: -4 }}
       onClick={() => onShowDetails(item)}
-      className="group relative h-80 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left transition-all duration-500 border-char-950/5 hover:border-tomato/30 cursor-pointer shadow-xl hover:shadow-[0_20px_50px_-12px_rgba(47,31,23,0.3)]"
+      className="group relative h-72 w-full overflow-hidden rounded-[40px] border bg-char-800 text-left transition-all duration-300 border-char-950/5 hover:border-tomato/30 cursor-pointer shadow-lg hover:shadow-2xl"
     >
       {!showFallback ? (
         <>
           <img
             src={resolveImageUrl(item.menuVisual)}
             alt={item.name}
-            className="absolute inset-0 h-full w-full object-cover transition-all duration-700 opacity-90 group-hover:scale-110 group-hover:opacity-100"
+            className="absolute inset-0 h-full w-full object-cover transition-all duration-500 opacity-90 group-hover:scale-110"
             onError={() => setImgFailed(true)}
           />
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to top, rgba(47,31,23,0.95) 0%, rgba(47,31,23,0.4) 50%, transparent 100%)',
+                'linear-gradient(to top, rgba(47,31,23,0.9) 0%, rgba(47,31,23,0.4) 50%, transparent 100%)',
             }}
           />
         </>
       ) : (
         <>
           <div className="absolute inset-0 flex items-center justify-center bg-tomato/5">
-            <span className="text-8xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
+            <span className="text-8xl drop-shadow-md transition-transform duration-300 group-hover:scale-110">
               {getIngredientIcon(item)}
             </span>
           </div>
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to top, rgba(47,31,23,0.8) 0%, transparent 70%)',
+              background: 'linear-gradient(to top, rgba(47,31,23,0.7) 0%, transparent 70%)',
             }}
           />
         </>
