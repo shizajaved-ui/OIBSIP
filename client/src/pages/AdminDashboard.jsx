@@ -511,34 +511,35 @@ const AdminDashboard = () => {
 
       {/* Item Management Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/70 backdrop-blur-md p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/70 backdrop-blur-md p-6 overflow-hidden">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-lg rounded-[48px] shadow-2xl border border-char-950/10 overflow-hidden"
+            className="relative w-full max-w-xl rounded-[48px] shadow-2xl border border-char-950/10 overflow-hidden flex flex-col"
             style={{
               backgroundColor: '#FDF5E6',
-              maxHeight: '85vh'
+              height: '80vh',
+              maxHeight: '850px'
             }}
           >
             {/* Modal Header - Fixed */}
-            <div className="px-10 pt-10 pb-4 border-b border-char-950/5 relative z-20">
-              <h3 className="font-display text-3xl font-black text-char-950">
+            <div className="px-10 py-10 border-b border-char-950/5 relative z-20 shrink-0 bg-[#FDF5E6]">
+              <h3 className="font-display text-4xl font-black text-char-950">
                 {editingItem ? 'Modify Item' : 'New Collection Item'}
               </h3>
             </div>
 
             {/* Modal Content - Scrollable */}
             <div
-               className="p-10 pt-6 overflow-y-auto custom-scrollbar relative z-10"
+               className="p-10 pt-8 overflow-y-auto custom-scrollbar relative z-10 flex-1"
                style={{
-                 maxHeight: 'calc(85vh - 120px)',
                  backgroundImage: 'url("/assets/doodle-border.png")',
                  backgroundSize: '400px auto',
-                 backgroundBlendMode: 'soft-light'
+                 backgroundBlendMode: 'multiply',
+                 backgroundColor: 'rgba(253, 245, 230, 0.95)'
                }}
             >
-              <form onSubmit={handleSaveItem} className="space-y-6">
+              <form onSubmit={handleSaveItem} id="modal-form" className="space-y-8">
                 <div>
                   <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Display Name</label>
                   <input
@@ -599,14 +600,14 @@ const AdminDashboard = () => {
                     />
                   </div>
                 </div>
-                <div className="flex gap-4 pt-6">
-                  <button type="submit" className="btn-primary flex-1 py-4 text-[11px] uppercase tracking-widest shadow-ember">
+                <div className="flex gap-4 pt-10 sticky bottom-0 bg-[#FDF5E6]/95 backdrop-blur-sm -mx-10 px-10 pb-10 mt-auto">
+                  <button type="submit" className="btn-primary flex-1 py-5 text-base font-black uppercase tracking-widest shadow-xl shadow-tomato/20">
                     Save Changes
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-8 py-4 text-[11px] font-black uppercase tracking-widest text-char-950/30 hover:text-tomato transition-all"
+                    className="px-10 py-5 rounded-full bg-white border-2 border-char-950/5 text-char-950/30 hover:text-tomato transition-all active:scale-95 shadow-lg"
                   >
                     Cancel
                   </button>
