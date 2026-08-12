@@ -323,7 +323,7 @@ const AdminDashboard = () => {
       {tab === 'inventory' && (
         <div className="space-y-12">
           {/* Quick Jump Station - Professional Charcoal */}
-          <div className="sticky top-[72px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-6 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
+          <div className="sticky top-[64px] md:top-[72px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-6 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
             {/* Warm Beige Overlay - Reduced opacity for more "pop" */}
             <div className="absolute inset-0 bg-[#FDF5E6]/70" />
 
