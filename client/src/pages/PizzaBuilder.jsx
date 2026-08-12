@@ -356,7 +356,7 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="6xl" isFloating fullMobile useDoodleOverlay>
       {/* Stepper Navigation - Sticky like Admin Panel */}
-      <div ref={scrollRef} className="sticky top-[72px] md:top-[104px] z-50 -mx-4 md:-mx-12 mb-0 px-4 md:px-12 py-6 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
+      <div ref={scrollRef} className="sticky top-[64px] md:top-[72px] z-30 md:z-50 -mx-4 md:-mx-12 mb-0 px-4 md:px-12 py-6 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center shadow-lg">
         {/* Warm Overlay like Admin Station Header */}
         <div className="absolute inset-0 bg-[#FDF5E6]/80" />
 
@@ -388,7 +388,7 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Stepper on Mobile */}
       {step < 4 && (
-        <div className="sticky top-[152px] z-40 md:hidden -mx-4 mb-0 px-4 py-4 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center gap-5 shadow-2xl">
+        <div className="sticky top-[144px] z-40 md:hidden -mx-4 mb-0 px-4 py-4 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center gap-5 shadow-2xl">
           {/* Enhanced Warm Beige Overlay with Glass Effect */}
           <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 

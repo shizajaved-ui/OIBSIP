@@ -16,16 +16,16 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
   };
 
   return (
-    <div className={`min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)] ${showDoodle ? 'doodle-bg' : 'bg-char-900'} flex justify-center ${isFloating ? (fullMobile ? 'items-start py-0 md:py-20 px-0 md:px-6' : 'items-start py-10 md:py-20 px-4 md:px-6') : 'items-stretch'}`}>
+    <div className={`min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)] ${showDoodle ? 'doodle-bg' : 'bg-char-900'} flex justify-center ${isFloating ? (fullMobile ? 'items-start py-0 md:py-0 px-0 md:px-6' : 'items-start py-0 md:py-0 px-4 md:px-6') : 'items-stretch'}`}>
       {/*
           This centered container acts as the "split" in the background.
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} shadow-2xl flex flex-col items-center py-10 md:py-16 px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''} ${useDoodleOverlay ? 'relative doodle-bg md:bg-[#FFF8F6] md:bg-none' : 'bg-char-800'}`}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} shadow-2xl flex flex-col items-center ${isFloating && fullMobile ? 'pt-0 md:pt-0 pb-10 md:pb-16' : 'py-10 md:py-16'} px-4 md:px-12 transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px] border-none md:border border-char-950/5 min-h-[calc(100vh-72px)] md:min-h-[calc(100vh-104px)]' : 'rounded-[40px] md:rounded-[64px] border border-char-950/5') : ''} ${useDoodleOverlay ? 'relative doodle-bg' : 'bg-char-800'}`}
       >
         {useDoodleOverlay && (
-          <div className={`absolute inset-0 bg-[#FFFCF7]/10 md:bg-[#FFFCF7]/85 backdrop-blur-[1px] md:backdrop-blur-none ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
+          <div className={`absolute inset-0 bg-[#FFFCF7]/10 md:bg-[#FFFCF7]/60 backdrop-blur-[1px] md:backdrop-blur-none ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ const PageLayout = ({ children, title, subtitle, width = '3xl', showDoodle = tru
           className="relative z-10 w-full flex flex-col items-center"
         >
           {(title || subtitle) && (
-            <div className="w-full bg-basil/80 md:bg-basil/[0.08] rounded-[32px] md:rounded-[48px] border-2 border-basil/10 p-8 md:p-12 text-center mb-10 md:mb-14 shadow-lg relative overflow-hidden group">
+            <div className="w-full bg-basil md:bg-basil rounded-[32px] md:rounded-[48px] border-2 border-basil/10 p-8 md:p-12 text-center mb-10 md:mb-14 shadow-lg relative overflow-hidden group">
               {/* Subtle noise texture for that premium card look */}
               <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")` }} />
 
