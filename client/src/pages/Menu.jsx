@@ -235,7 +235,7 @@ const Menu = () => {
 
   return (
     <>
-      <PageLayout title="Menu" subtitle="Ready to order pizzas? Or head to Build a Pizza to customize every layer yourself!" width="5xl" isFloating fullMobile useDoodleOverlay>
+      <PageLayout title="Menu" subtitle="Ready to order pizzas? Or head to Build a Pizza to customize every layer yourself!" width="5xl" isFloating fullMobile useDoodleOverlay transparentMobile>
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 border-b-2 border-char-950/5 pb-8 mb-10">
           <div className="hidden sm:block">
             {/* Title and subtitle are now in PageLayout */}
@@ -271,7 +271,7 @@ const Menu = () => {
 
       <AnimatePresence>
         {customizingItem && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-6">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -283,7 +283,7 @@ const Menu = () => {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg overflow-hidden rounded-[40px] bg-char-850 shadow-2xl border border-white/20 border-t-8 border-tomato"
+              className="relative w-full max-w-lg overflow-hidden rounded-none md:rounded-[40px] bg-char-850 shadow-2xl border border-white/20 border-t-8 border-tomato"
               style={{
                 backgroundImage: 'url("/assets/doodle-border.png")',
                 backgroundSize: '400px auto',

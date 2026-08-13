@@ -10,7 +10,7 @@ const VALUES = [
 ];
 
 const About = () => (
-  <PageLayout title="About Us" subtitle="Our story, our values, and our passion for pizza." width="5xl" isFloating fullMobile useDoodleOverlay>
+  <PageLayout title="About Us" subtitle="Our story, our values, and our passion for pizza." width="5xl" isFloating fullMobile useDoodleOverlay customMobileBg="bg-tomato/20 backdrop-blur-md">
     <div className="text-center bg-tomato/5 md:bg-transparent p-8 md:p-0 rounded-[40px] md:rounded-none shadow-sm md:shadow-none mb-12">
         <h2 className="font-display text-3xl md:text-5xl font-black tracking-tighter text-char-950 mb-8 leading-[1.1]">
             A pizzeria built around the idea that everyone's "perfect pizza" is different.
@@ -25,7 +25,7 @@ const About = () => (
 
     <div className="grid grid-cols-1 gap-4 md:gap-6 sm:grid-cols-3">
     {VALUES.map((v) => (
-        <div key={v.title} className="bg-[#FDF2F0]/80 backdrop-blur-md rounded-[32px] md:rounded-[40px] p-6 md:p-10 shadow-lg border border-tomato/5 transition-all duration-500 hover:shadow-2xl hover:bg-white hover:-translate-y-2 group">
+        <div key={v.title} className="bg-white/20 backdrop-blur-md md:bg-[#FDF2F0]/80 rounded-[32px] md:rounded-[40px] p-6 md:p-10 shadow-lg border border-white/20 md:border-tomato/5 transition-all duration-500 hover:shadow-2xl hover:bg-white hover:-translate-y-2 group">
         <h3 className="font-display text-xl md:text-2xl font-black text-tomato mb-2 md:mb-3 group-hover:scale-105 transition-transform duration-300">{v.title}</h3>
         <p className="text-sm md:text-base font-bold text-char-950/60 leading-relaxed">{v.desc}</p>
         </div>

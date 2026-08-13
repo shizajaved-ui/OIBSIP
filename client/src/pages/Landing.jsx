@@ -77,10 +77,10 @@ const Landing = () => {
   const [highlight, setHighlight] = useState(null);
 
   return (
-    <div className="doodle-bg min-h-[calc(100vh-104px)] px-4 md:px-6 py-12 md:py-20 flex flex-col items-center overflow-hidden">
+    <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 py-0 md:py-20 flex flex-col items-center overflow-hidden">
       <div className="w-full max-w-5xl relative overflow-hidden flex flex-col items-center">
         {/* Hero Card - Independent Section */}
-        <div className="grid items-center gap-10 lg:grid-cols-2 bg-[#FDF2F0] rounded-[40px] md:rounded-[56px] py-16 px-10 md:p-14 relative overflow-hidden border border-tomato/10 shadow-xl w-full">
+        <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/20 backdrop-blur-md rounded-none md:rounded-[56px] py-20 px-6 md:p-14 relative overflow-hidden border-b md:border border-white/20 shadow-2xl w-full">
           {/* Background Highlight */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-tomato/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-basil/5 rounded-full blur-[80px] -ml-32 -mb-32 pointer-events-none" />
@@ -146,7 +146,7 @@ const Landing = () => {
                 transition={{ delay: i * 0.1 }}
                 onMouseEnter={() => setHighlight(s.layer)}
                 onMouseLeave={() => setHighlight(null)}
-                className="group bg-[#FDF2F0] rounded-[24px] md:rounded-[40px] p-4 md:p-10 shadow-xl border border-tomato/5 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
+                className="group bg-white/20 backdrop-blur-md rounded-[24px] md:rounded-[40px] p-4 md:p-10 shadow-xl border border-white/20 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-tomato/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-tomato/10 transition-colors" />
                 <h3 className="font-display text-[11px] md:text-2xl font-black text-tomato mb-1 md:mb-3 relative z-10 uppercase tracking-tighter md:tracking-normal">{s.step}</h3>

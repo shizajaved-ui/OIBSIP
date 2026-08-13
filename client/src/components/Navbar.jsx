@@ -60,7 +60,7 @@ const Navbar = () => {
 const linkClass = (path) => {
     const isActive = !!matchPath({ path, end: path === '/' }, location.pathname);
 
-    return `relative pb-1 text-[8.5px] md:text-[11.5px] font-black uppercase tracking-wider md:tracking-[0.12em] transition-all duration-300 ${
+    return `relative pb-1 text-[10px] md:text-[11.5px] font-black uppercase tracking-wider md:tracking-[0.12em] transition-all duration-300 ${
       isActive
         ? 'text-tomato'
         : 'text-char-950/40 hover:text-tomato'
@@ -68,13 +68,13 @@ const linkClass = (path) => {
   };
 
   const pillClass =
-    'flex items-center gap-1.5 rounded-full bg-gradient-to-br from-[#A83D1F] to-[#C84E29] px-2 md:px-3 py-1.5 md:py-2 text-[7.5px] md:text-[10px] font-black uppercase tracking-[0.05em] text-white shadow-lg transition-all duration-500 hover:shadow-tomato/20 hover:scale-105 active:scale-95 border border-white/10';
+    'flex items-center gap-1.5 rounded-full bg-gradient-to-br from-[#A83D1F] to-[#C84E29] px-2.5 md:px-3 py-2 md:py-2 text-[8.5px] md:text-[10px] font-black uppercase tracking-[0.05em] text-white shadow-lg transition-all duration-500 hover:shadow-tomato/20 hover:scale-105 active:scale-95 border border-white/10';
 
   return (
     <header
       className="sticky top-0 z-50 w-full border-b border-char-950/5 bg-[#F5E6D3]"
     >
-      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-10 py-2 md:py-2.5 gap-2">
+      <div className="mx-auto flex w-full items-center justify-between px-4 md:px-10 py-3.5 md:py-2.5 gap-2">
         {/* Left Side: Logo - Icon only on mobile */}
         <Link to="/" className="flex shrink-0 items-center gap-2 group z-10">
           <div className="h-8 w-8 md:h-10 md:w-10 rounded-full overflow-hidden border-2 border-white/20 drop-shadow-md transition-transform group-hover:scale-105">

@@ -56,7 +56,7 @@ const OptionCard = ({ item, selected, onSelect }) => {
       onClick={handleClick}
       whileTap={{ scale: 0.97 }}
       whileHover={{ y: -4 }}
-      className={`group relative h-48 md:h-60 w-full overflow-hidden rounded-[24px] md:rounded-[32px] border bg-[#FDF2F0] text-left transition-all duration-300 ${
+      className={`group relative h-48 md:h-64 w-full overflow-hidden rounded-[24px] md:rounded-[32px] border bg-[#FDF2F0] text-left transition-all duration-300 ${
         selected
           ? 'border-tomato shadow-xl ring-4 ring-tomato/10 scale-[1.02] z-10'
           : 'border-tomato/5 hover:border-tomato/30 shadow-md'
@@ -355,7 +355,7 @@ const PizzaBuilder = () => {
   };
 
   return (
-    <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="5xl" isFloating fullMobile useDoodleOverlay>
+    <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="5xl" isFloating fullMobile useDoodleOverlay transparentMobile>
       {/* Stepper Navigation - Unpinned on Mobile */}
       <div ref={scrollRef} className={`${step === 4 ? 'relative' : 'relative md:sticky md:top-[60px]'} z-30 md:z-50 -mx-4 md:-mx-10 mb-0 px-4 md:px-10 py-3 md:py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center`}>
         {/* Warm Overlay like Admin Station Header */}
@@ -389,7 +389,7 @@ const PizzaBuilder = () => {
 
       {/* Mobile Preview & Thickness Header - Sticky below Stepper on Mobile */}
       {step < 4 && (
-        <div className="sticky top-[52px] md:top-[120px] z-40 md:hidden -mx-4 mb-0 px-4 py-2 relative overflow-hidden flex items-center gap-5 shadow-2xl">
+        <div className="sticky top-[60px] md:top-[120px] z-40 md:hidden -mx-4 mb-0 px-4 py-2 relative overflow-hidden flex items-center gap-5 shadow-2xl">
           {/* Enhanced Warm Beige Overlay with Glass Effect */}
           <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 
