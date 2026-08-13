@@ -17,7 +17,7 @@ const VerifyEmail = () => {
   }, [token]);
 
   return (
-    <PageLayout width="md" title="Email Verification">
+    <PageLayout width="5xl" title="Email Verification">
       <div className="text-center py-10">
         {status === 'verifying' && <p className="font-display text-xl text-char-950/40 italic animate-pulse">Verifying your email…</p>}
         {status === 'success' && (

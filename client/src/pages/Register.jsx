@@ -45,7 +45,7 @@ const Register = () => {
     <PageLayout
       title="Create your account"
       subtitle="We'll send a verification link to your inbox."
-      width="md"
+      width="5xl"
     >
       {/* Success Toast */}
       {toast && (

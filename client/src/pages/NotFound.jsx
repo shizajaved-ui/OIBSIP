@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PageLayout from '../components/PageLayout';
 
 const NotFound = () => (
-  <PageLayout title="404" subtitle="This slice fell off the table." width="md" isFloating>
+  <PageLayout title="404" subtitle="This slice fell off the table." width="5xl" isFloating>
     <div className="flex flex-col items-center gap-6 text-center">
       <span className="text-6xl">🍕</span>
       <p className="text-sm text-muted">

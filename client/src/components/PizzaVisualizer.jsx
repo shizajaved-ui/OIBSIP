@@ -28,7 +28,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
       {/* The Stack - Rotation is handled by the parent Wood Board in PizzaBuilder */}
       <div className="relative h-full w-full flex items-center justify-center transform-style-3d">
         <AnimatePresence>
-          {/* Layer 1: The Crust (Dough) - 100% Size for maximum visibility */}
+          {/* Layer 1: The Crust (Dough) - Scaled down to fit nicely inside the wooden board */}
           {selection.base && (
             <motion.div
               key="base"
@@ -39,7 +39,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
               transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
               className="absolute inset-0 z-10 flex items-center justify-center"
             >
-              <div className="relative w-full h-full rounded-full drop-shadow-[0_8px_16px_rgba(47,31,23,0.4)]">
+              <div className="relative w-[90%] h-[90%] rounded-full drop-shadow-[0_8px_16px_rgba(47,31,23,0.4)]">
                 <img
                   src={resolveImageUrl(selection.base.previewLayer || selection.base.builderImage || selection.base.image)}
                   alt="Base"
@@ -50,7 +50,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
             </motion.div>
           )}
 
-          {/* Layer 2: The Sauce - 86% Size (Reveals more crust) */}
+          {/* Layer 2: The Sauce - Scaled relative to the new crust size */}
           {selection.sauce && (
             <motion.div
               key="sauce"
@@ -61,7 +61,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
               transition={{ duration: 0.5, delay: 0.1 }}
               className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
             >
-              <div className="relative w-[86%] h-[86%] rounded-full overflow-hidden shadow-inner">
+              <div className="relative w-[78%] h-[78%] rounded-full overflow-hidden shadow-inner">
                 {selection.sauce.previewLayer ? (
                   <img
                     src={resolveImageUrl(selection.sauce.previewLayer)}
@@ -83,7 +83,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
             </motion.div>
           )}
 
-          {/* Layer 3: The Cheese - 82% Size */}
+          {/* Layer 3: The Cheese - Scaled relative to sauce */}
           {selection.cheese && (
             <motion.div
               key="cheese"
@@ -94,7 +94,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
               transition={{ duration: 0.5, delay: 0.2 }}
               className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
             >
-              <div className="relative w-[82%] h-[82%] rounded-full overflow-hidden">
+              <div className="relative w-[74%] h-[74%] rounded-full overflow-hidden">
                 {selection.cheese.previewLayer ? (
                   <img
                     src={resolveImageUrl(selection.cheese.previewLayer)}
@@ -119,7 +119,7 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
             </motion.div>
           )}
 
-          {/* Layer 4: Toppings - Spaced out and Varied Rotation */}
+          {/* Layer 4: Toppings - Kept strictly within the cheese boundary */}
           {selection.vegetables?.length > 0 && selection.vegetables.map((v, idx) => {
             // Subtle rotation offset for each layer
             const layerRotation = (idx * 45) % 360;
@@ -134,8 +134,8 @@ const PizzaVisualizer = ({ selection, step, size = "md", shouldRotate = true }) 
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none"
               >
-                {/* Topping Container: Shrink to 74% to keep them strictly inside the cheese area */}
-                <div className="relative w-[74%] h-[74%] rounded-full overflow-hidden">
+                {/* Topping Container: Shrink to 66% to keep them strictly inside the cheese area */}
+                <div className="relative w-[66%] h-[66%] rounded-full overflow-hidden">
                   {v.previewLayer ? (
                     <img
                       src={resolveImageUrl(v.previewLayer)}

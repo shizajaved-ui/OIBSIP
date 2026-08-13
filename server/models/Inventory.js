@@ -5,7 +5,7 @@ const inventorySchema = new mongoose.Schema(
     name: { type: String, required: true },
     category: {
       type: String,
-      enum: ['base', 'sauce', 'cheese', 'vegetable', 'thickness', 'size'],
+      enum: ['base', 'sauce', 'cheese', 'vegetable', 'thickness', 'size', 'menu'],
       required: true,
     },
     stock: { type: Number, required: true, default: 100 },

@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import api, { resolveImageUrl } from '../utils/api.js';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 import PageLayout from '../components/PageLayout';
 
-const CATEGORIES = ['base', 'sauce', 'cheese', 'vegetable'];
+const CATEGORIES = ['base', 'sauce', 'cheese', 'vegetable', 'thickness', 'size'];
 const ORDER_STATUSES = ['Order Received', 'In Kitchen', 'Sent to Delivery', 'Delivered'];
 
 const ReceiptModal = ({ order, onClose }) => {
@@ -26,19 +28,26 @@ const ReceiptModal = ({ order, onClose }) => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[#FDF5E6] w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                className="bg-[#FDF5E6] w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] relative border-t-8 border-basil"
             >
-                <div ref={componentRef} className="p-12 overflow-y-auto flex-1">
-                    <div className="text-center border-b-2 border-char-950/10 pb-8 mb-8">
-                        <h2 className="font-display text-4xl font-black text-char-950">The Artisan Crust</h2>
-                        <p className="text-sm font-bold text-char-950/40 uppercase tracking-[0.2em] mt-2">Official Order Receipt</p>
+                {/* Top Right Close Button */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-6 right-6 z-20 h-9 w-9 flex items-center justify-center rounded-full bg-char-950/5 text-char-950/40 hover:bg-tomato hover:text-white transition-all shadow-inner"
+                >
+                    ✕
+                </button>
+                <div ref={componentRef} className="p-8 overflow-y-auto flex-1">
+                    <div className="text-center border-b-2 border-char-950/10 pb-6 mb-6">
+                        <h2 className="font-display text-3xl font-black text-char-950">The Artisan Crust</h2>
+                        <p className="text-[10px] font-bold text-char-950/40 uppercase tracking-[0.2em] mt-1">Official Order Receipt</p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-8 mb-10">
+                    <div className="grid grid-cols-2 gap-4 mb-6">
                         <div>
                             <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-1">Customer</p>
-                            <p className="font-display text-xl font-bold text-char-950">{order.user?.name || 'Guest'}</p>
-                            <p className="text-sm text-char-950/60 italic">{order.user?.email}</p>
+                            <p className="font-display text-lg font-bold text-char-950">{order.user?.name || 'Guest'}</p>
+                            <p className="text-xs text-char-950/60 italic">{order.user?.email}</p>
                         </div>
                         <div className="text-right">
                             <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-1">Order Details</p>
@@ -47,62 +56,62 @@ const ReceiptModal = ({ order, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="space-y-4 border-y-2 border-dashed border-char-950/10 py-8 mb-8">
+                    <div className="space-y-3 border-y-2 border-dashed border-char-950/10 py-6 mb-6">
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Quantity</span>
+                            <span className="font-display text-base font-bold text-char-950">Quantity</span>
                             <span className="font-bold text-char-950/40">{order.quantity || 1}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Thickness: {order.thickness?.name || 'Standard'}</span>
+                            <span className="font-display text-base font-bold text-char-950">Thickness: {order.thickness?.name || 'Standard'}</span>
                             <span className="font-bold text-char-950/40">₹{order.thickness?.price || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Size: {order.size?.name || 'Regular'}</span>
+                            <span className="font-display text-base font-bold text-char-950">Size: {order.size?.name || 'Regular'}</span>
                             <span className="font-bold text-char-950/40">₹{order.size?.price || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Base: {order.base?.name || 'Custom Base'}</span>
+                            <span className="font-display text-base font-bold text-char-950">Base: {order.base?.name || 'Custom Base'}</span>
                             <span className="font-bold text-char-950/40">₹{order.base?.price || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Sauce: {order.sauce?.name || 'Signature Tomato'}</span>
+                            <span className="font-display text-base font-bold text-char-950">Sauce: {order.sauce?.name || 'Signature Tomato'}</span>
                             <span className="font-bold text-char-950/40">₹{order.sauce?.price || 0}</span>
                         </div>
                         <div className="flex justify-between items-center">
-                            <span className="font-display text-lg font-bold text-char-950">Cheese: {order.cheese?.name || 'Premium Mozzarella'}</span>
+                            <span className="font-display text-base font-bold text-char-950">Cheese: {order.cheese?.name || 'Premium Mozzarella'}</span>
                             <span className="font-bold text-char-950/40">₹{order.cheese?.price || 0}</span>
                         </div>
                         {order.vegetables?.length > 0 && (
-                            <div className="pt-2">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-2 border-b border-char-950/5 pb-1">Toppings</p>
+                            <div className="pt-1">
+                                <p className="text-[9px] font-black uppercase tracking-widest text-char-950/30 mb-1.5 border-b border-char-950/5 pb-0.5">Toppings</p>
                                 {order.vegetables.map(v => (
-                                    <div key={v._id} className="flex justify-between items-center text-sm mb-1">
+                                    <div key={v._id} className="flex justify-between items-center text-xs mb-0.5">
                                         <span className="font-medium text-char-950/70">{v.name}</span>
                                         <span className="font-bold text-char-950/30">₹{v.price || 0}</span>
                                     </div>
                                 ))}
                             </div>
                         )}
-                        <div className="flex justify-between items-center pt-4 mt-4 border-t border-char-950/5">
-                            <span className="text-sm font-bold text-char-950/40 uppercase">Standard Preparation</span>
+                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-char-950/5">
+                            <span className="text-xs font-bold text-char-950/40 uppercase">Standard Preparation</span>
                             <span className="font-bold text-char-950/40">₹199</span>
                         </div>
                     </div>
 
                     <div className="flex justify-between items-center">
                         <div>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-char-950/30 mb-1">Payment Status</p>
-                            <span className="px-3 py-1 rounded-full bg-basil/10 text-basil text-[10px] font-black uppercase">PAID VIA RAZORPAY</span>
+                            <p className="text-[9px] font-black uppercase tracking-widest text-char-950/30 mb-1">Payment Status</p>
+                            <span className="px-3 py-1 rounded-full bg-basil/10 text-basil text-[9px] font-black uppercase">PAID VIA RAZORPAY</span>
                         </div>
                         <div className="text-right">
-                            <p className="text-sm font-bold text-char-950/40 uppercase mb-1">Total Amount</p>
-                            <p className="font-display text-4xl font-black text-tomato">₹{order.totalAmount}</p>
+                            <p className="text-xs font-bold text-char-950/40 uppercase mb-0.5">Total Amount</p>
+                            <p className="font-display text-3xl font-black text-tomato">₹{order.totalAmount}</p>
                         </div>
                     </div>
                 </div>
 
                 <div
-                    className="p-8 flex items-center justify-center gap-4 border-t border-char-950/10"
+                    className="p-6 flex items-center justify-center gap-4 border-t border-char-950/10"
                     style={{
                         backgroundColor: '#FDF5E6',
                         backgroundImage: 'url("/assets/doodle-border.png")',
@@ -111,13 +120,13 @@ const ReceiptModal = ({ order, onClose }) => {
                 >
                     <button
                         onClick={handlePrint}
-                        className="relative z-10 bg-char-950 text-white px-10 py-3 rounded-full font-display text-xs font-black uppercase tracking-widest hover:bg-tomato transition-all shadow-xl active:scale-95"
+                        className="relative z-10 bg-char-950 text-white px-8 py-3 rounded-full font-display text-xs font-black uppercase tracking-widest hover:bg-tomato transition-all shadow-xl active:scale-95"
                     >
                         🖨️ Print Receipt
                     </button>
                     <button
                         onClick={onClose}
-                        className="relative z-10 px-10 py-3 rounded-full bg-white/90 border-2 border-char-950/10 text-char-950 font-display text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all shadow-md active:scale-95"
+                        className="relative z-10 px-8 py-3 rounded-full bg-white/90 border-2 border-char-950/10 text-char-950 font-display text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all shadow-md active:scale-95"
                     >
                         Close
                     </button>
@@ -128,6 +137,8 @@ const ReceiptModal = ({ order, onClose }) => {
 };
 
 const AdminDashboard = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState('inventory');
   const [inventory, setInventory] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -143,6 +154,10 @@ const AdminDashboard = () => {
         setInventory(data);
     } catch (err) {
         console.error('Failed to fetch inventory:', err);
+        if (err.response?.status === 401) {
+            logout();
+            navigate('/admin-login');
+        }
     }
   };
 
@@ -152,6 +167,10 @@ const AdminDashboard = () => {
         setOrders(data);
     } catch (err) {
         console.error('Failed to fetch orders:', err);
+        if (err.response?.status === 401) {
+            logout();
+            navigate('/admin-login');
+        }
     }
   };
 
@@ -178,7 +197,14 @@ const AdminDashboard = () => {
       fetchInventory();
     } catch (err) {
       console.error('Failed to save item:', err);
-      showToast('Action failed — check connection');
+      if (err.response?.status === 401) {
+          logout();
+          navigate('/admin-login');
+          return;
+      }
+      const msg = err.response?.data?.message || err.message || 'Action failed';
+      const detail = err.response?.data?.error ? `: ${err.response.data.error}` : '';
+      showToast(`${msg}${detail}`);
     }
   };
 
@@ -190,6 +216,12 @@ const AdminDashboard = () => {
           fetchInventory();
       } catch (err) {
           console.error('Failed to delete:', err);
+          if (err.response?.status === 401) {
+              logout();
+              navigate('/admin-login');
+              return;
+          }
+          showToast(`Delete failed: ${err.response?.data?.message || 'Action failed'}`);
       }
     }
   };
@@ -281,7 +313,8 @@ const AdminDashboard = () => {
     base: 'Bases',
     sauce: 'Sauces',
     cheese: 'Cheeses',
-    vegetable: 'Toppings'
+    vegetable: 'Toppings',
+    menu: 'Menu Items'
   };
 
   return (
@@ -323,7 +356,7 @@ const AdminDashboard = () => {
       {tab === 'inventory' && (
         <div className="space-y-12">
           {/* Quick Jump Station - Professional Charcoal */}
-          <div className="sticky top-[64px] md:top-[72px] z-20 -mx-6 md:-mx-12 mb-10 px-6 md:px-12 py-6 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
+          <div className="sticky top-[52px] md:top-[60px] z-20 -mx-6 md:-mx-10 mb-10 px-6 md:px-10 py-5 doodle-bg border-y border-char-950/15 relative overflow-hidden flex items-center justify-center shadow-md">
             {/* Warm Beige Overlay - Reduced opacity for more "pop" */}
             <div className="absolute inset-0 bg-[#FDF5E6]/70" />
 
@@ -376,7 +409,7 @@ const AdminDashboard = () => {
                     return (
                       <div
                         key={item._id}
-                        className={`bg-char-800 overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-char-950/5'}`}
+                        className={`bg-[#FDF2F0] overflow-hidden flex flex-col border-t-8 border-t-basil shadow-md rounded-[40px] transition-all hover:shadow-xl hover:-translate-y-1 ${low ? 'ring-4 ring-tomato/20' : 'border border-tomato/5'}`}
                       >
                         <div className="relative h-48 w-full bg-char-950/5 shrink-0">
                           {(item.inventoryCard || item.menuVisual || item.builderImage) ? (
@@ -454,15 +487,15 @@ const AdminDashboard = () => {
                 <p className="text-sm font-medium text-char-950/40 italic">Manage ready-to-order artisanal pizzas.</p>
             </div>
             <button
-              onClick={() => { setEditingItem(null); setNewItem({ name: '', category: 'base', stock: 100, threshold: 20, price: 0 }); setShowModal(true); }}
+              onClick={() => { setEditingItem(null); setNewItem({ name: '', category: 'menu', stock: 100, threshold: 20, price: 0 }); setShowModal(true); }}
               className="h-10 w-10 flex items-center justify-center rounded-full bg-char-950 text-white shadow-lg hover:bg-tomato transition-all"
             >
               <span className="text-2xl font-bold">+</span>
             </button>
           </div>
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {inventory.filter(i => i.category === 'base').map(item => (
-              <div key={item._id} className="bg-char-800 rounded-[40px] overflow-hidden border-t-8 border-t-tomato shadow-md flex flex-col">
+            {inventory.filter(i => i.category === 'menu').map(item => (
+              <div key={item._id} className="bg-[#FDF2F0] rounded-[40px] overflow-hidden border-t-8 border-t-tomato shadow-md flex flex-col border border-tomato/5">
                 <div className="relative h-48 w-full shrink-0">
                   <img src={resolveImageUrl(item.menuVisual)} className="h-full w-full object-cover" alt={item.name} />
                   <div className="absolute top-4 right-4 flex gap-2">
@@ -511,50 +544,56 @@ const AdminDashboard = () => {
 
       {/* Item Management Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/70 backdrop-blur-md p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-char-950/70 backdrop-blur-md p-6 pt-24 pb-12 overflow-y-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-xl rounded-[48px] shadow-2xl border border-char-950/10 overflow-hidden flex flex-col"
+            className="relative w-full max-w-lg rounded-[40px] shadow-[0_35px_100px_-15px_rgba(0,0,0,0.5)] border border-char-950/10 overflow-hidden border-t-8 border-tomato"
             style={{
               backgroundColor: '#FDF5E6',
-              height: '80vh',
-              maxHeight: '850px'
+              maxHeight: 'min(800px, 90vh)'
             }}
           >
             {/* Modal Header - Fixed */}
-            <div className="px-10 py-10 border-b border-char-950/5 relative z-20 shrink-0 bg-[#FDF5E6]">
-              <h3 className="font-display text-4xl font-black text-char-950">
+            <div className="px-8 pt-8 pb-4 border-b border-char-950/5 relative z-20 flex items-center justify-between">
+              <h3 className="font-display text-2xl font-black text-char-950">
                 {editingItem ? 'Modify Item' : 'New Collection Item'}
               </h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="h-9 w-9 flex items-center justify-center rounded-full bg-char-950/5 text-char-950/40 hover:bg-tomato hover:text-white transition-all shadow-inner"
+              >
+                ✕
+              </button>
             </div>
 
             {/* Modal Content - Scrollable */}
             <div
-               className="p-10 pt-8 overflow-y-auto custom-scrollbar relative z-10 flex-1"
+               className="p-8 pt-8 overflow-y-auto custom-scrollbar relative z-10"
                style={{
+                 maxHeight: 'calc(min(800px, 90vh) - 140px)',
+                 backgroundColor: 'rgba(253, 245, 230, 0.95)',
                  backgroundImage: 'url("/assets/doodle-border.png")',
                  backgroundSize: '400px auto',
-                 backgroundBlendMode: 'multiply',
-                 backgroundColor: 'rgba(253, 245, 230, 0.95)'
+                 backgroundBlendMode: 'soft-light'
                }}
             >
-              <form onSubmit={handleSaveItem} id="modal-form" className="space-y-8">
+              <form onSubmit={handleSaveItem} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Display Name</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/10">Display Name</label>
                   <input
                     required
                     placeholder="e.g. Stuffed Crust"
-                    className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                    className="input-field w-full px-5 py-3 font-bold bg-white border-char-950/20 rounded-[20px] shadow-sm text-char-950"
                     value={editingItem ? editingItem.name : newItem.name}
                     onChange={(e) => editingItem ? setEditingItem({...editingItem, name: e.target.value}) : setNewItem({...newItem, name: e.target.value})}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Station</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Station</label>
                     <select
-                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm border-r-8 border-transparent"
+                      className="input-field w-full px-5 py-3 font-bold bg-white/80 border-char-950/5 rounded-[20px] shadow-sm border-r-8 border-transparent"
                       value={editingItem ? editingItem.category : newItem.category}
                       onChange={(e) => editingItem ? setEditingItem({...editingItem, category: e.target.value}) : setNewItem({...newItem, category: e.target.value})}
                     >
@@ -562,52 +601,64 @@ const AdminDashboard = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Price (₹)</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Price (₹)</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                      className="input-field w-full px-5 py-3 font-bold bg-white/80 border-char-950/5 rounded-[20px] shadow-sm"
                       value={editingItem ? editingItem.price : newItem.price}
-                      onChange={(e) => editingItem ? setEditingItem({...editingItem, price: Number(e.target.value)}) : setNewItem({...newItem, price: Number(e.target.value)})}
+                      onChange={(e) => {
+                        const val = e.target.value === '' ? '' : Number(e.target.value);
+                        editingItem ? setEditingItem({...editingItem, price: val}) : setNewItem({...newItem, price: val})
+                      }}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Calories (kcal)</label>
+                  <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Calories (kcal)</label>
                   <input
                     type="number"
-                    className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                    className="input-field w-full px-5 py-3 font-bold bg-white/80 border-char-950/5 rounded-[20px] shadow-sm"
                     value={editingItem ? editingItem.calories : newItem.calories}
-                    onChange={(e) => editingItem ? setEditingItem({...editingItem, calories: Number(e.target.value)}) : setNewItem({...newItem, calories: Number(e.target.value)})}
+                    onChange={(e) => {
+                      const val = e.target.value === '' ? '' : Number(e.target.value);
+                      editingItem ? setEditingItem({...editingItem, calories: val}) : setNewItem({...newItem, calories: val})
+                    }}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Initial Count</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Initial Count</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                      className="input-field w-full px-5 py-3 font-bold bg-white/80 border-char-950/5 rounded-[20px] shadow-sm"
                       value={editingItem ? editingItem.stock : newItem.stock}
-                      onChange={(e) => editingItem ? setEditingItem({...editingItem, stock: Number(e.target.value)}) : setNewItem({...newItem, stock: Number(e.target.value)})}
+                      onChange={(e) => {
+                        const val = e.target.value === '' ? '' : Number(e.target.value);
+                        editingItem ? setEditingItem({...editingItem, stock: val}) : setNewItem({...newItem, stock: val})
+                      }}
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-3 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Alert Level</label>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-char-950 mb-2 block bg-white/90 px-4 py-1.5 rounded-full w-fit shadow-sm border border-char-950/5">Alert Level</label>
                     <input
                       type="number"
-                      className="input-field w-full px-6 py-4 font-bold bg-white/80 border-char-950/5 rounded-[24px] shadow-sm"
+                      className="input-field w-full px-5 py-3 font-bold bg-white/80 border-char-950/5 rounded-[20px] shadow-sm"
                       value={editingItem ? editingItem.threshold : newItem.threshold}
-                      onChange={(e) => editingItem ? setEditingItem({...editingItem, threshold: Number(e.target.value)}) : setNewItem({...newItem, threshold: Number(e.target.value)})}
+                      onChange={(e) => {
+                        const val = e.target.value === '' ? '' : Number(e.target.value);
+                        editingItem ? setEditingItem({...editingItem, threshold: val}) : setNewItem({...newItem, threshold: val})
+                      }}
                     />
                   </div>
                 </div>
-                <div className="flex gap-4 pt-10 sticky bottom-0 bg-[#FDF5E6]/95 backdrop-blur-sm -mx-10 px-10 pb-10 mt-auto">
-                  <button type="submit" className="btn-primary flex-1 py-5 text-base font-black uppercase tracking-widest shadow-xl shadow-tomato/20">
+                <div className="flex gap-4 pt-4">
+                  <button type="submit" className="btn-primary flex-1 py-3 text-[11px] uppercase tracking-widest shadow-ember">
                     Save Changes
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-10 py-5 rounded-full bg-white border-2 border-char-950/5 text-char-950/30 hover:text-tomato transition-all active:scale-95 shadow-lg"
+                    className="px-8 py-3 text-[11px] font-black uppercase tracking-widest text-char-950/30 hover:text-tomato transition-all"
                   >
                     Cancel
                   </button>
@@ -636,12 +687,12 @@ const AdminDashboard = () => {
           </div>
 
           {orders.length === 0 ? (
-            <div className="text-center py-20 bg-tomato/5 rounded-[40px]">
+            <div className="text-center py-20 bg-[#FDF2F0] rounded-[40px] border border-tomato/10">
               <p className="font-display text-2xl font-bold text-char-950/20 italic">No incoming orders.</p>
             </div>
           ) : (
             orders.map((order) => (
-              <div key={order._id} className="bg-char-900 rounded-[40px] p-8 shadow-sm border border-char-950/5 hover:shadow-md transition-all">
+              <div key={order._id} className="bg-[#FDF2F0] rounded-[40px] p-8 shadow-sm border border-tomato/5 hover:shadow-md transition-all">
                 <div className="flex flex-wrap items-center justify-between gap-6">
                   <div className="flex-1 min-w-[200px]">
                     <div className="flex items-center gap-3 mb-2">

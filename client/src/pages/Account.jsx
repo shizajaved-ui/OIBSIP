@@ -44,10 +44,10 @@ const Account = () => {
   };
 
   return (
-    <PageLayout title="Account" width="2xl" isFloating fullMobile>
-      <div className="bg-white rounded-[32px] p-8 shadow-sm">
-        <div className="flex items-center gap-6">
-          <span className="flex h-16 w-14 shrink-0 items-center justify-center rounded-2xl bg-tomato text-white font-display text-2xl font-black shadow-lg shadow-tomato/20">
+    <PageLayout title="Account" width="5xl" isFloating fullMobile>
+      <div className="bg-[#FDF2F0] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm border border-tomato/5">
+        <div className="flex items-center gap-4 md:gap-6">
+          <span className="flex h-12 w-10 md:h-16 md:w-14 shrink-0 items-center justify-center rounded-xl md:rounded-2xl bg-tomato text-white font-display text-xl md:text-2xl font-black shadow-lg shadow-tomato/20">
             {profile?.name?.[0]?.toUpperCase() || '·'}
           </span>
           <div className="min-w-0 flex-1">
@@ -55,13 +55,13 @@ const Account = () => {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="input-field w-full px-4 py-2 text-lg font-bold"
+                className="input-field w-full px-3 py-1.5 text-base md:text-lg font-bold"
                 autoFocus
               />
             ) : (
-              <h2 className="truncate font-display text-2xl font-bold text-char-950">{profile?.name || '…'}</h2>
+              <h2 className="truncate font-display text-xl md:text-2xl font-bold text-char-950">{profile?.name || '…'}</h2>
             )}
-            <p className="truncate text-sm font-bold text-char-950/30 uppercase tracking-widest">{profile?.email}</p>
+            <p className="truncate text-xs md:text-sm font-bold text-char-950/30 uppercase tracking-widest">{profile?.email}</p>
           </div>
         </div>
 
@@ -99,19 +99,19 @@ const Account = () => {
         )}
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Link to="/dashboard" className="group bg-white rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
+      <div className="mt-4 md:mt-6 grid grid-cols-1 gap-3 md:gap-4 sm:grid-cols-2">
+        <Link to="/dashboard" className="group bg-[#FDF2F0] rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-tomato/5 transition-all hover:shadow-md hover:-translate-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-display text-lg font-bold text-char-950">Dashboard</span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+            <span className="font-display text-base md:text-lg font-bold text-char-950">Dashboard</span>
+            <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-5 md:w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
         </Link>
-        <Link to="/history" className="group bg-white rounded-3xl p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md hover:-translate-y-1">
+        <Link to="/history" className="group bg-[#FDF2F0] rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-tomato/5 transition-all hover:shadow-md hover:-translate-y-1">
           <div className="flex items-center justify-between">
-            <span className="font-display text-lg font-bold text-char-950">Order History</span>
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+            <span className="font-display text-base md:text-lg font-bold text-char-950">Order History</span>
+            <svg viewBox="0 0 24 24" className="h-4 w-4 md:h-5 md:w-5 text-tomato transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
@@ -120,7 +120,7 @@ const Account = () => {
 
       <button
         onClick={handleLogout}
-        className="mt-10 w-full rounded-full border-2 border-char-950/10 bg-white px-5 py-4 font-display text-sm font-black uppercase tracking-widest text-tomato transition-all hover:border-tomato/40 hover:bg-tomato/5"
+        className="mt-6 md:mt-10 w-full rounded-full border-2 border-char-950/10 bg-white px-5 py-3 md:py-4 font-display text-[11px] md:text-sm font-black uppercase tracking-widest text-tomato transition-all hover:border-tomato/40 hover:bg-tomato/5 shadow-sm"
       >
         Sign out
       </button>

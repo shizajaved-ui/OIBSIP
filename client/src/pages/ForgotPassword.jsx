@@ -24,7 +24,7 @@ const ForgotPassword = () => {
     <PageLayout
       title="Reset password"
       subtitle="Enter your email and we'll send you a reset link."
-      width="md"
+      width="5xl"
     >
       {sent ? (
         <div className="rounded-[28px] border border-basil/20 bg-basil/5 p-8 text-center text-basil">

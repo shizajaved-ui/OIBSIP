@@ -81,7 +81,7 @@ const OrderHistory = () => {
   };
 
   return (
-    <PageLayout title="Order history" subtitle="Every pizza you've ordered, with a printable receipt." width="4xl" isFloating>
+    <PageLayout title="Order history" subtitle="Every pizza you've ordered, with a printable receipt." width="5xl" isFloating>
       {loading ? (
         <p className="text-center py-10 font-display text-xl text-char-950/20 italic">Loading history…</p>
       ) : orders.length === 0 ? (
@@ -97,7 +97,7 @@ const OrderHistory = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: idx * 0.04 }}
             >
-              <div className="group bg-char-900 rounded-[40px] p-6 shadow-sm border border-char-950/5 transition-all hover:shadow-md">
+              <div className="group bg-[#FDF2F0] rounded-[40px] p-6 shadow-sm border border-tomato/5 transition-all hover:shadow-md">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="min-w-0 flex-1">
                     <p className="font-display text-xl font-bold text-char-950 truncate">

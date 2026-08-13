@@ -98,8 +98,8 @@ const Cart = () => {
   };
 
   return (
-    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="3xl" isFloating>
-      <div className="w-full bg-[#FFFCF7] md:bg-white rounded-[48px] p-6 md:p-10 shadow-xl border border-char-950/5">
+    <PageLayout title="Your cart" subtitle="Review your pizzas before checkout." width="5xl" isFloating fullMobile>
+      <div className="w-full bg-[#FDF2F0] rounded-[32px] md:rounded-[48px] p-4 md:p-10 shadow-xl border border-tomato/10">
       {loading && !cart ? (
         <p className="mt-10 text-sm font-bold text-char-950/20 italic animate-pulse text-center">Loading your cart…</p>
       ) : items.length === 0 ? (
@@ -113,48 +113,48 @@ const Cart = () => {
         </div>
       ) : (
         <>
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             {items.map((item) => (
               <div
                 key={item._id}
-                className="relative overflow-hidden bg-[#FFFBF9] rounded-[32px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 md:gap-6 p-6 md:p-10 shadow-md border border-tomato/5 transition-all hover:shadow-lg hover:border-tomato/20"
+                className="relative overflow-hidden bg-[#FFFBF9] rounded-[24px] md:rounded-[40px] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 md:gap-6 p-4 md:p-10 shadow-md border border-tomato/5 transition-all hover:shadow-lg hover:border-tomato/20"
               >
                 <div className="relative z-10 min-w-0 flex-1">
-                  <h3 className="font-display text-xl md:text-2xl font-black text-char-950 truncate">{item.base?.name}</h3>
-                  <p className="mt-1 truncate text-[10px] md:text-[11px] font-black uppercase tracking-[0.15em] text-char-950/40">{describeItem(item)}</p>
-                  <p className="mt-2 md:mt-3 text-xl md:text-2xl font-black text-tomato drop-shadow-sm">₹{item.unitPrice}</p>
+                  <h3 className="font-display text-lg md:text-2xl font-black text-char-950 truncate">{item.base?.name}</h3>
+                  <p className="mt-0.5 truncate text-[9px] md:text-[11px] font-black uppercase tracking-[0.15em] text-char-950/40">{describeItem(item)}</p>
+                  <p className="mt-1.5 md:mt-3 text-lg md:text-2xl font-black text-tomato drop-shadow-sm">₹{item.unitPrice}</p>
                 </div>
-                <div className="relative z-10 flex w-full sm:w-auto shrink-0 items-center justify-between sm:justify-end gap-4 md:gap-6">
+                <div className="relative z-10 flex w-full sm:w-auto shrink-0 items-center justify-between sm:justify-end gap-3 md:gap-6">
                   <div className="flex items-center rounded-full bg-white/60 backdrop-blur-md border border-char-950/10 shadow-inner p-1">
                     <button
                       onClick={() => updateQuantity(item._id, Math.max(1, item.quantity - 1))}
-                      className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xl md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
+                      className="h-7 w-7 md:h-10 md:w-10 flex items-center justify-center text-lg md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       −
                     </button>
-                    <span className="w-8 md:w-10 text-center font-display font-black text-lg md:text-xl text-char-950">{item.quantity}</span>
+                    <span className="w-6 md:w-10 text-center font-display font-black text-base md:text-xl text-char-950">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                      className="h-8 w-8 md:h-10 md:w-10 flex items-center justify-center text-xl md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
+                      className="h-7 w-7 md:h-10 md:w-10 flex items-center justify-center text-lg md:text-2xl font-black text-tomato hover:bg-white rounded-full transition-all"
                     >
                       +
                     </button>
                   </div>
                   <button
                     onClick={() => removeItem(item._id)}
-                    className="h-10 w-10 md:h-12 md:w-12 flex items-center justify-center rounded-full bg-tomato/10 text-tomato hover:bg-tomato hover:text-white transition-all shadow-md active:scale-90"
+                    className="h-9 w-9 md:h-12 md:w-12 flex items-center justify-center rounded-full bg-tomato/10 text-tomato hover:bg-tomato hover:text-white transition-all shadow-md active:scale-90"
                     title="Remove Item"
                   >
-                    <span className="text-lg md:text-xl font-bold">✕</span>
+                    <span className="text-sm md:text-xl font-bold">✕</span>
                   </button>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="bg-char-900/50 rounded-[40px] mt-6 md:mt-8 flex items-center justify-between p-6 md:p-8 border-2 border-dashed border-char-950/10">
-            <span className="font-display text-xl md:text-2xl font-black text-char-950">Total</span>
-            <span className="font-display text-2xl md:text-3xl font-black text-tomato">₹{total}</span>
+          <div className="bg-char-900/50 rounded-[24px] md:rounded-[40px] mt-4 md:mt-8 flex items-center justify-between p-4 md:p-8 border-2 border-dashed border-char-950/10">
+            <span className="font-display text-lg md:text-2xl font-black text-char-950">Total</span>
+            <span className="font-display text-xl md:text-3xl font-black text-tomato">₹{total}</span>
           </div>
 
           {error && <p className="mt-4 text-center font-bold text-tomato text-sm">{error}</p>}
@@ -167,9 +167,9 @@ const Cart = () => {
           <button
             onClick={handleCheckout}
             disabled={placing}
-            className="btn-primary mt-10 w-full py-5 text-xl shadow-xl shadow-tomato/20"
+            className="btn-primary mt-6 md:mt-10 w-full py-4 md:py-5 text-base md:text-xl shadow-xl shadow-tomato/20"
           >
-            {placing ? 'Processing kitchen ticket…' : `Checkout · ₹${total}`}
+            {placing ? 'Processing…' : `Checkout · ₹${total}`}
           </button>
         </>
       )}

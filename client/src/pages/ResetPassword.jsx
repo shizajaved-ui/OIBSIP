@@ -25,7 +25,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <PageLayout width="md" title="Set a new password">
+    <PageLayout width="5xl" title="Set a new password">
       {error && (
         <div className="mb-6 rounded-2xl border border-tomato/20 bg-tomato/5 p-4 text-center text-sm font-bold text-tomato">
           {error}

@@ -38,7 +38,7 @@ const Login = () => {
     <PageLayout
       title="Welcome back"
       subtitle="Sign in to track your order."
-      width="lg"
+      width="5xl"
       isFloating
     >
       {error && (
