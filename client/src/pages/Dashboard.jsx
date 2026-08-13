@@ -76,7 +76,9 @@ const Dashboard = () => {
                   Verified
                 </span>
               ) : (
-                'Verify email'
+                <Link to="/verify-email" className="hover:text-tomato transition-colors underline decoration-tomato/30 underline-offset-4">
+                  Verify email
+                </Link>
               )}
             </p>
           </div>

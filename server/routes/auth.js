@@ -70,6 +70,34 @@ router.post('/register', authLimiter, async (req, res) => {
   }
 });
 
+// @route  POST /api/auth/resend-verification
+router.post('/resend-verification', authLimiter, async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: 'Email is required' });
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    if (!user) {
+      // Respond with success even if user not found to prevent email discovery
+      return res.json({ message: 'Verification email sent if account exists' });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: 'Email is already verified' });
+    }
+
+    // Generate new token
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    user.verificationToken = verificationToken;
+    await user.save();
+
+    await sendVerificationEmail(user.email, verificationToken);
+    res.json({ message: 'Verification email sent' });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to resend verification', error: err.message });
+  }
+});
+
 // @route  GET /api/auth/verify-email?token=...
 router.get('/verify-email', async (req, res) => {
   try {
