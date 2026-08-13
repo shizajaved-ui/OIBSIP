@@ -463,7 +463,7 @@ const PizzaBuilder = () => {
                       onSelect={(item) => selectThickness(item, 50)}
                     />
                   </div>
-                  <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                  <div className="grid grid-cols-2 gap-3 md:gap-8 sm:grid-cols-2">
                     {byCategory('base').map((item) => (
                       <OptionCard
                         key={item._id}
@@ -477,7 +477,7 @@ const PizzaBuilder = () => {
               )}
 
               {(step === 1 || step === 2 || step === 3) && (
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-3 md:gap-8 sm:grid-cols-2">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                     <OptionCard
                       key={item._id}
