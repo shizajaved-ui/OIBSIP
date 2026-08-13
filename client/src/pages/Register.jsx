@@ -28,7 +28,7 @@ const Register = () => {
       setTimeout(() => {
         login(data.token, data.user);
         navigate('/dashboard');
-      }, 1500);
+      }, 800);
     } catch (err) {
       if (!err.response) {
         setError('Server unreachable. Please check your connection or backend status.');
