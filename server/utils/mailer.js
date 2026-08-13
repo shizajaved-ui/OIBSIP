@@ -3,24 +3,35 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT) || 587,
-  secure: false,
+  secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for other ports
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  // Add timeouts to prevent hanging if connection fails
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 const sendEmail = async ({ to, subject, html }) => {
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.SMTP_HOST) {
+    console.error('❌ EMAIL ERROR: SMTP credentials missing in environment variables.');
+    return;
+  }
+
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"The Artisan Crust" <${process.env.SMTP_USER}>`,
       to,
       subject,
       html,
     });
+    console.log(`📧 Email sent to ${to}: ${info.messageId}`);
+    return info;
   } catch (err) {
     // Don't crash the request if email fails — log and move on
-    console.error('Email send failed:', err.message);
+    console.error(`❌ Email send failed to ${to}:`, err.message);
   }
 };
 

@@ -31,12 +31,13 @@ const Register = () => {
       }, 1500);
     } catch (err) {
       if (!err.response) {
-        setError('Server unreachable. Please make sure the backend is running on port 5000.');
+        setError('Server unreachable. Please check your connection or backend status.');
       } else {
         const msg = err.response.data?.message || 'Registration failed';
         const detail = err.response.data?.error ? ` (${err.response.data.error})` : '';
         setError(`${msg}${detail}`);
       }
+    } finally {
       setLoading(false);
     }
   };
@@ -93,11 +94,11 @@ const Register = () => {
         <button
           type="submit"
           disabled={loading || registered}
-          className={`btn-primary w-full py-5 text-xl shadow-xl transition-colors duration-500 ${
+          className={`btn-primary w-full py-3.5 text-sm uppercase tracking-widest shadow-xl transition-colors duration-500 ${
             registered ? 'bg-basil shadow-basil/20' : 'shadow-tomato/20'
           }`}
         >
-          {registered ? 'Registered! ✓' : loading ? 'Creating account…' : 'Create account'}
+          {registered ? 'Account Created! ✓' : loading ? 'Creating account…' : 'Create account'}
         </button>
       </form>
 
