@@ -52,7 +52,7 @@ const Login = () => {
           type="email"
           placeholder="Email"
           required
-          className="input-field w-full px-6 py-4 font-bold text-lg"
+          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
@@ -60,7 +60,7 @@ const Login = () => {
           type="password"
           placeholder="Password"
           required
-          className="input-field w-full px-6 py-4 font-bold text-lg"
+          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
@@ -69,7 +69,7 @@ const Login = () => {
             Forgot password?
           </Link>
         </div>
-        <button type="submit" disabled={loading} className="btn-primary w-full py-5 text-xl shadow-xl shadow-tomato/20">
+        <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 md:py-4 text-[10px] md:text-xs uppercase tracking-[0.2em] shadow-xl shadow-tomato/20">
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
       </form>
