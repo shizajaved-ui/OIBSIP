@@ -444,7 +444,7 @@ const PizzaBuilder = () => {
                           setStep(s => s + 1);
                           setTimeout(scrollToContent, 100);
                         }}
-                        className="bg-tomato text-white px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-tomato/20 active:scale-95"
+                        className="bg-char-950 text-white px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-char-950/20 active:scale-95"
                       >
                         Next →
                       </button>
