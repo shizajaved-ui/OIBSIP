@@ -432,9 +432,23 @@ const PizzaBuilder = () => {
                     <p className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-char-950/30">Step {step + 1} of 5</p>
                     <p className="font-display text-base md:text-lg font-black text-char-950 uppercase tracking-tighter leading-none">{STEPS[step]}</p>
                  </div>
-                 <div className="mt-0.5 pt-1.5 border-t border-char-950/5 flex items-center justify-between">
-                    <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-tomato/60">Total Bill</span>
-                    <span className="font-display text-lg md:text-xl font-black text-tomato">₹{total}</span>
+                 <div className="mt-0.5 pt-1.5 border-t border-char-950/5 flex items-center justify-between gap-2">
+                    <div className="flex flex-col">
+                        <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-tomato/60">Total Bill</span>
+                        <span className="font-display text-lg md:text-xl font-black text-tomato">₹{total}</span>
+                    </div>
+                    {canProceed() && (
+                      <button
+                        onClick={() => {
+                          playClickSound();
+                          setStep(s => s + 1);
+                          setTimeout(scrollToContent, 100);
+                        }}
+                        className="bg-tomato text-white px-5 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-tomato/20 active:scale-95"
+                      >
+                        Next →
+                      </button>
+                    )}
                  </div>
               </div>
             )}
@@ -463,7 +477,7 @@ const PizzaBuilder = () => {
                       onSelect={(item) => selectThickness(item, 50)}
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-3 md:gap-8 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                     {byCategory('base').map((item) => (
                       <OptionCard
                         key={item._id}
@@ -477,7 +491,7 @@ const PizzaBuilder = () => {
               )}
 
               {(step === 1 || step === 2 || step === 3) && (
-                <div className="grid grid-cols-2 gap-3 md:gap-8 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
                   {byCategory(step === 1 ? 'sauce' : step === 2 ? 'cheese' : 'vegetable').map((item) => (
                     <OptionCard
                       key={item._id}
@@ -649,7 +663,7 @@ const PizzaBuilder = () => {
               setStep(s => s + 1);
               setTimeout(scrollToContent, 100);
             }}
-            className="fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group"
+            className={`fixed right-6 bottom-24 md:right-10 md:top-[72%] md:-translate-y-1/2 z-[100] flex flex-col items-center gap-1 md:gap-2 group ${step > 0 ? 'hidden md:flex' : ''}`}
           >
             <div className="bg-char-950 text-white h-10 w-10 md:h-20 md:w-20 rounded-full flex items-center justify-center shadow-2xl shadow-char-950/40 border-2 md:border-4 border-white group-hover:bg-char-950/90 transition-all">
               <svg className="w-5 h-5 md:w-10 md:h-10 fill-current" viewBox="0 0 24 24">
