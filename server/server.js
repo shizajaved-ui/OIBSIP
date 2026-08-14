@@ -58,8 +58,9 @@ mongoose
   .then(() => {
     console.log(`✅ MongoDB Connected | Env: ${process.env.NODE_ENV || 'development'}`);
     startLowStockJob();
+    // Use 0.0.0.0 to ensure the server is accessible to Railway's proxy
     const server = app.listen(PORT, '0.0.0.0', () => {
-      console.log(`🍕 Server Live on Port ${PORT}`);
+      console.log(`🍕 Server Live | Listening on all interfaces (0.0.0.0:${PORT})`);
     });
     // Ensure Railway doesn't kill the connection too early
     server.keepAliveTimeout = 61000;

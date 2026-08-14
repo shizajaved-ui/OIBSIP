@@ -9,7 +9,12 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  timeout: 15000,
+  // Aggressive timeouts and debug info
+  connectionTimeout: 5000,
+  greetingTimeout: 5000,
+  socketTimeout: 5000,
+  debug: true,
+  logger: true
 });
 
 const sendEmail = async ({ to, subject, html }) => {
@@ -29,6 +34,9 @@ const sendEmail = async ({ to, subject, html }) => {
     return info;
   } catch (err) {
     console.error(`❌ Email Error to ${to}:`, err.message);
+    // Log more details if available
+    if (err.code) console.error(`Error Code: ${err.code}`);
+    if (err.command) console.error(`Failed Command: ${err.command}`);
   }
 };
 
