@@ -2,7 +2,11 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
-  timeout: 15000, // 15 seconds timeout
+  // A hung request (e.g. the backend waiting on a blocked SMTP connection)
+  // would otherwise leave callers awaiting forever — any button tied to
+  // `finally { setLoading(false) }` would spin indefinitely with no error.
+  // This guarantees every request settles one way or another.
+  timeout: 20_000,
 });
 
 api.interceptors.request.use((config) => {
