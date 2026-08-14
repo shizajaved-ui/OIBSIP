@@ -69,7 +69,7 @@ const Login = () => {
             Forgot password?
           </Link>
         </div>
-        <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 md:py-5 text-[10px] md:text-xl uppercase md:normal-case tracking-[0.2em] md:tracking-normal shadow-xl shadow-tomato/20">
+        <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 md:py-4 text-[10px] md:text-xs uppercase tracking-[0.2em] shadow-xl shadow-tomato/20">
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
       </form>

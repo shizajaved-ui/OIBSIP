@@ -72,7 +72,7 @@ const VerifyEmail = () => {
               <button
                 type="submit"
                 disabled={resending}
-                className="btn-primary w-full py-3 text-xs uppercase tracking-widest"
+                className="btn-primary w-full py-3 md:py-3.5 text-[10px] uppercase tracking-[0.2em]"
               >
                 {resending ? 'Resending…' : 'Resend Verification Link'}
               </button>
@@ -110,7 +110,7 @@ const VerifyEmail = () => {
                     <button
                       type="submit"
                       disabled={resending}
-                      className="btn-primary w-full py-3 text-xs uppercase tracking-widest"
+                      className="btn-primary w-full py-3 md:py-3.5 text-[10px] uppercase tracking-[0.2em]"
                     >
                       {resending ? 'Resending…' : 'Resend Link'}
                     </button>
