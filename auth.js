@@ -59,8 +59,16 @@ router.post('/register', authLimiter, async (req, res) => {
       role: 'user',
     });
 
-    console.log(`🆕 New user registered: ${cleanEmail}. Sending verification...`);
-    await sendVerificationEmail(cleanEmail, verificationToken, name);
+    console.log(`🆕 New user registered: ${cleanEmail}. Sending verification email...`);
+    try {
+      await sendVerificationEmail(cleanEmail, verificationToken, name);
+    } catch (emailErr) {
+      // Don't fail registration just because the email didn't go out — the
+      // account still exists and they can hit "Resend verification" later.
+      // But this MUST be logged, or a silent email failure here is
+      // indistinguishable from "everything worked".
+      console.error(`❌ Verification email failed for ${cleanEmail}:`, emailErr.message);
+    }
 
     const token = signToken(user);
     res.status(201).json({
