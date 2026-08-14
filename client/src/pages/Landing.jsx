@@ -78,7 +78,7 @@ const Landing = () => {
 
   return (
     <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 pt-0 pb-8 md:py-20 flex flex-col items-center overflow-hidden">
-      <div className="w-full max-w-5xl relative overflow-hidden flex flex-col items-center">
+      <div className="w-full max-w-4xl relative overflow-hidden flex flex-col items-center">
         {/* Hero Card - Independent Section */}
         <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/10 backdrop-blur-md md:bg-[#FDF2F0] rounded-none md:rounded-[56px] py-20 px-6 md:p-14 relative overflow-hidden border-b md:border border-white/20 md:border-tomato/10 shadow-2xl w-full">
           {/* Background Highlight */}
@@ -117,7 +117,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="relative mx-auto h-72 w-72 md:h-[420px] md:w-[420px]">
+          <div className="relative mx-auto h-72 w-72 md:h-[350px] md:w-[350px]">
             <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-tomato/15 via-crust/10 to-basil/5 blur-3xl" />
 
             <Steam delay={0} x="42%" />
