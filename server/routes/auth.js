@@ -42,7 +42,8 @@ router.post('/register', authLimiter, async (req, res) => {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    const existing = await User.findOne({ email });
+    const cleanEmail = email.toLowerCase().trim();
+    const existing = await User.findOne({ email: cleanEmail });
     if (existing) {
       return res.status(409).json({ message: 'Email already registered' });
     }
@@ -52,13 +53,14 @@ router.post('/register', authLimiter, async (req, res) => {
 
     const user = await User.create({
       name,
-      email,
+      email: cleanEmail,
       password: hashedPassword,
       verificationToken,
       role: 'user',
     });
 
-    await sendVerificationEmail(email, verificationToken);
+    console.log(`🆕 New user registered: ${cleanEmail}. Sending verification...`);
+    await sendVerificationEmail(cleanEmail, verificationToken);
 
     const token = signToken(user);
     res.status(201).json({
@@ -66,6 +68,7 @@ router.post('/register', authLimiter, async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email, role: user.role, isVerified: user.isVerified },
     });
   } catch (err) {
+    console.error('❌ Registration Error:', err.message);
     res.status(500).json({ message: 'Registration failed', error: err.message });
   }
 });
@@ -166,17 +169,21 @@ router.post('/admin-login', authLimiter, async (req, res) => {
 router.post('/forgot-password', resetLimiter, async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ email });
-    // Always respond the same way whether or not the user exists (avoid email enumeration)
+    const cleanEmail = email.toLowerCase().trim();
+    const user = await User.findOne({ email: cleanEmail });
+
     if (user) {
       const resetToken = crypto.randomBytes(32).toString('hex');
       user.resetPasswordToken = resetToken;
       user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour
       await user.save();
-      await sendResetEmail(email, resetToken);
+      console.log(`🔑 Password reset requested for: ${cleanEmail}`);
+      await sendResetEmail(cleanEmail, resetToken);
     }
+
     res.json({ message: 'If that email exists, a reset link has been sent' });
   } catch (err) {
+    console.error('❌ Forgot Password Error:', err.message);
     res.status(500).json({ message: 'Request failed', error: err.message });
   }
 });
