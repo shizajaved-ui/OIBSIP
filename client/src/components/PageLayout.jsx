@@ -26,13 +26,13 @@ const PageLayout = ({
     'full': 'max-w-full'
   };
 
-  const mobileBgClass = transparentMobile
-    ? 'bg-transparent shadow-none border-none'
+  const bgClass = transparentMobile
+    ? `bg-transparent shadow-none border-none ${useDoodleOverlay ? 'md:bg-[#FDF2F0]' : 'md:bg-char-800'} md:shadow-2xl md:border md:border-char-950/5`
     : customMobileBg
-      ? customMobileBg
+      ? `${customMobileBg} ${useDoodleOverlay ? 'md:bg-[#FDF2F0]' : 'md:bg-char-800'} md:shadow-2xl md:border md:border-char-950/5`
       : useDoodleOverlay
-        ? 'doodle-bg md:bg-[#FDF2F0]'
-        : 'bg-char-800';
+        ? 'doodle-bg md:bg-[#FDF2F0] shadow-2xl'
+        : 'bg-char-800 shadow-2xl';
 
   return (
     <div className={`min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-104px)] ${showDoodle ? 'doodle-bg' : 'bg-char-900'} flex justify-center ${isFloating ? (fullMobile ? 'items-start py-0 md:py-20 px-0 md:px-6' : 'items-start py-10 md:py-20 px-4 md:px-6') : 'items-stretch'}`}>
@@ -41,10 +41,13 @@ const PageLayout = ({
           It stretches vertically to ensure there's no white space below it.
       */}
       <div
-        className={`w-full ${widthClasses[width] || 'max-w-3xl'} flex flex-col items-center ${fullMobile ? 'py-6 md:py-10 px-0 md:px-10' : 'py-6 md:py-10 px-4 md:px-10'} transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[48px] border-none md:border border-char-950/5 min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-96px)]' : 'rounded-[32px] md:rounded-[48px] border border-char-950/5 shadow-2xl') : 'shadow-2xl'} ${mobileBgClass}`}
+        className={`w-full ${widthClasses[width] || 'max-w-3xl'} flex flex-col items-center ${fullMobile ? 'py-6 md:py-10 px-0 md:px-10' : 'py-6 md:py-10 px-4 md:px-10'} transition-all duration-500 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[48px] border-none md:border border-char-950/5 min-h-[calc(100vh-80px)] md:min-h-[calc(100vh-96px)]' : 'rounded-[32px] md:rounded-[48px] border border-char-950/5') : ''} ${bgClass} ${useDoodleOverlay && transparentMobile ? 'md:bg-none' : ''}`}
       >
         {useDoodleOverlay && !transparentMobile && !customMobileBg && (
           <div className={`absolute inset-0 bg-[#FDF2F0]/10 md:bg-[#FDF2F0]/90 backdrop-blur-[1px] md:backdrop-blur-none ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
+        )}
+        {useDoodleOverlay && (transparentMobile || customMobileBg) && (
+           <div className={`absolute inset-0 hidden md:block bg-[#FDF2F0]/90 ${isFloating ? (fullMobile ? 'rounded-none md:rounded-[64px]' : 'rounded-[40px] md:rounded-[64px]') : ''}`} />
         )}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
