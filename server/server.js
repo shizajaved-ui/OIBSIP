@@ -15,15 +15,9 @@ const app = express();
 // Required for express-rate-limit to work behind Railway's proxy
 app.set('trust proxy', 1);
 
-// Immediate Health Check for Railway
+// Immediate Health Check for Railway - must be at the top
 app.get('/health', (req, res) => res.status(200).send('OK'));
-app.get('/', (req, res) => {
-  if (process.env.NODE_ENV === 'production') {
-    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
-  } else {
-    res.json({ status: 'API is running' });
-  }
-});
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 // In production, only allow requests from the deployed frontend (CLIENT_URL).
 // Locally, CLIENT_URL is usually unset or points to localhost, so this stays
@@ -49,10 +43,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Global error handler — must be registered after every route above.
-// Express only recognizes a middleware with 4 arguments as an error handler
-// if nothing else runs after it; a route added below this point would
-// silently bypass it.
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('SERVER ERROR:', err.stack);
   res.status(500).json({
@@ -61,24 +52,23 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
-// Start server IMMEDIATELY so Railway health check passes
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server booting on port ${PORT}...`);
-});
-
+// Connect to MongoDB then START server
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log(`✅ MongoDB Connected | Env: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`✅ MongoDB Connected`);
     startLowStockJob();
-    console.log(`🍕 Ready for orders!`);
+
+    const server = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🍕 Server Live | Port: ${PORT}`);
+    });
+
+    server.keepAliveTimeout = 61000;
   })
   .catch((err) => {
     console.error('❌ MongoDB Connection Failed:', err.message);
+    // Exit so Railway knows to restart if DB is down
+    process.exit(1);
   });
-
-// Ensure Railway doesn't kill the connection too early
-server.keepAliveTimeout = 61000;
-server.headersTimeout = 65000;
