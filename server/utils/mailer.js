@@ -1,46 +1,46 @@
 const axios = require('axios');
 
-// Sends transactional email via Resend's HTTPS API.
-// This bypasses SMTP port blocking on hosts like Railway.
-const RESEND_API_URL = 'https://api.resend.com/emails';
-
-// Default "from" address for Resend sandbox mode.
-// Once you verify a domain, change this to "The Artisan Crust <hello@yourdomain.com>"
-const FROM_ADDRESS = 'The Artisan Crust <onboarding@resend.dev>';
+// Sends transactional email via Brevo's HTTPS API.
+// This is the most reliable way to send emails on cloud hosts like Railway.
+const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
 
 const sendEmail = async ({ to, subject, html, text }) => {
-  const apiKey = process.env.RESEND_API_KEY;
+  const apiKey = process.env.BREVO_API_KEY;
 
   if (!apiKey) {
-    console.error('❌ EMAIL ERROR: RESEND_API_KEY is missing in Railway variables.');
+    console.error('❌ EMAIL ERROR: BREVO_API_KEY is missing in Railway variables.');
     return;
   }
 
   try {
     const { data } = await axios.post(
-      RESEND_API_URL,
+      BREVO_API_URL,
       {
-        from: FROM_ADDRESS,
-        to: [to],
-        subject,
-        html,
-        text,
+        sender: {
+            name: "The Artisan Crust",
+            email: process.env.SMTP_USER // Use your verified Brevo sender email
+        },
+        to: [{ email: to }],
+        subject: subject,
+        htmlContent: html,
+        textContent: text,
       },
       {
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          'api-key': apiKey,
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
       }
     );
-    console.log(`📧 Email success to ${to}: ${data.id}`);
+    console.log(`📧 Email success to ${to}: ${data.messageId}`);
     return data;
   } catch (err) {
-    const errorMsg = err.response?.data?.message || err.message;
-    console.error(`❌ Resend API Error to ${to}:`, errorMsg);
+    const errorDetail = err.response?.data?.message || err.message;
+    console.error(`❌ Brevo API Error to ${to}:`, errorDetail);
 
-    if (err.response?.status === 403) {
-      console.error('💡 TIP: You are likely in Resend Sandbox mode. You can only send emails to YOUR OWN email address until you verify a domain.');
+    if (err.response?.status === 401) {
+      console.error('💡 TIP: Your BREVO_API_KEY is likely invalid or inactive.');
     }
   }
 };
