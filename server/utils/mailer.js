@@ -1,20 +1,15 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: Number(process.env.SMTP_PORT) === 465,
+  service: 'gmail',
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  // Higher timeouts and retries for cloud environments like Railway
-  connectionTimeout: 20000, // 20 seconds
-  greetingTimeout: 20000,
-  socketTimeout: 20000,
-  tls: {
-    rejectUnauthorized: false // Helps with some cloud proxy issues
-  }
+  // Timeouts to prevent hanging
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
 });
 
 const sendEmail = async ({ to, subject, html }) => {
@@ -34,9 +29,6 @@ const sendEmail = async ({ to, subject, html }) => {
     return info;
   } catch (err) {
     console.error(`❌ Email Error to ${to}:`, err.message);
-    if (err.message.includes('timeout')) {
-      console.log('💡 TIP: If timeout persists on port 587, try changing SMTP_PORT to 465 in Railway variables.');
-    }
   }
 };
 
