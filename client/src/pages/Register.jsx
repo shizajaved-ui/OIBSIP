@@ -24,11 +24,11 @@ const Register = () => {
       setRegistered(true);
       setToast('Account created! Welcome to the crust.');
 
-      // Delay to show success state before logging in/navigating
+      // Quick delay to show success state before redirecting
       setTimeout(() => {
         login(data.token, data.user);
         navigate('/dashboard');
-      }, 800);
+      }, 500);
     } catch (err) {
       if (!err.response) {
         setError('Server unreachable. Please check your connection or backend status.');

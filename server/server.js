@@ -12,6 +12,9 @@ const { startLowStockJob } = require('./utils/cron');
 
 const app = express();
 
+// Required for express-rate-limit to work behind Railway's proxy
+app.set('trust proxy', 1);
+
 // In production, only allow requests from the deployed frontend (CLIENT_URL).
 // Locally, CLIENT_URL is usually unset or points to localhost, so this stays
 // permissive during development without any extra config.

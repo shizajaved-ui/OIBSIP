@@ -59,8 +59,9 @@ router.post('/register', authLimiter, async (req, res) => {
       role: 'user',
     });
 
-    console.log(`🆕 New user registered: ${cleanEmail}. Sending verification...`);
-    await sendVerificationEmail(cleanEmail, verificationToken);
+    console.log(`🆕 New user registered: ${cleanEmail}. Triggering verification...`);
+    // Fire and forget — don't await, so the UI can proceed immediately
+    sendVerificationEmail(cleanEmail, verificationToken);
 
     const token = signToken(user);
     res.status(201).json({

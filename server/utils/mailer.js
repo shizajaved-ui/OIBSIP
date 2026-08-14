@@ -1,22 +1,25 @@
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
   port: Number(process.env.SMTP_PORT) || 587,
-  secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for other ports
+  secure: Number(process.env.SMTP_PORT) === 465,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
-  // Add timeouts to prevent hanging if connection fails
-  connectionTimeout: 10000, // 10 seconds
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
+  // Higher timeouts and retries for cloud environments like Railway
+  connectionTimeout: 20000, // 20 seconds
+  greetingTimeout: 20000,
+  socketTimeout: 20000,
+  tls: {
+    rejectUnauthorized: false // Helps with some cloud proxy issues
+  }
 });
 
 const sendEmail = async ({ to, subject, html }) => {
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.SMTP_HOST) {
-    console.error('❌ EMAIL ERROR: SMTP credentials missing in environment variables.');
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error('❌ EMAIL ERROR: SMTP credentials missing.');
     return;
   }
 
@@ -27,11 +30,13 @@ const sendEmail = async ({ to, subject, html }) => {
       subject,
       html,
     });
-    console.log(`📧 Email sent to ${to}: ${info.messageId}`);
+    console.log(`📧 Email success to ${to}: ${info.messageId}`);
     return info;
   } catch (err) {
-    // Don't crash the request if email fails — log and move on
-    console.error(`❌ Email send failed to ${to}:`, err.message);
+    console.error(`❌ Email Error to ${to}:`, err.message);
+    if (err.message.includes('timeout')) {
+      console.log('💡 TIP: If timeout persists on port 587, try changing SMTP_PORT to 465 in Railway variables.');
+    }
   }
 };
 
