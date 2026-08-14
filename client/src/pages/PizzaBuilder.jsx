@@ -163,8 +163,10 @@ const PizzaBuilder = () => {
 
   const scrollToContent = () => {
     if (scrollRef.current) {
-      // Scroll higher to ensure the first item card is fully visible
-      const offset = 220;
+      // Offset calculation for mobile sticky headers
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 180 : 160;
+
       const elementPosition = scrollRef.current.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -174,6 +176,14 @@ const PizzaBuilder = () => {
       });
     }
   };
+
+  // Auto-scroll when step changes
+  useEffect(() => {
+    if (step > 0) {
+      const timer = setTimeout(scrollToContent, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [step]);
 
   // Load Inventory & Set Defaults
   useEffect(() => {
@@ -357,7 +367,7 @@ const PizzaBuilder = () => {
   return (
     <PageLayout title="Build your pizza" subtitle={CHEF_NOTES[step]} width="5xl" isFloating fullMobile useDoodleOverlay transparentMobile>
       {/* Stepper Navigation - Unpinned on Mobile */}
-      <div ref={scrollRef} className={`${step === 4 ? 'relative' : 'relative md:sticky md:top-[60px]'} z-30 md:z-50 -mx-4 md:-mx-10 mb-0 px-4 md:px-10 py-3 md:py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center`}>
+      <div className={`${step === 4 ? 'relative' : 'relative md:sticky md:top-[60px]'} z-30 md:z-50 -mx-4 md:-mx-10 mb-0 px-4 md:px-10 py-3 md:py-5 doodle-bg border-b border-char-950/10 relative overflow-hidden flex items-center justify-center`}>
         {/* Warm Overlay like Admin Station Header */}
         <div className="absolute inset-0 bg-[#FDF5E6]/80" />
 
@@ -457,7 +467,7 @@ const PizzaBuilder = () => {
       )}
 
       <div className="w-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-0 md:mt-8">
-        <div className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
+        <div ref={scrollRef} className="flex-1 w-full order-2 lg:order-1 px-4 md:px-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
