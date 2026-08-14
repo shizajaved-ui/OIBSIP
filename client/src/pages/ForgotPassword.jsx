@@ -64,14 +64,14 @@ const ForgotPassword = () => {
             type="email"
             placeholder="Email"
             required
-            className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
+            className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-lg"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full py-3.5 md:py-4 text-[10px] md:text-xs uppercase tracking-[0.2em] shadow-xl shadow-tomato/20"
+            className="btn-primary w-full py-3.5 md:py-5 text-[10px] md:text-xl uppercase md:normal-case tracking-[0.2em] md:tracking-normal shadow-xl shadow-tomato/20"
           >
             {loading ? 'Sending…' : 'Send reset link'}
           </button>

@@ -70,7 +70,7 @@ const Register = () => {
           type="text"
           placeholder="Full name"
           required
-          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
+          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-lg"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
@@ -78,7 +78,7 @@ const Register = () => {
           type="email"
           placeholder="Email"
           required
-          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
+          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-lg"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
         />
@@ -87,14 +87,14 @@ const Register = () => {
           placeholder="Password"
           required
           minLength={6}
-          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-base"
+          className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-lg"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         <button
           type="submit"
           disabled={loading || registered}
-          className={`btn-primary w-full py-3.5 md:py-4 text-[10px] md:text-xs uppercase tracking-[0.2em] shadow-xl transition-colors duration-500 ${
+          className={`btn-primary w-full py-3.5 md:py-5 text-[10px] md:text-xl uppercase md:normal-case tracking-[0.2em] md:tracking-normal shadow-xl transition-colors duration-500 ${
             registered ? 'bg-basil shadow-basil/20' : 'shadow-tomato/20'
           }`}
         >
