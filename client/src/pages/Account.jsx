@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import api from '../utils/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
 
@@ -11,6 +12,8 @@ const Account = () => {
   const [name, setName] = useState('');
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [resending, setResending] = useState(false);
+  const [toast, setToast] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -20,6 +23,20 @@ const Account = () => {
       setName(data.name);
     });
   }, []);
+
+  const handleResend = async () => {
+    if (!profile?.email) return;
+    setResending(true);
+    try {
+      await api.post('/auth/resend-verification', { email: profile.email });
+      setToast('Verification link sent! Check your inbox.');
+    } catch (err) {
+      setToast('Failed to resend link. Please try again.');
+    } finally {
+      setResending(false);
+      setTimeout(() => setToast(''), 4000);
+    }
+  };
 
   const handleSave = async () => {
     if (!name.trim()) return;
@@ -45,6 +62,19 @@ const Account = () => {
 
   return (
     <PageLayout title="Account" width="5xl" isFloating fullMobile>
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed left-1/2 top-24 z-[100] -translate-x-1/2 rounded-2xl bg-char-950 px-8 py-4 font-display text-lg font-black text-white shadow-2xl"
+          >
+            {toast}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="bg-[#FDF2F0] rounded-[24px] md:rounded-[32px] p-5 md:p-8 shadow-sm border border-tomato/5">
         <div className="flex items-center gap-4 md:gap-6">
           <span className="flex h-12 w-10 md:h-16 md:w-14 shrink-0 items-center justify-center rounded-xl md:rounded-2xl bg-tomato text-white font-display text-xl md:text-2xl font-black shadow-lg shadow-tomato/20">
@@ -91,10 +121,17 @@ const Account = () => {
         </div>
 
         {!profile?.isVerified && (
-          <div className="mt-6 rounded-2xl bg-tomato/5 border border-tomato/10 p-4">
-            <p className="text-xs font-bold text-tomato uppercase tracking-widest">
+          <div className="mt-6 rounded-2xl bg-tomato/5 border border-tomato/10 p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xs font-bold text-tomato uppercase tracking-widest text-center sm:text-left">
               Email not verified — check your inbox for the link.
             </p>
+            <button
+              onClick={handleResend}
+              disabled={resending}
+              className="text-[10px] font-black uppercase tracking-widest text-white bg-tomato px-4 py-2 rounded-full shadow-md hover:bg-tomato-dark transition-all active:scale-95 disabled:opacity-60"
+            >
+              {resending ? 'Sending…' : 'Resend Link'}
+            </button>
           </div>
         )}
       </div>
