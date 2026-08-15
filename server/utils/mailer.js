@@ -1,43 +1,43 @@
 const axios = require('axios');
 
-// Sends transactional email via Resend's HTTPS API.
-// Best for projects without a custom domain and avoids phone checks.
-const RESEND_API_URL = 'https://api.resend.com/emails';
+// Sends transactional email via Courier's HTTPS API.
+// This uses your connected Gmail account as a bridge to reach anyone.
+const COURIER_API_URL = 'https://api.courier.com/send';
 
 const sendEmail = async ({ to, subject, html, text }) => {
-  const apiKey = process.env.RESEND_API_KEY;
+  const authToken = process.env.COURIER_AUTH_TOKEN;
 
-  if (!apiKey) {
-    console.error('❌ EMAIL ERROR: RESEND_API_KEY is missing in Railway variables.');
+  if (!authToken) {
+    console.error('❌ EMAIL ERROR: COURIER_AUTH_TOKEN is missing in Railway variables.');
     return;
   }
 
   try {
     const { data } = await axios.post(
-      RESEND_API_URL,
+      COURIER_API_URL,
       {
-        from: 'The Artisan Crust <onboarding@resend.dev>',
-        to: [to],
-        subject: subject,
-        html: html,
-        text: text,
+        message: {
+          to: { email: to },
+          content: {
+            title: subject,
+            body: text || html.replace(/<[^>]*>?/gm, ''), // Use text or strip HTML for body
+            html: html
+          },
+          routing: { method: "single", channels: ["email"] }
+        }
       },
       {
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
+          'Authorization': `Bearer ${authToken}`,
           'Content-Type': 'application/json',
         },
       }
     );
-    console.log(`📧 Email success to ${to}: ${data.id}`);
+    console.log(`📧 Email success via Courier to ${to}: ${data.requestId}`);
     return data;
   } catch (err) {
-    const msg = err.response?.data?.message || err.message;
-    console.error(`❌ Resend API Error to ${to}:`, msg);
-
-    if (err.response?.status === 403) {
-      console.log('💡 TIP: Resend Sandbox only allows sending to YOUR OWN email address until you verify a domain.');
-    }
+    const detail = err.response?.data?.message || err.message;
+    console.error(`❌ Courier API Error to ${to}:`, detail);
   }
 };
 
