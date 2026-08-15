@@ -20,8 +20,7 @@ const sendEmail = async ({ to, subject, html, text }) => {
           to: { email: to },
           content: {
             title: subject,
-            body: text || html.replace(/<[^>]*>?/gm, ''), // Use text or strip HTML for body
-            html: html
+            body: html // Courier expects "body" for the content, "html" is used in specific templates
           },
           routing: { method: "single", channels: ["email"] }
         }
