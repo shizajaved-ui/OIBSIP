@@ -1,46 +1,42 @@
 const axios = require('axios');
 
-// Sends transactional email via Brevo's HTTPS API.
-// This is the most reliable way to send emails on cloud hosts like Railway.
-const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
+// Sends transactional email via Resend's HTTPS API.
+// Best for projects without a custom domain and avoids phone checks.
+const RESEND_API_URL = 'https://api.resend.com/emails';
 
 const sendEmail = async ({ to, subject, html, text }) => {
-  const apiKey = process.env.BREVO_API_KEY;
+  const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
-    console.error('❌ EMAIL ERROR: BREVO_API_KEY is missing in Railway variables.');
+    console.error('❌ EMAIL ERROR: RESEND_API_KEY is missing in Railway variables.');
     return;
   }
 
   try {
     const { data } = await axios.post(
-      BREVO_API_URL,
+      RESEND_API_URL,
       {
-        sender: {
-            name: "The Artisan Crust",
-            email: process.env.SMTP_USER // Use your verified Brevo sender email
-        },
-        to: [{ email: to }],
+        from: 'The Artisan Crust <onboarding@resend.dev>',
+        to: [to],
         subject: subject,
-        htmlContent: html,
-        textContent: text,
+        html: html,
+        text: text,
       },
       {
         headers: {
-          'api-key': apiKey,
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
       }
     );
-    console.log(`📧 Email success to ${to}: ${data.messageId}`);
+    console.log(`📧 Email success to ${to}: ${data.id}`);
     return data;
   } catch (err) {
-    const errorDetail = err.response?.data?.message || err.message;
-    console.error(`❌ Brevo API Error to ${to}:`, errorDetail);
+    const msg = err.response?.data?.message || err.message;
+    console.error(`❌ Resend API Error to ${to}:`, msg);
 
-    if (err.response?.status === 401) {
-      console.error('💡 TIP: Your BREVO_API_KEY is likely invalid or inactive.');
+    if (err.response?.status === 403) {
+      console.log('💡 TIP: Resend Sandbox only allows sending to YOUR OWN email address until you verify a domain.');
     }
   }
 };
