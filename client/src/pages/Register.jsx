@@ -15,6 +15,13 @@ const Register = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(''), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');

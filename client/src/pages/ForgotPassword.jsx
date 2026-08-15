@@ -11,6 +11,13 @@ const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState('');
 
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(''), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

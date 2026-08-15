@@ -38,6 +38,7 @@ const sendEmail = async ({ to, subject, html, text }) => {
   } catch (err) {
     const detail = err.response?.data?.message || err.message;
     console.error(`❌ Courier API Error to ${to}:`, detail);
+    throw new Error(detail); // Throw so the controller knows it failed
   }
 };
 
