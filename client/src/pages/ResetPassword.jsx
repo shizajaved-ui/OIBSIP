@@ -44,11 +44,11 @@ const ResetPassword = () => {
             placeholder="New password"
             required
             minLength={6}
-            className="input-field w-full px-6 py-4 font-bold text-lg"
+            className="input-field w-full px-6 py-3 md:py-4 font-bold text-sm md:text-lg"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
           />
-          <button type="submit" className="btn-primary w-full py-5 text-xl shadow-xl shadow-tomato/20">
+          <button type="submit" className="btn-primary w-full py-3.5 md:py-5 text-[10px] md:text-xl uppercase md:normal-case tracking-[0.2em] md:tracking-normal shadow-xl shadow-tomato/20">
             Update password
           </button>
         </form>
