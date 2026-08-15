@@ -1,10 +1,10 @@
 const axios = require('axios');
 
 // Sends transactional email via Courier's HTTPS API.
-// This uses your connected Gmail account as a bridge to reach anyone.
+// This uses your connected Gmail account as a bridge.
 const COURIER_API_URL = 'https://api.courier.com/send';
 
-const sendEmail = async ({ to, subject, html, text }) => {
+const sendEmail = async ({ to, subject, body }) => {
   const authToken = process.env.COURIER_AUTH_TOKEN;
 
   if (!authToken) {
@@ -20,7 +20,7 @@ const sendEmail = async ({ to, subject, html, text }) => {
           to: { email: to },
           content: {
             title: subject,
-            body: html // Courier expects "body" for the content, "html" is used in specific templates
+            body: body
           },
           routing: { method: "single", channels: ["email"] }
         }
@@ -37,36 +37,28 @@ const sendEmail = async ({ to, subject, html, text }) => {
   } catch (err) {
     const detail = err.response?.data?.message || err.message;
     console.error(`❌ Courier API Error to ${to}:`, detail);
-    throw new Error(detail); // Throw so the controller knows it failed
+    throw new Error(detail);
   }
 };
-
-const emailShell = (bodyHtml) => `
-  <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto; color: #2F1F17; border: 1px solid #eee; padding: 40px; border-radius: 24px; background: #FFFBF9;">
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #C84E29; margin: 0;">The Artisan Crust</h1>
-    </div>
-    ${bodyHtml}
-    <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #8A7566; text-align: center;">
-      © 2026 The Artisan Crust Pizza · Stone-fired & Built by You
-    </div>
-  </div>
-`;
 
 const sendVerificationEmail = (to, token, name = '') => {
   const link = `${process.env.CLIENT_URL}/verify-email?token=${token}`;
   return sendEmail({
     to,
     subject: '🍕 Verify your Artisan Crust account',
-    html: emailShell(`
-      <h2 style="font-size: 20px;">Welcome, ${name || 'Pizza Lover'}!</h2>
-      <p>Thanks for joining us. Please verify your email to start building your perfect pizza:</p>
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="${link}" style="background-color: #C84E29; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block;">Verify My Email</a>
-      </div>
-      <p style="font-size: 12px; color: #8A7566;">Or copy this link: <br> ${link}</p>
-    `),
-    text: `Hi ${name}, please verify your account at: ${link}`,
+    body: `
+# Welcome, ${name || 'Pizza Lover'}!
+
+Thanks for joining **The Artisan Crust**. We're excited to have you!
+
+Please verify your email address to start building your perfect pizza:
+
+[Verify My Email Address](${link})
+
+***
+*If the button doesn't work, copy and paste this link into your browser:*
+${link}
+    `
   });
 };
 
@@ -75,15 +67,17 @@ const sendResetEmail = (to, token) => {
   return sendEmail({
     to,
     subject: '🔑 Reset your Artisan Crust password',
-    html: emailShell(`
-      <h2 style="font-size: 20px;">Password Reset Request</h2>
-      <p>We received a request to reset your password. If you didn't do this, you can ignore this email.</p>
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="${link}" style="background-color: #2F1F17; color: white; padding: 14px 28px; border-radius: 50px; text-decoration: none; font-weight: bold; display: inline-block;">Reset Password</a>
-      </div>
-      <p style="color: #8A7566; font-size: 13px;">This link is valid for 1 hour.</p>
-    `),
-    text: `Reset your password here: ${link}`,
+    body: `
+# Password Reset Request
+
+We received a request to reset the password for your **Artisan Crust** account.
+
+Click the link below to set a new password:
+
+[Reset My Password](${link})
+
+*This link is valid for 1 hour. If you didn't request this, you can safely ignore this email.*
+    `
   });
 };
 
@@ -91,12 +85,13 @@ const sendLowStockAlert = (itemName, stock, threshold) => {
   return sendEmail({
     to: process.env.ADMIN_EMAIL,
     subject: `⚠️ Low Stock Alert: ${itemName}`,
-    html: emailShell(`
-      <h2 style="color: #D66B45;">Inventory Alert</h2>
-      <p><b>${itemName}</b> stock has dropped to <span style="color: #C84E29; font-weight: bold;">${stock}</span> units.</p>
-      <p>This is below your threshold of ${threshold}. Please restock soon.</p>
-    `),
-    text: `Low stock alert: ${itemName} is at ${stock}.`,
+    body: `
+# ⚠️ Inventory Alert
+
+The stock for **${itemName}** has dropped to **${stock}** units.
+
+This is below your set threshold of **${threshold}**. Please restock this item soon to keep the oven running!
+    `
   });
 };
 
