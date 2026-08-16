@@ -595,7 +595,7 @@ const PizzaBuilder = () => {
         {step < 4 && (
           <div className="hidden md:block sticky top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[340px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             {/* Desktop View: Interactive Board */}
-            <div className="transition-all duration-500 relative w-full h-auto bg-[#F3E9DC] rounded-[48px] p-6 border border-[#DCC9A8] shadow-2xl flex flex-col items-center z-10">
+            <div className="transition-all duration-500 relative w-full h-auto bg-[#F3E9DC] rounded-[48px] pt-14 pb-8 px-6 border border-[#DCC9A8] shadow-2xl flex flex-col items-center z-10">
 
               {/* Live Preview Label */}
               <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
