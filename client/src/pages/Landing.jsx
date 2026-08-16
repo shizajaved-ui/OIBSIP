@@ -137,7 +137,7 @@ const Landing = () => {
 
         {/* Feature cards with significant whitespace - No connecting background card */}
         <div className="mt-20 md:mt-28 w-full">
-          <div className="grid grid-cols-3 gap-3 md:gap-8">
+          <div className="grid grid-cols-3 gap-3 md:gap-8 items-stretch">
             {FEATURES.map((s, i) => (
               <motion.div
                 key={s.step}
@@ -146,7 +146,7 @@ const Landing = () => {
                 transition={{ delay: i * 0.1 }}
                 onMouseEnter={() => setHighlight(s.layer)}
                 onMouseLeave={() => setHighlight(null)}
-                className="group bg-[#FDF2F0] rounded-[24px] md:rounded-[40px] p-4 md:p-6 shadow-xl border border-tomato/5 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
+                className="group bg-[#FDF2F0] rounded-[24px] md:rounded-[40px] p-4 md:p-6 md:h-full md:min-h-[160px] shadow-xl border border-tomato/5 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-tomato/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-tomato/10 transition-colors" />
                 <h3 className="font-display text-[11px] md:text-2xl font-black text-tomato mb-1 md:mb-3 relative z-10 uppercase tracking-tighter md:tracking-normal">{s.step}</h3>
