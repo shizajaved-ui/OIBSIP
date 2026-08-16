@@ -11,10 +11,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Inventory images are either a full Cloudinary URL (starts with http, used
-// when Cloudinary is configured on the backend) or a relative local path
-// like "/uploads/xyz.jpg" (fallback when it isn't). This resolves either
-// case to something an <img> tag can actually load.
 export const resolveImageUrl = (image) => {
   if (!image) return null;
   if (image.startsWith('http')) return image;

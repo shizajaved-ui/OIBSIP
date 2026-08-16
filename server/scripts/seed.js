@@ -1,10 +1,8 @@
-// Run with: node seed.js
-// Populates inventory (5 bases, 5 sauces, cheeses, vegetables) and creates one admin user.
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const Inventory = require('./models/Inventory');
-const User = require('./models/User');
+const Inventory = require('../models/Inventory');
+const User = require('../models/User');
 
 const inventoryItems = [
   // Bases
@@ -31,37 +29,45 @@ const inventoryItems = [
   { name: 'Olives', category: 'vegetable', stock: 100, threshold: 20, price: 20, previewLayer: '/assets/layers/olives.png' },
   { name: 'Jalapeno', category: 'vegetable', stock: 100, threshold: 20, price: 15, previewLayer: '/assets/layers/jalepeno.png' },
   { name: 'Tomato', category: 'vegetable', stock: 100, threshold: 20, price: 0, previewLayer: '/assets/layers/tomato.png' },
+  // Thickness
+  { name: 'Thin', category: 'thickness', stock: 100, threshold: 20, price: 0 },
+  { name: 'Regular', category: 'thickness', stock: 100, threshold: 20, price: 0 },
+  { name: 'Thick', category: 'thickness', stock: 100, threshold: 20, price: 30 },
+  // Size
+  { name: 'Small (8")', category: 'size', stock: 100, threshold: 20, price: 0 },
+  { name: 'Regular (10")', category: 'size', stock: 100, threshold: 20, price: 50 },
+  { name: 'Large (12")', category: 'size', stock: 100, threshold: 20, price: 100 },
 ];
 
 const run = async () => {
-  await mongoose.connect(process.env.MONGO_URI);
-  console.log('Connected. Seeding...');
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('✅ Connected to MongoDB. Starting seed...');
 
-  await Inventory.deleteMany({});
-  await Inventory.insertMany(inventoryItems);
-  console.log(`Inserted ${inventoryItems.length} inventory items.`);
+    await Inventory.deleteMany({});
+    await Inventory.insertMany(inventoryItems);
+    console.log(`✅ Inserted ${inventoryItems.length} inventory items.`);
 
-  const adminEmail = 'admin@pizzashop.com';
-  const existingAdmin = await User.findOne({ email: adminEmail });
-  if (!existingAdmin) {
-    const hashedPassword = await bcrypt.hash('Admin@123', 10);
-    await User.create({
-      name: 'Admin',
-      email: adminEmail,
-      password: hashedPassword,
-      role: 'admin',
-      isVerified: true,
-    });
-    console.log(`Admin created -> email: ${adminEmail} | password: Admin@123`);
-  } else {
-    console.log('Admin already exists, skipping.');
+    const adminEmail = 'admin@pizzashop.com';
+    const existingAdmin = await User.findOne({ email: adminEmail });
+    if (!existingAdmin) {
+      const hashedPassword = await bcrypt.hash('Admin@123', 10);
+      await User.create({
+        name: 'Admin',
+        email: adminEmail,
+        password: hashedPassword,
+        role: 'admin',
+        isVerified: true,
+      });
+      console.log(`✅ Admin created: ${adminEmail}`);
+    }
+
+    console.log('✅ Seeding complete.');
+  } catch (err) {
+    console.error('❌ Seeding failed:', err.message);
+  } finally {
+    process.exit(0);
   }
-
-  console.log('Seeding complete.');
-  process.exit(0);
 };
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+run();

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
-// Shape + color per pizza category, so the confetti visually matches what
-// was just picked (e.g. picking a veg drops little green/red flecks like
-// olives and tomato bits, picking cheese drops gold blobs).
+// Shape + color per pizza category, so the confetti visually matches what was just picked
+// (e.g. picking a veg drops little green/red flecks like
 const CATEGORY_STYLES = {
   base: { colors: ['#D9A441', '#8F8550'], shape: 'square' },
   sauce: { colors: ['#C84E29', '#A83D1F'], shape: 'circle' },

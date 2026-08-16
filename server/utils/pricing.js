@@ -1,10 +1,6 @@
 const Inventory = require('../models/Inventory');
 
-// Every pizza starts at this flat price before add-ons — defined once, here,
-// so the "Build a Pizza" flow and the Menu -> Cart flow can't drift apart.
-// Previously the cart route summed ingredient add-ons only; this flat fee
-// was applied nowhere on that path, so an identical pizza was ₹199 cheaper
-// through the cart than through the builder.
+// Every pizza starts at this flat price before add-ons
 const BASE_PRICE = 199;
 
 // Recomputes a pizza's price entirely server-side, from the current

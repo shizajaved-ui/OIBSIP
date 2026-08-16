@@ -12,8 +12,8 @@ const router = express.Router();
 // Limits brute-force login/register attempts per IP. Generous enough for
 // normal use, tight enough to block credential-stuffing / spam-registration.
 const authLimiter = rateLimit({
-  windowMs: 5 * 60 * 1000, // 5 minutes (reduced from 15)
-  max: 30, // 30 attempts (increased from 10)
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 30, // 30 attempts
   message: { message: 'Too many attempts. Please try again in a few minutes.' },
   standardHeaders: true,
   legacyHeaders: false,
@@ -147,10 +147,6 @@ router.post('/admin-login', authLimiter, async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
 
-    // Same normalization as /login — without this, an admin typing their
-    // email with different capitalization than how it's stored (schema
-    // lowercases on save, but a query is never auto-transformed) would get
-    // "Invalid admin credentials" even with the exact right password.
     const cleanEmail = email.toLowerCase().trim();
     const user = await User.findOne({ email: cleanEmail, role: 'admin' });
     if (!user) return res.status(401).json({ message: 'Invalid admin credentials' });
