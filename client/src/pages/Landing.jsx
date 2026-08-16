@@ -78,9 +78,9 @@ const Landing = () => {
 
   return (
     <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 pt-0 pb-8 md:py-20 flex flex-col items-center overflow-hidden">
-      <div className="w-full max-w-3xl relative overflow-hidden flex flex-col items-center">
+      <div className="w-full max-w-6xl relative overflow-hidden flex flex-col items-center">
         {/* Hero Card - Independent Section */}
-        <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/10 backdrop-blur-md md:bg-[#FDF2F0] rounded-none md:rounded-[56px] py-20 px-6 md:py-8 md:px-16 relative overflow-hidden border-b md:border border-white/20 md:border-tomato/10 shadow-2xl w-full">
+        <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/10 backdrop-blur-md md:bg-[#FDF2F0] rounded-none md:rounded-[56px] py-20 px-6 md:py-14 md:px-16 relative overflow-hidden border-b md:border border-white/20 md:border-tomato/10 shadow-2xl w-full">
           {/* Background Highlight */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-tomato/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-basil/5 rounded-full blur-[80px] -ml-32 -mb-32 pointer-events-none" />
@@ -117,7 +117,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="relative mx-auto h-72 w-72 md:h-[350px] md:w-[350px]">
+          <div className="relative mx-auto h-72 w-72 md:h-[400px] md:w-[400px]">
             <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-tomato/15 via-crust/10 to-basil/5 blur-3xl" />
 
             <Steam delay={0} x="42%" />
@@ -146,7 +146,7 @@ const Landing = () => {
                 transition={{ delay: i * 0.1 }}
                 onMouseEnter={() => setHighlight(s.layer)}
                 onMouseLeave={() => setHighlight(null)}
-                className="group bg-[#FDF2F0] rounded-[24px] md:rounded-[40px] p-4 md:p-6 shadow-xl border border-tomato/5 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
+                className="group bg-[#FDF2F0] rounded-[24px] md:rounded-[40px] p-4 md:p-10 shadow-xl border border-tomato/5 transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl relative overflow-hidden flex flex-col items-center text-center justify-center"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-tomato/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-tomato/10 transition-colors" />
                 <h3 className="font-display text-[11px] md:text-2xl font-black text-tomato mb-1 md:mb-3 relative z-10 uppercase tracking-tighter md:tracking-normal">{s.step}</h3>
