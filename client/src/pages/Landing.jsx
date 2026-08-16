@@ -117,7 +117,7 @@ const Landing = () => {
             </div>
           </div>
 
-          <div className="relative mx-auto h-72 w-72 md:h-[400px] md:w-[400px]">
+          <div className="relative mx-auto h-72 w-72 md:h-[350px] md:w-[350px]">
             <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-tomato/15 via-crust/10 to-basil/5 blur-3xl" />
 
             <Steam delay={0} x="42%" />
