@@ -404,6 +404,11 @@ const PizzaBuilder = () => {
           <div className="absolute inset-0 bg-[#FDF5E6]/90 backdrop-blur-md" />
 
           <div className="relative z-10 w-24 h-24 md:w-32 md:h-32 shrink-0 flex items-center justify-center">
+            {/* Mobile Live Indicator */}
+            <div className="absolute -top-1 left-1/2 -translate-x-1/2 z-30 bg-char-950 text-white px-2 py-0.5 rounded-full text-[6px] font-black uppercase tracking-widest shadow-md flex items-center gap-1 border border-white/10">
+              <span className="w-1 h-1 rounded-full bg-basil animate-pulse" />
+              Live
+            </div>
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
@@ -591,6 +596,14 @@ const PizzaBuilder = () => {
           <div className="hidden md:block sticky top-[160px] lg:sticky lg:top-[160px] z-40 w-full lg:w-[340px] shrink-0 order-1 lg:order-2 self-start px-2 md:px-0">
             {/* Desktop View: Interactive Board */}
             <div className="transition-all duration-500 relative w-full h-auto bg-[#F3E9DC] rounded-[48px] p-6 border border-[#DCC9A8] shadow-2xl flex flex-col items-center z-10">
+
+              {/* Live Preview Label */}
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                <span className="bg-char-950 text-white/90 px-4 py-1.5 rounded-full text-[8px] font-black uppercase tracking-[0.3em] shadow-lg border border-white/5 whitespace-nowrap flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-basil animate-pulse" />
+                  Live Preview
+                </span>
+              </div>
 
               {/* Floating Price Tag */}
               <motion.div
