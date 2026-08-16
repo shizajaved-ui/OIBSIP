@@ -78,9 +78,9 @@ const Landing = () => {
 
   return (
     <div className="doodle-bg min-h-[calc(100vh-104px)] px-0 md:px-6 pt-0 pb-8 md:py-20 flex flex-col items-center overflow-hidden">
-      <div className="w-full max-w-6xl relative overflow-hidden flex flex-col items-center">
+      <div className="w-full max-w-5xl relative overflow-hidden flex flex-col items-center">
         {/* Hero Card - Independent Section */}
-        <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/10 backdrop-blur-md md:bg-[#FDF2F0] rounded-none md:rounded-[56px] py-20 px-6 md:py-14 md:px-16 relative overflow-hidden border-b md:border border-white/20 md:border-tomato/10 shadow-2xl w-full">
+        <div className="grid items-center gap-10 lg:grid-cols-2 bg-white/10 backdrop-blur-md md:bg-[#FDF2F0] rounded-none md:rounded-[56px] py-20 px-6 md:py-10 md:px-14 relative overflow-hidden border-b md:border border-white/20 md:border-tomato/10 shadow-2xl w-full">
           {/* Background Highlight */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-tomato/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-basil/5 rounded-full blur-[80px] -ml-32 -mb-32 pointer-events-none" />
