@@ -5,7 +5,8 @@ export const playClickSound = () => {
     const audio = new Audio('/assets/click.mp3');
     audio.volume = 0.5;
     audio.play().catch(() => {
-
+      // Ignored
+    });
   } catch {
     // no-op if Audio isn't available
   }
